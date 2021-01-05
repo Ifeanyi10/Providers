@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Health enSuit Provider Account Activation</title>
+    <!-- Favicon icon -->
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png"> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+    <script language="javascript">
+
+    window.onload = function valiadteProvider(){
+                        var lastPart = window.location.href.split("code").pop();
+                        //var lastPart = 'ZPQr8x5PzDFLh4yY2YJoQStq74hT50i5TxRf/1QRyI0';
+                        //alert(lastPart);
+                        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/activate';
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json', 
+                                'Accept': '*/*',
+                                'Authorization': 'Bearer '+ lastPart
+                            },
+                            success: function(result){
+                                console.log(result);
+                                swal({
+                                title: "Account Activation Successful!!!",
+                                text: "You can login to your account now",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Take me to login page",
+                                cancelButtonText: "I will login later",
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                                },
+                                function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.href = "index.html";
+                                } else {
+                                    swal("Cancelled", "You chose to login later :)", "error");
+                                }
+                                });
+                            }, 
+                            error: function(msg){
+                                sweetAlert("Oops...","Unable to activate your account!!","error");
+                            }
+                        });
+                    }
+
+      </script>
+    
+</head>
+
+<body>
+    
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    
+
+
+
+    <div class="header">    
+        <div class="header-content clearfix">
+            
+            <!-- <div class="nav-control">
+                <div class="hamburger">
+                    <span class="toggle-icon"><i class="icon-menu"></i></span>
+                </div>
+            </div> -->
+            <div class="header-left">
+                <div class="input-group icons">
+                    <!-- <div class="input-group-prepend">
+                        <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+                    </div>
+                    <input type="search" class="form-control" placeholder="Search Dashboard" aria-label="Search Dashboard"> -->
+                    <div class="drop-down animated flipInX d-md-none">
+                        <form action="#">
+                            <h4 class="card-title" id="elligHead">Health enSuite Team</h4>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+    <script src="js/loginApiCall.js"></script>
+
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
+</body>
+</html>
+
+
+
+
+

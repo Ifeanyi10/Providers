@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Health enSuite Provider Dashboard</title>
+    <title>Health enSuite Provider Profile</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
 
     <script language="javascript">
 
@@ -18,6 +19,7 @@
                                     document.getElementById('provProfName').innerHTML =  window.localStorage.getItem("providerName");
                                     document.getElementById('provProfEmail').innerHTML =  window.localStorage.getItem("providerEmail");
                                     document.getElementById('provProfPh').innerHTML =  window.localStorage.getItem("providerPhone");
+                                    document.getElementById('provProfMailAdd').innerHTML =  window.localStorage.getItem("providerAddress");
                                     document.getElementById('provProfProvice').innerHTML =  window.localStorage.getItem("providerProvince");
        
                         }
@@ -186,38 +188,47 @@
                                     <li class="mb-1"><strong class="text-dark mr-4">Mobile</strong> <span id="provProfPh"></span></li>
                                     <li><strong class="text-dark mr-4">Email</strong> <span id="provProfEmail"></span></li>
                                 </ul>
+
+                                <div class="bootstrap-modal">
+                                    <!-- Button trigger modal -->
+                                    <input type='button' class='buttonBackTxt' data-toggle="modal" data-target="#exampleModalCenter" value='Change Password'/>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalTitle">Change Password</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="mt-5 mb-5 login-input">
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" id="currentPass" placeholder="Enter Current Password">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" id="newPass" placeholder="Enter New Password">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" id="confirmNewPass" placeholder="Re-type New Password">
+                                                        </div>
+                                                        <div id="divCheckUpdatePWordMatch"></div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" id="btnChangePass" class="btn btn-primary" disabled>Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>   
-                    </div>
-                    <div class="col-lg-8 col-xl-9">
-                        <div class="card">
-                            <div class="card-body">
-                                <form action="#" class="form-profile">
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="textarea" id="textarea" cols="30" rows="2" placeholder="Post a new message"></textarea>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <ul class="mb-0 form-profile__icons">
-                                            <li class="d-inline-block">
-                                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-user"></i></button>
-                                            </li>
-                                            <li class="d-inline-block">
-                                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-paper-plane"></i></button>
-                                            </li>
-                                            <li class="d-inline-block">
-                                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-camera"></i></button>
-                                            </li>
-                                            <li class="d-inline-block">
-                                                <button class="btn btn-transparent p-0 mr-3"><i class="fa fa-smile"></i></button>
-                                            </li>
-                                        </ul>
-                                        <button class="btn btn-primary px-3 ml-4">Send</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
 
                     </div>
+
                 </div>
             </div>
             <!-- #/ container -->
@@ -232,7 +243,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
             </div>
         </div>
         <!--**********************************
@@ -251,6 +262,8 @@
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
+    <script src="js/updatePasswordAPI.js"></script>
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
 
 </body>
 

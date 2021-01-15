@@ -492,6 +492,8 @@ $(document).ready(function () {
             window.localStorage.setItem("dosageStore", floatDosage);
             let intDuration = parseInt(duration);
             window.localStorage.setItem("durationStore", intDuration);
+            //let weekNo1 = 0;
+            //let weekNo2 = 0;
 
             if(med2 != ''){
                 if(duration != 10 && duration2 != 10){
@@ -537,6 +539,9 @@ $(document).ready(function () {
                                 document.getElementById(captionName).innerHTML  = taper.drugName;
                                 document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
                                 window.localStorage.setItem("taperLength", taper.taperLength);
+                                if(i > 0){
+                                    window.localStorage.setItem("taperLength2", taper.taperLength);
+                                }
                                 //alert(taper.drugName);
 
                                 $(taper.weeklyDose).each(function(i, def){
@@ -610,13 +615,17 @@ $(document).ready(function () {
                                     .append($(window["tdp2"+i+2]).append(def.unrounded))
                                     .append($(window["tdp2"+i+4]).append(def.newDose))
                                     .append($(window["tdp2"+i+3]).append(selectListPrint)));
+
                                 });
                                 tableBody = '#taperTBody2';
                                 tableBodyPrint ='#taperTHead3Print';
                                 captionName = 'drugNm2';
                                 captionNamePrint = 'drugNmP2';
                             });
-
+                            var weekNo1 = $('#taperTBody tr').length;
+                            var weekNo2 = $('#taperTBody2 tr').length;
+                            window.localStorage.setItem("weekNo1", weekNo1);
+                            window.localStorage.setItem("weekNo2", weekNo2);
 
                             y.style.display = 'block';         
                             x.style.display = 'none';
@@ -787,7 +796,8 @@ $(document).ready(function () {
         
                             });
 
-
+                            var weekNo1 = $('#taperTBody tr').length;
+                            window.localStorage.setItem("weekNo1", weekNo1);
                             y.style.display = 'block';         
                             x.style.display = 'none';
                             secondTB.style.display = 'none';
@@ -1101,7 +1111,10 @@ $(document).ready(function () {
         var med2 = window.localStorage.getItem("med2Store");
         
         var tpLength = document.getElementById("tpLength").value;
-        let intTpLength = parseInt(tpLength);
+        var oldWeek1 = window.localStorage.getItem("weekNo1");
+        let originalTpLenth = parseInt(tpLength);
+
+        let intTpLength = parseInt(tpLength) + parseInt(oldWeek1);
 
         let conceptId1 = window.localStorage.getItem("conceptId1Store");
         
@@ -1126,6 +1139,9 @@ $(document).ready(function () {
                 let conceptId2 = window.localStorage.getItem("conceptId2Store");
                 let floatDosage2 = window.localStorage.getItem("dosage2Store");
                 let intDuration2 = window.localStorage.getItem("duration2Store");
+                var oldWeek2 = window.localStorage.getItem("weekNo2");
+                let intTpLength2 = parseInt(tpLength) + parseInt(oldWeek2);
+                //alert(intTpLength2);
                 
                 //var secondTB = document.getElementById('secondTB');
                 //var tableBody = '#taperTBody';
@@ -1151,7 +1167,7 @@ $(document).ready(function () {
                     "sleepMedication" : med2,
                     "currentDose" : floatDosage2,
                     "medicationDuration" : intDuration2,
-                    "taperLength" : intTpLength,
+                    "taperLength" : intTpLength2,
                     "conceptID" : conceptId2
                     }]
                     
@@ -1162,7 +1178,7 @@ $(document).ready(function () {
                         $(result.tapaschedules).each(function(i, taper){
                             document.getElementById(captionName).innerHTML  = taper.drugName;
                             document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
-                            window.localStorage.setItem("taperLength", intTpLength);
+                            window.localStorage.setItem("taperLength", originalTpLenth);
                             //alert(taper.drugName);
 
                             $(taper.weeklyDose).each(function(i, def){
@@ -1243,6 +1259,24 @@ $(document).ready(function () {
                             captionNamePrint = 'drugNmP2';
                         });
 
+                        console.log(JSON.stringify({"regimenDTOList":
+                        [{
+                        "sleepMedication" : med1,
+                        "currentDose" : floatDosage,
+                        "medicationDuration" : intDuration,
+                        "taperLength" : intTpLength,
+                        "conceptID" : conceptId1
+                        },
+                        {
+                        "sleepMedication" : med2,
+                        "currentDose" : floatDosage2,
+                        "medicationDuration" : intDuration2,
+                        "taperLength" : intTpLength2,
+                        "conceptID" : conceptId2
+                        }]
+                        
+                    }));
+
 
                         y.style.display = 'block';         
                         x.style.display = 'none';
@@ -1281,7 +1315,7 @@ $(document).ready(function () {
                         $(result.tapaschedules).each(function(i, taper){
                             document.getElementById(captionName).innerHTML  = taper.drugName;
                             document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
-                            window.localStorage.setItem("taperLength", intTpLength);
+                            window.localStorage.setItem("taperLength", originalTpLenth);
                             //alert(taper.drugName);
 
                             $(taper.weeklyDose).each(function(i, def){

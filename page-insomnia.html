@@ -58,7 +58,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="index.html">
+                <a href="provider-dashboard.html">
                     <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
                     <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
@@ -77,26 +77,19 @@
         <div class="header">    
             <div class="header-content clearfix">
                 
-                <div class="header-left">
-                    <!-- <div class="input-group icons">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
-                        </div>
-                        <input type="search" class="form-control" placeholder="Search Dashboard" aria-label="Search Dashboard">
-                        <div class="drop-down animated flipInX d-md-none">
-                            <form action="#">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </form>
-                        </div>
-                    </div> -->
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
                 </div>
+                
                 <div class="header-right">
                     <ul class="clearfix">
                         
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="images/avatar/11.png" height="40" width="40" alt="">
+                                <img src="images/user/form-user.png" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -136,9 +129,9 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Apps</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./page-insomnia.html">Insomnia Application</a></li>
-                            <li><a href="./page-insomnia.html">Anxiety Application</a></li>
-                            <li><a href="./page-insomnia.html">Caregiver Application</a></li>
+                            <li><a href="./page-insomnia.html">Insomnia</a></li>
+                            <li><a href="./page-insomnia.html">Anxiety</a></li>
+                            <li><a href="./page-insomnia.html">Caregiver</a></li>
                             <!-- <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
                             <li><a href="./layout-vertical.html">Vertical</a></li>
                             <li><a href="./layout-horizontal.html">Horizontal</a></li>
@@ -261,9 +254,9 @@
                                                     <input type="radio" id="t1Other" value="OTHER" name="optradio5"> OTHER</label>
                                             </div>
 
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <input type="email" class="form-control" id="patEmail"  placeholder="Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120">
-                                            </div>
+                                            </div> -->
 
                                             
 
@@ -360,9 +353,9 @@
                                                     <input type="radio" id="t2Other" value="OTHER" name="optradio21"> OTHER</label>
                                             </div>
 
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <input type="email" class="form-control" id="pat2Email"  placeholder="Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
-                                            </div>
+                                            </div> -->
 
                                             <div class="general-button">
                                                 <button type="submit" id="btnBackTrial2" onclick="goBack('trial2Demo','fifthQ1');" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button>
@@ -687,33 +680,13 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Taper Schedule Adjustment</h4>
-                                <div class="basic-form">
-                                    <form class="form-inline" style="margin-bottom: 25px;">
-                                        <div class="form-group mx-sm-3 mb-2">
-                                            <label class="sr-only">Password</label>
-                                            <input type="number" class="form-control" id="tpLength" name="tpLength" placeholder="Taper Length" minlength="1" maxlength="4"> <span class="placeholder" id="tipTapLength"><b title="">?</b></span>
-                                        </div>
-                                        <div class="form-group mb-2">
-                                            <label class="sr-only">Recompute</label>
-                                            <!-- <label class="lblAdjust">Increase or decrease the total number of weeks and click 'Recompute'</label> -->
-                                            
-                                        </div>
-                                        <button type="submit" id="btnRecompute" class="btn btn-dark mb-2">Recompute</button>
-                                    </form>
-
-                                    <form class="form-inline">
-                                        <div class="form-group mx-sm-3 mb-2">
-                                            <button type="submit" id="btnReset" class="btn btn-dark mb-2">Reset</button> <span class="placeholder" id="tipReset"><b title="">?</b></span>
-                                        </div>
-                                        <div class="form-group mx-sm-3 mb-2">
-                                            <button type="submit" id="btnGoBack" class="btn btn-dark mb-2">Back</button>
-                                            
-                                        </div>
+                                <form class="form-inline">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <button type="submit" id="btnGoBack" class="btn btn-dark mb-2">Back</button>
                                         
-                                    </form>
+                                    </div>
                                     
-                                    
-                                </div>
+                                </form>
                             </div>
                         </div>
                         <div class="scrollit">
@@ -723,6 +696,28 @@
                                 <div class="card-title">
                                     <h4>Proposed Taper Schedule</h4>
                                 </div>
+                                <div class="basic-form">
+                                    <form class="form-inline" style="margin-bottom: 25px;">
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <label class="sr-only">Password</label>
+                                            <input type="number" class="form-control" id="tpLength" name="tpLength" placeholder="Taper Length" minlength="1" maxlength="4"> <span class="placeholder" id="tipTapLength"><b title="">?</b></span>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label class="sr-only">Recompute 1</label>
+                                            <!-- <label class="lblAdjust">Increase or decrease the total number of weeks and click 'Recompute'</label> -->
+                                            
+                                        </div>
+                                        <button type="submit" id="btnRecompute" class="btn btn-dark mb-2">Recompute Med 1</button>
+                                    </form>
+
+                                    <form class="form-inline">
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <button type="submit" id="btnReset" class="btn btn-dark mb-2">Reset Med 1</button> <span class="placeholder" id="tipReset"><b title="">?</b></span>
+                                        </div>
+                                        
+                                    </form>
+                                </div></br>
+
                                 <div class="table-responsive">
                                     <div style="font-weight: bold;">Medication 1</div><br/>
                                     <div id="drugNm" style="font-weight: bold;"></div>
@@ -775,9 +770,34 @@
                                             </tr> -->
                                         </tbody>
                                     </table>
-                                </div><br/>
+                                </div><br/></br>
+
+                                
 
                                 <div class="table-responsive hidden" id="secondTB">
+
+                                    <div class="basic-form">
+                                        <form class="form-inline" style="margin-bottom: 25px;">
+                                            <div class="form-group mx-sm-3 mb-2">
+                                                <label class="sr-only">Password</label>
+                                                <input type="number" class="form-control" id="tpLength2" name="tpLength2" placeholder="Taper Length" minlength="1" maxlength="4"> <span class="placeholder" id="tipTapLength"><b title="">?</b></span>
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label class="sr-only">Recompute 2</label>
+                                                <!-- <label class="lblAdjust">Increase or decrease the total number of weeks and click 'Recompute'</label> -->
+                                                
+                                            </div>
+                                            <button type="submit" id="btnRecompute2" class="btn btn-dark mb-2">Recompute Med 2</button>
+                                        </form>
+    
+                                        <form class="form-inline">
+                                            <div class="form-group mx-sm-3 mb-2">
+                                                <button type="submit" id="btnReset2" class="btn btn-dark mb-2">Reset Med 2</button> <span class="placeholder" id="tipReset"><b title="">?</b></span>
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+
                                     <div style="font-weight: bold;">Medication 2</div><br/>
                                     <div id="drugNm2" style="font-weight: bold;"></div>
                                     <table class="table table-bordered" id="taperTable2">
@@ -794,6 +814,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+
                             </div>
                         </div>
 

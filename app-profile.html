@@ -55,7 +55,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="index.html">
+                <a href="provider-dashboard.html">
                     <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
                     <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
@@ -74,6 +74,11 @@
         <div class="header">    
             <div class="header-content clearfix">
                 
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
                 
                 <div class="header-right">
                     <ul class="clearfix">
@@ -81,7 +86,7 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="images/avatar/11.png" height="40" width="40" alt="">
+                                <img src="images/user/form-user.png" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile   dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -121,9 +126,9 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Apps</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./page-insomnia.html">Insomnia Application</a></li>
-                            <li><a href="./page-insomnia.html">Anxiety Application</a></li>
-                            <li><a href="./page-insomnia.html">Caregiver Application</a></li>
+                            <li><a href="./page-insomnia.html">Insomnia</a></li>
+                            <li><a href="./page-insomnia.html">Anxiety</a></li>
+                            <li><a href="./page-insomnia.html">Caregiver</a></li>
                             <!-- <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
                             <li><a href="./layout-vertical.html">Vertical</a></li>
                             <li><a href="./layout-horizontal.html">Horizontal</a></li>
@@ -170,13 +175,16 @@
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4 col-xl-3">
+                    <div class="col-lg-4 col-xl-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media align-items-center mb-4">
-                                    <img class="mr-3" src="images/avatar/11.png" width="80" height="80" alt="">
+                                    <img class="mr-3" src="images/user/form-user.png" width="80" height="80" alt="">
                                     <div class="media-body">
                                         <h3 class="mb-0" id="provProfName"></h3>
+                                        <button type="button" onclick="fillEditField('provProfName', 'currentName');" class='buttonBackTxt' data-toggle="modal" data-target="#exampleModalName">
+                                            <i class="icon-note menu-icon"></i><span class="nav-text">Edit</span>
+                                          </button>
                                         <p class="text-muted mb-0" id="provProfProvice"></p>
                                     </div>
                                 </div>
@@ -185,15 +193,19 @@
                                 <h4>Address</h4>
                                 <p class="text-muted" id="provProfMailAdd"></p>
                                 <ul class="card-profile__info">
-                                    <li class="mb-1"><strong class="text-dark mr-4">Mobile</strong> <span id="provProfPh"></span></li>
-                                    <li><strong class="text-dark mr-4">Email</strong> <span id="provProfEmail"></span></li>
+                                    <li class="mb-1"><strong class="text-dark mr-4">Mobile:</strong> <span id="provProfPh"></span></li>
+                                    <li><strong class="text-dark mr-4">Email:</strong> <span id="provProfEmail"></span> 
+                                        <button type="button" onclick="fillEditField('provProfEmail', 'currentEmail');" class='buttonBackTxt' data-toggle="modal" data-target="#exampleModalEmail">
+                                            <i class="icon-note menu-icon"></i><span class="nav-text">Edit</span>
+                                          </button>
+                                    </li>
                                 </ul>
 
                                 <div class="bootstrap-modal">
                                     <!-- Button trigger modal -->
-                                    <input type='button' class='buttonBackTxt' data-toggle="modal" data-target="#exampleModalCenter" value='Change Password'/>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter">
+                                    <input type='button' class='buttonBackTxt' data-toggle="modal" data-target="#exampleModalPassword" value='Change Password'/>
+                                    <!-- Modal Change Password-->
+                                    <div class="modal fade" id="exampleModalPassword">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -218,6 +230,71 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                     <button type="button" id="btnChangePass" class="btn btn-primary" disabled>Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bootstrap-modal">
+                                    <!-- Modal Change Email-->
+                                    <div class="modal fade" id="exampleModalEmail">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalTitle">Update Email Address</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="mt-5 mb-5 login-input">
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" id="currentEmail" placeholder="Current Email Address" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" id="newEmail" placeholder="Enter New Email Address">
+                                                        </div>
+                                                        
+                                                        <div id="divEmailErrorMsg"></div>
+
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" id="confirmNewEmail" placeholder="Confirm New Email Address" disabled>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" id="btnChangeEmail" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bootstrap-modal">
+                                    <!-- Modal Change Name-->
+                                    <div class="modal fade" id="exampleModalName">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalTitle">Update Profile Name</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="mt-5 mb-5 login-input">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="currentName" placeholder="Current Full Name" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="newName" placeholder="Enter New Full Name">
+                                                        </div>
+                                                        <div id="divNameErrorMsg"></div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" id="btnChangeName" class="btn btn-primary">Save changes</button>
                                                 </div>
                                             </div>
                                         </div>

@@ -203,12 +203,17 @@ html {
   text-decoration: underline;
 }
 
+#provProfName{
+  display: inline-block;
+}
+
   #divCheckPasswordMatch, #errorContainer, 
   #errorContainer2, #errorContainer3, 
   #errorDuplicateContainer, #errorDuplicateContainer2,
   #errorEmailContainer, #divResetPasswordMatch,
   #divCheckUsernameMatch, #errorFinalContainer,
-  #divCheckUpdatePWordMatch{
+  #divCheckUpdatePWordMatch, #errorMobileContainer,
+  #divEmailErrorMsg, #divNameErrorMsg{
     color: #8c0615;
     font-weight: bold;
     text-align: center;
@@ -230,7 +235,7 @@ body {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #76838f;
+  color: #121213;
   text-align: left;
   background-color: #F3F3F9; }
 
@@ -371,7 +376,8 @@ button {
 
 button:focus {
   outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color; }
+  /* outline: 5px auto -webkit-focus-ring-color;  */
+}
 
 input,
 button,
@@ -3382,6 +3388,27 @@ input[type="button"].btn-block {
   .card > .list-group:last-child .list-group-item:last-child {
     border-bottom-right-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem; }
+
+  
+    .card2 {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color:rgba(255, 255, 255, 0.9);;
+      background-clip: border-box;
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      border-radius: 0.25rem; }
+      .card2 > hr {
+        margin-right: 0;
+        margin-left: 0; }
+      .card2 > .list-group:first-child .list-group-item:first-child {
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem; }
+      .card2 > .list-group:last-child .list-group-item:last-child {
+        border-bottom-right-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem; }
 
 .card-body {
   flex: 1 1 auto;

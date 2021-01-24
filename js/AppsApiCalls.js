@@ -186,7 +186,8 @@ $(document).ready(function () {
         var firstName = document.getElementById("patFName").value;
         var lastName = document.getElementById("patLName").value;
         var age = document.getElementById("patAge").value;
-        var email = document.getElementById("patEmail").value;
+        //var email = document.getElementById("patEmail").value;
+        var email = '';
         var gender= getTrial1Gender("optradio5");
 
         var x = document.getElementById("screen1");
@@ -216,15 +217,17 @@ $(document).ready(function () {
                 
                 if(!(duplicateValue == null)){
                     var a = document.createElement('a');
+                    var formattedDate = '';
                     $.each(result.identicalProfiles, function(i, def) {
-                        
+                        formattedDate = def.patientReferralEntity.date_Created
+                        formattedDate = formattedDate.split("T", 1)
                         $("#duplicateTBody").append($("<tr>").attr({"id":i+ 1})
                             .append($("<td>").append(def.id))
                             .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.firstName + "'/>"))
                             .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.lastName + "'/>"))
                             .append($("<td>").append(def.age))
                             .append($("<td>").append(def.gender))
-                            .append($("<td>").append(def.patientReferralEntity.date_Created))
+                            .append($("<td>").append(formattedDate))
                             .append($("<td>").append(def.tapperStartDate)))
                     });
 
@@ -261,7 +264,8 @@ $(document).ready(function () {
         var firstName = document.getElementById("patFName").value;
         var lastName = document.getElementById("patLName").value;
         var age = document.getElementById("patAge").value;
-        var email = document.getElementById("patEmail").value;
+        //var email = document.getElementById("patEmail").value;
+        var email = '';
         var gender= getTrial1Gender("optradio5");
 
         var y = document.getElementById("printSample");
@@ -311,7 +315,8 @@ $(document).ready(function () {
         var firstName = document.getElementById("pat2FName").value;
         var lastName = document.getElementById("pat2LName").value;
         var age = document.getElementById("pat2Age").value;
-        var email = document.getElementById("pat2Email").value;
+        //var email = document.getElementById("pat2Email").value;
+        var email = '';
         var gender= getTrial1Gender("optradio21");
         let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/create';
         let authToken = window.localStorage.getItem("token");
@@ -333,13 +338,16 @@ $(document).ready(function () {
                 duplicateValue = result.identicalProfiles;
                 
                 if(!(duplicateValue == null)){
+                    var formattedDate = '';
                     $.each(result.identicalProfiles, function(i, def) {
+                        formattedDate = def.patientReferralEntity.date_Created
+                        formattedDate = formattedDate.split("T", 1)
                         $("#duplicate2TBody").append($("<tr>").attr({"id":i+ 1})
                             .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.firstName + "'/>"))
                             .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.lastName + "'/>"))
                             .append($("<td>").append(def.age))
                             .append($("<td>").append(def.gender))
-                            .append($("<td>").append(def.patientReferralEntity.date_Created))
+                            .append($("<td>").append(formattedDate))
                             .append($("<td>").append(def.tapperStartDate)))
                     });
                     dup.style.display = 'block';         
@@ -372,7 +380,8 @@ $(document).ready(function () {
         var firstName = document.getElementById("pat2FName").value;
         var lastName = document.getElementById("pat2LName").value;
         var age = document.getElementById("pat2Age").value;
-        var email = document.getElementById("pat2Email").value;
+        //var email = document.getElementById("pat2Email").value;
+        var email = '';
         var gender= getTrial1Gender("optradio21");
         let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/create';
         let authToken = window.localStorage.getItem("token");
@@ -618,7 +627,7 @@ $(document).ready(function () {
 
                                 });
                                 tableBody = '#taperTBody2';
-                                tableBodyPrint ='#taperTHead3Print';
+                                tableBodyPrint ='#taperTable3Print';
                                 captionName = 'drugNm2';
                                 captionNamePrint = 'drugNmP2';
                             });
@@ -790,7 +799,7 @@ $(document).ready(function () {
                                     $(tableBodyPrint).append($("<tr>")
                                     .append($(window["tdp2"+i+1]).append(i + 1))
                                     .append($(window["tdp2"+i+2]).append(def.unrounded))
-                                    .append($(window["tdp2"+i+2]).append(def.newDose))
+                                    .append($(window["tdp2"+i+4]).append(def.newDose))
                                     .append($(window["tdp2"+i+3]).append(selectListPrint)));
                                 });
         
@@ -815,300 +824,327 @@ $(document).ready(function () {
     });
 
 
-
-    //Reset Tapering Generation
+    //Reset Tapering Generation Med 1
     $('#btnReset').on('click', function(event){
         event.preventDefault();
-        
+
+        var medQT = window.localStorage.getItem("medQuantity");
+        var tableBodyPrint = ''; var captionNamePrint = '';
         $("#taperTable").find("tbody").empty(); //clear all the content from tbody here.
-        $("#taperTable2").find("tbody").empty(); //clear all the content from tbody here.
-        $("#taperTable1Print").find("tbody").empty(); //clear all the content from tbody here.
-        $("#taperTable2Print").find("tbody").empty(); //clear all the content from tbody here.
-        $("#taperTable3Print").find("tbody").empty(); //clear all the content from tbody here.
+        //$("#taperTable2").find("tbody").empty(); //clear all the content from tbody here.
+        if(medQT == 1){
+            $("#taperTable1Print").find("tbody").empty();
+            tableBodyPrint = '#taperTable1Print';
+            captionNamePrint = 'drugNmP';
+        }
+        if(medQT == 2){
+            $("#taperTable2Print").find("tbody").empty();
+            tableBodyPrint = '#taperTable2Print';
+            captionNamePrint = 'drugNmP1';
+        }
+
+        //$("#taperTable3Print").find("tbody").empty(); //clear all the content from tbody here.
 
         var med1 = window.localStorage.getItem("med1Store");
 
-        var med2 = window.localStorage.getItem("med2Store");
-        
         let conceptId1 = window.localStorage.getItem("conceptId1Store");
         
-        
-            let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
-            //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
-            let authToken = window.localStorage.getItem("token");
-            //alert(authToken);
-            var x = document.getElementById('screen3');
-            var y = document.getElementById('screen4');
-            var tableBody = '#taperTBody';
-            var secondTB = document.getElementById('secondTB');
-            var captionName = 'drugNm';
-            let floatDosage = window.localStorage.getItem("dosageStore");
-            let intDuration = window.localStorage.getItem("durationStore");
+        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
+        //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
+        let authToken = window.localStorage.getItem("token");
+        //alert(authToken);
+        var x = document.getElementById('screen3');
+        var y = document.getElementById('screen4');
+        var tableBody = '#taperTBody';
+        //var secondTB = document.getElementById('secondTB');
+        var captionName = 'drugNm';
+        let floatDosage = window.localStorage.getItem("dosageStore");
+        let intDuration = window.localStorage.getItem("durationStore");
 
-            if(med2 != ''){
-                var tableBodyPrint = '#taperTBody2Print';
-                var captionNamePrint = 'drugNmP1';
-                let conceptId2 = window.localStorage.getItem("conceptId2Store");
-                let floatDosage2 = window.localStorage.getItem("dosage2Store");
-                let intDuration2 = window.localStorage.getItem("duration2Store");
-                
-                //var secondTB = document.getElementById('secondTB');
-                //var tableBody = '#taperTBody';
-                //var tableBodyPrint = '#taperTBody2Print';
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: 'json',
-                    headers: {
-                        'Content-Type': 'application/json', 
-                        'Accept': '*/*',
-                        'Authorization': 'Bearer '+ authToken
-                    },
-                    data: JSON.stringify({"regimenDTOList":
-                    [{
-                    "sleepMedication" : med1,
-                    "currentDose" : floatDosage,
-                    "medicationDuration" : intDuration,
-                    "conceptID" : conceptId1
-                    },
-                    {
-                    "sleepMedication" : med2,
-                    "currentDose" : floatDosage2,
-                    "medicationDuration" : intDuration2,
-                    "conceptID" : conceptId2
-                    }]
-                    
-                }),
-                    success: function(result){
-                        console.log(result);
-                        
-                        $(result.tapaschedules).each(function(i, taper){
-                            document.getElementById(captionName).innerHTML  = taper.drugName;
-                            document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
-                            window.localStorage.setItem("taperLength", taper.taperLength);
-                            //alert(taper.drugName);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            headers: {
+                'Content-Type': 'application/json', 
+                'Accept': '*/*',
+                'Authorization': 'Bearer '+ authToken
+            },
+            data: JSON.stringify({"regimenDTOList":
+            [{
+                "sleepMedication" : med1,
+                "currentDose" : floatDosage,
+                "medicationDuration" : intDuration,
+                "conceptID" : conceptId1
+            }]
+        }),
+            success: function(result){
+                console.log(result);
+                $(result.tapaschedules).each(function(i, taper){
+                    document.getElementById(captionName).innerHTML  = taper.drugName;
+                    document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
+                    //window.localStorage.setItem("taperLength1", originalTpLenth);
+                    //alert(taper.drugName);
 
-                            $(taper.weeklyDose).each(function(i, def){
+                    $(taper.weeklyDose).each(function(i, def){
 
-                                window["td"+i+1]= document.createElement('td');
-                                window["td"+i+1].style.border = '1px solid #dddddd';
-                                window["td"+i+1].style.textAlign = 'left';
-                                window["td"+i+1].style.padding = '8px';
+                        window["td"+i+1]= document.createElement('td');
+                        window["td"+i+1].style.border = '1px solid #dddddd';
+                        window["td"+i+1].style.textAlign = 'left';
+                        window["td"+i+1].style.padding = '8px';
 
-                                window["td"+i+2] = document.createElement('td');
-                                window["td"+i+2].style.border = '1px solid #dddddd';
-                                window["td"+i+2].style.textAlign = 'left';
-                                window["td"+i+2].style.padding = '8px';
+                        window["td"+i+2] = document.createElement('td');
+                        window["td"+i+2].style.border = '1px solid #dddddd';
+                        window["td"+i+2].style.textAlign = 'left';
+                        window["td"+i+2].style.padding = '8px';
 
-                                window["td"+i+3] = document.createElement('td');
-                                window["td"+i+3].style.border = '1px solid #dddddd';
-                                window["td"+i+3].style.textAlign = 'left';
-                                window["td"+i+3].style.padding = '8px';
+                        window["td"+i+3] = document.createElement('td');
+                        window["td"+i+3].style.border = '1px solid #dddddd';
+                        window["td"+i+3].style.textAlign = 'left';
+                        window["td"+i+3].style.padding = '8px';
 
-                                window["td"+i+4] = document.createElement('td');
-                                window["td"+i+4].style.border = '1px solid #dddddd';
-                                window["td"+i+4].style.textAlign = 'left';
-                                window["td"+i+4].style.padding = '8px';
+                        window["td"+i+4] = document.createElement('td');
+                        window["td"+i+4].style.border = '1px solid #dddddd';
+                        window["td"+i+4].style.textAlign = 'left';
+                        window["td"+i+4].style.padding = '8px';
 
-                                const selectList = document.createElement("select");
-                                selectList.style.width = '150px';
-                                $(def.dose_Combination).each(function(i, drop){
-                                    const option = document.createElement("option");
-                                    option.value = drop;
-                                    option.text = drop;
-                                    selectList.appendChild(option);
-                                })
+                        const selectList = document.createElement("select");
+                        selectList.style.width = '150px';
+                        $(def.dose_Combination).each(function(i, drop){
+                            const option = document.createElement("option");
+                            option.value = drop;
+                            option.text = drop;
+                            selectList.appendChild(option);
+                        })
 
-                                $(tableBody).append($("<tr>")
-                                .append($(window["td"+i+1]).append(i + 1))
-                                .append($(window["td"+i+2]).append(def.unrounded))
-                                .append($(window["td"+i+4]).append(def.newDose))
-                                .append($(window["td"+i+3]).append(selectList)));
+                        $(tableBody).append($("<tr>")
+                        .append($(window["td"+i+1]).append(i + 1))
+                        .append($(window["td"+i+2]).append(def.unrounded))
+                        .append($(window["td"+i+4]).append(def.newDose))
+                        .append($(window["td"+i+3]).append(selectList)));
 
-                                window["tdp2"+i+1] = document.createElement('td');
-                                window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+1].style.textAlign = 'left';
-                                window["tdp2"+i+1].style.padding = '8px';
+                        window["tdp2"+i+1] = document.createElement('td');
+                        window["tdp2"+i+1].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+1].style.textAlign = 'left';
+                        window["tdp2"+i+1].style.padding = '8px';
 
-                                window["tdp2"+i+2] = document.createElement('td');
-                                window["tdp2"+i+2].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+2].style.textAlign = 'left';
-                                window["tdp2"+i+2].style.padding = '8px';
+                        window["tdp2"+i+2] = document.createElement('td');
+                        window["tdp2"+i+2].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+2].style.textAlign = 'left';
+                        window["tdp2"+i+2].style.padding = '8px';
 
-                                window["tdp2"+i+3] = document.createElement('td');
-                                window["tdp2"+i+3].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+3].style.textAlign = 'left';
-                                window["tdp2"+i+3].style.padding = '8px';
+                        window["tdp2"+i+3] = document.createElement('td');
+                        window["tdp2"+i+3].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+3].style.textAlign = 'left';
+                        window["tdp2"+i+3].style.padding = '8px';
 
-                                window["tdp2"+i+4] = document.createElement('td');
-                                window["tdp2"+i+4].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+4].style.textAlign = 'left';
-                                window["tdp2"+i+4].style.padding = '8px';
+                        window["tdp2"+i+4] = document.createElement('td');
+                        window["tdp2"+i+4].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+4].style.textAlign = 'left';
+                        window["tdp2"+i+4].style.padding = '8px';
 
-                                const selectListPrint = document.createElement("select");
-                                selectListPrint.style.width = '150px';
-                                $(def.dose_Combination).each(function(i, dropPrint){
-                                    const optionPrint = document.createElement("option");
-                                    optionPrint.value = dropPrint;
-                                    optionPrint.text = dropPrint;
-                                    selectListPrint.appendChild(optionPrint);
-                                })
+                        const selectListPrint = document.createElement("select");
+                        selectListPrint.style.width = '150px';
+                        $(def.dose_Combination).each(function(i, dropPrint){
+                            const optionPrint = document.createElement("option");
+                            optionPrint.value = dropPrint;
+                            optionPrint.text = dropPrint;
+                            selectListPrint.appendChild(optionPrint);
+                        })
 
-                                $(tableBodyPrint).append($("<tr>")
-                                .append($(window["tdp2"+i+1]).append(i + 1))
-                                .append($(window["tdp2"+i+2]).append(def.unrounded))
-                                .append($(window["tdp2"+i+4]).append(def.newDose))
-                                .append($(window["tdp2"+i+3]).append(selectListPrint)));
-                            });
-                            tableBody = '#taperTBody2';
-                            tableBodyPrint ='#taperTHead3Print';
-                            captionName = 'drugNm2';
-                            captionNamePrint = 'drugNmP2';
-                        });
+                        $(tableBodyPrint).append($("<tr>")
+                        .append($(window["tdp2"+i+1]).append(i + 1))
+                        .append($(window["tdp2"+i+2]).append(def.unrounded))
+                        .append($(window["tdp2"+i+4]).append(def.newDose))
+                        .append($(window["tdp2"+i+3]).append(selectListPrint)));
+                    });
 
-
-                        y.style.display = 'block';         
-                        x.style.display = 'none';
-                        secondTB.style.display = 'block';
-                        window.localStorage.setItem("medQuantity", 2);
-                    }, 
-                    error: function(msg){
-                        $("#errorContainer3").html("Unable to generate Taper Schedule for the two medications");
-                    }
                 });
 
-            }else{
-                var tableBodyPrint = '#taperTBody1Print';
-                var captionNamePrint = 'drugNmP';
-
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: 'json',
-                    headers: {
-                        'Content-Type': 'application/json', 
-                        'Accept': '*/*',
-                        'Authorization': 'Bearer '+ authToken
-                    },
-                    data: JSON.stringify({"regimenDTOList":
-                    [{
-                        "sleepMedication" : med1,
-                        "currentDose" : floatDosage,
-                        "medicationDuration" : intDuration,
-                        "conceptID" : conceptId1
-                    }]
-                }),
-                    success: function(result){
-                        console.log(result);
-                        $(result.tapaschedules).each(function(i, taper){
-                            document.getElementById(captionName).innerHTML  = taper.drugName;
-                            document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
-                            window.localStorage.setItem("taperLength", taper.taperLength);
-                            //alert(taper.drugName);
-
-                            $(taper.weeklyDose).each(function(i, def){
-
-                                window["td"+i+1]= document.createElement('td');
-                                window["td"+i+1].style.border = '1px solid #dddddd';
-                                window["td"+i+1].style.textAlign = 'left';
-                                window["td"+i+1].style.padding = '8px';
-
-                                window["td"+i+2] = document.createElement('td');
-                                window["td"+i+2].style.border = '1px solid #dddddd';
-                                window["td"+i+2].style.textAlign = 'left';
-                                window["td"+i+2].style.padding = '8px';
-
-                                window["td"+i+3] = document.createElement('td');
-                                window["td"+i+3].style.border = '1px solid #dddddd';
-                                window["td"+i+3].style.textAlign = 'left';
-                                window["td"+i+3].style.padding = '8px';
-
-                                window["td"+i+4] = document.createElement('td');
-                                window["td"+i+4].style.border = '1px solid #dddddd';
-                                window["td"+i+4].style.textAlign = 'left';
-                                window["td"+i+4].style.padding = '8px';
-
-                                const selectList = document.createElement("select");
-                                selectList.style.width = '150px';
-                                $(def.dose_Combination).each(function(i, drop){
-                                    const option = document.createElement("option");
-                                    option.value = drop;
-                                    option.text = drop;
-                                    selectList.appendChild(option);
-                                })
-
-                                $(tableBody).append($("<tr>")
-                                .append($(window["td"+i+1]).append(i + 1))
-                                .append($(window["td"+i+2]).append(def.unrounded))
-                                .append($(window["td"+i+4]).append(def.newDose))
-                                .append($(window["td"+i+3]).append(selectList)));
-
-                                window["tdp2"+i+1] = document.createElement('td');
-                                window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+1].style.textAlign = 'left';
-                                window["tdp2"+i+1].style.padding = '8px';
-
-                                window["tdp2"+i+2] = document.createElement('td');
-                                window["tdp2"+i+2].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+2].style.textAlign = 'left';
-                                window["tdp2"+i+2].style.padding = '8px';
-
-                                window["tdp2"+i+3] = document.createElement('td');
-                                window["tdp2"+i+3].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+3].style.textAlign = 'left';
-                                window["tdp2"+i+3].style.padding = '8px';
-
-                                window["tdp2"+i+4] = document.createElement('td');
-                                window["tdp2"+i+4].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+4].style.textAlign = 'left';
-                                window["tdp2"+i+4].style.padding = '8px';
-
-                                const selectListPrint = document.createElement("select");
-                                selectListPrint.style.width = '150px';
-                                $(def.dose_Combination).each(function(i, dropPrint){
-                                    const optionPrint = document.createElement("option");
-                                    optionPrint.value = dropPrint;
-                                    optionPrint.text = dropPrint;
-                                    selectListPrint.appendChild(optionPrint);
-                                })
-
-                                $(tableBodyPrint).append($("<tr>")
-                                .append($(window["tdp2"+i+1]).append(i + 1))
-                                .append($(window["tdp2"+i+2]).append(def.unrounded))
-                                .append($(window["tdp2"+i+2]).append(def.newDose))
-                                .append($(window["tdp2"+i+3]).append(selectListPrint)));
-                            });
-    
-                        });
-
-
-                        y.style.display = 'block';         
-                        x.style.display = 'none';
-                        secondTB.style.display = 'none';
-                        window.localStorage.setItem("medQuantity", 1);
-                    }, 
-                    error: function(msg){
-                        $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
-                    }
-                }); 
+                var weekNo1 = $('#taperTBody tr').length;
+                window.localStorage.setItem("weekNo1", weekNo1);
+                y.style.display = 'block';         
+                x.style.display = 'none';
+                //secondTB.style.display = 'none';
+                //window.localStorage.setItem("medQuantity", 1);
+            }, 
+            error: function(msg){
+                $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
             }
+        }); 
+            //}
         
     });
 
 
-    //Recompute Tapering Generation
+    //Reset Tapering Generation Med 2
+    $('#btnReset2').on('click', function(event){
+        event.preventDefault();
+
+        var tableBodyPrint = ''; var captionNamePrint = '';
+        $("#taperTable2").find("tbody").empty(); //clear all the content from tbody here.
+
+        $("#taperTable3Print").find("tbody").empty();
+        tableBodyPrint = '#taperTable3Print';
+        captionNamePrint = 'drugNmP2';
+
+        var med2 = window.localStorage.getItem("med2Store");
+        let conceptId2 = window.localStorage.getItem("conceptId2Store");
+        let floatDosage2 = window.localStorage.getItem("dosage2Store");
+        let intDuration2 = window.localStorage.getItem("duration2Store");
+        
+        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
+        //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
+        let authToken = window.localStorage.getItem("token");
+        //alert(authToken);
+        var x = document.getElementById('screen3');
+        var y = document.getElementById('screen4');
+        var tableBody = '#taperTBody2';
+        var secondTB = document.getElementById('secondTB');
+        var captionName = 'drugNm2';
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            headers: {
+                'Content-Type': 'application/json', 
+                'Accept': '*/*',
+                'Authorization': 'Bearer '+ authToken
+            },
+            data: JSON.stringify({"regimenDTOList":
+            [{
+                "sleepMedication" : med2,
+                "currentDose" : floatDosage2,
+                "medicationDuration" : intDuration2,
+                "conceptID" : conceptId2
+            }]
+        }),
+            success: function(result){
+                console.log(result);
+                $(result.tapaschedules).each(function(i, taper){
+                    document.getElementById(captionName).innerHTML  = taper.drugName;
+                    document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
+                    //window.localStorage.setItem("taperLength1", originalTpLenth);
+                    //alert(taper.drugName);
+
+                    $(taper.weeklyDose).each(function(i, def){
+
+                        window["td"+i+1]= document.createElement('td');
+                        window["td"+i+1].style.border = '1px solid #dddddd';
+                        window["td"+i+1].style.textAlign = 'left';
+                        window["td"+i+1].style.padding = '8px';
+
+                        window["td"+i+2] = document.createElement('td');
+                        window["td"+i+2].style.border = '1px solid #dddddd';
+                        window["td"+i+2].style.textAlign = 'left';
+                        window["td"+i+2].style.padding = '8px';
+
+                        window["td"+i+3] = document.createElement('td');
+                        window["td"+i+3].style.border = '1px solid #dddddd';
+                        window["td"+i+3].style.textAlign = 'left';
+                        window["td"+i+3].style.padding = '8px';
+
+                        window["td"+i+4] = document.createElement('td');
+                        window["td"+i+4].style.border = '1px solid #dddddd';
+                        window["td"+i+4].style.textAlign = 'left';
+                        window["td"+i+4].style.padding = '8px';
+
+                        const selectList = document.createElement("select");
+                        selectList.style.width = '150px';
+                        $(def.dose_Combination).each(function(i, drop){
+                            const option = document.createElement("option");
+                            option.value = drop;
+                            option.text = drop;
+                            selectList.appendChild(option);
+                        })
+
+                        $(tableBody).append($("<tr>")
+                        .append($(window["td"+i+1]).append(i + 1))
+                        .append($(window["td"+i+2]).append(def.unrounded))
+                        .append($(window["td"+i+4]).append(def.newDose))
+                        .append($(window["td"+i+3]).append(selectList)));
+
+                        window["tdp2"+i+1] = document.createElement('td');
+                        window["tdp2"+i+1].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+1].style.textAlign = 'left';
+                        window["tdp2"+i+1].style.padding = '8px';
+
+                        window["tdp2"+i+2] = document.createElement('td');
+                        window["tdp2"+i+2].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+2].style.textAlign = 'left';
+                        window["tdp2"+i+2].style.padding = '8px';
+
+                        window["tdp2"+i+3] = document.createElement('td');
+                        window["tdp2"+i+3].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+3].style.textAlign = 'left';
+                        window["tdp2"+i+3].style.padding = '8px';
+
+                        window["tdp2"+i+4] = document.createElement('td');
+                        window["tdp2"+i+4].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+4].style.textAlign = 'left';
+                        window["tdp2"+i+4].style.padding = '8px';
+
+                        const selectListPrint = document.createElement("select");
+                        selectListPrint.style.width = '150px';
+                        $(def.dose_Combination).each(function(i, dropPrint){
+                            const optionPrint = document.createElement("option");
+                            optionPrint.value = dropPrint;
+                            optionPrint.text = dropPrint;
+                            selectListPrint.appendChild(optionPrint);
+                        })
+
+                        $(tableBodyPrint).append($("<tr>")
+                        .append($(window["tdp2"+i+1]).append(i + 1))
+                        .append($(window["tdp2"+i+2]).append(def.unrounded))
+                        .append($(window["tdp2"+i+4]).append(def.newDose))
+                        .append($(window["tdp2"+i+3]).append(selectListPrint)));
+                    });
+
+                });
+
+                var weekNo2 = $('#taperTBody2 tr').length;
+                window.localStorage.setItem("weekNo2", weekNo2);
+                y.style.display = 'block';         
+                x.style.display = 'none';
+                secondTB.style.display = 'block';
+                //window.localStorage.setItem("medQuantity", 1);
+            }, 
+            error: function(msg){
+                $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
+            }
+        }); 
+            //}
+        
+    });
+
+
+    //Recompute Tapering Generation Med 1
     $('#btnRecompute').on('click', function(event){
         event.preventDefault();
-        
+
+        var medQT = window.localStorage.getItem("medQuantity");
+        var tableBodyPrint = ''; var captionNamePrint = '';
         $("#taperTable").find("tbody").empty(); //clear all the content from tbody here.
-        $("#taperTable2").find("tbody").empty(); //clear all the content from tbody here.
-        $("#taperTable1Print").find("tbody").empty(); //clear all the content from tbody here.
-        $("#taperTable2Print").find("tbody").empty(); //clear all the content from tbody here.
-        $("#taperTable3Print").find("tbody").empty(); //clear all the content from tbody here.
+        //$("#taperTable2").find("tbody").empty(); //clear all the content from tbody here.
+        if(medQT == 1){
+            $("#taperTable1Print").find("tbody").empty();
+            $("#taperTable2Print").find("tbody").empty();
+            tableBodyPrint = '#taperTable1Print';
+            captionNamePrint = 'drugNmP';
+        }
+        if(medQT == 2){
+            $("#taperTable2Print").find("tbody").empty();
+            $("#taperTable1Print").find("tbody").empty();
+            tableBodyPrint = '#taperTable2Print';
+            captionNamePrint = 'drugNmP1';
+        }
+
+        //$("#taperTable3Print").find("tbody").empty(); //clear all the content from tbody here.
 
         var med1 = window.localStorage.getItem("med1Store");
 
-        var med2 = window.localStorage.getItem("med2Store");
+        //var med2 = window.localStorage.getItem("med2Store");
         
         var tpLength = document.getElementById("tpLength").value;
         var oldWeek1 = window.localStorage.getItem("weekNo1");
@@ -1118,294 +1154,285 @@ $(document).ready(function () {
 
         let conceptId1 = window.localStorage.getItem("conceptId1Store");
         
+        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
+        //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
+        let authToken = window.localStorage.getItem("token");
+        //alert(authToken);
+        var x = document.getElementById('screen3');
+        var y = document.getElementById('screen4');
+        var tableBody = '#taperTBody';
+        //var secondTB = document.getElementById('secondTB');
+        var captionName = 'drugNm';
+        let floatDosage = window.localStorage.getItem("dosageStore");
+        let intDuration = window.localStorage.getItem("durationStore");
 
-        
-        
-            let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
-            //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
-            let authToken = window.localStorage.getItem("token");
-            //alert(authToken);
-            var x = document.getElementById('screen3');
-            var y = document.getElementById('screen4');
-            var tableBody = '#taperTBody';
-            var secondTB = document.getElementById('secondTB');
-            var captionName = 'drugNm';
-            let floatDosage = window.localStorage.getItem("dosageStore");
-            let intDuration = window.localStorage.getItem("durationStore");
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            headers: {
+                'Content-Type': 'application/json', 
+                'Accept': '*/*',
+                'Authorization': 'Bearer '+ authToken
+            },
+            data: JSON.stringify({"regimenDTOList":
+            [{
+                "sleepMedication" : med1,
+                "currentDose" : floatDosage,
+                "medicationDuration" : intDuration,
+                "taperLength" : intTpLength,
+                "conceptID" : conceptId1
+            }]
+        }),
+            success: function(result){
+                console.log(result);
+                $(result.tapaschedules).each(function(i, taper){
+                    document.getElementById(captionName).innerHTML  = taper.drugName;
+                    document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
+                    //window.localStorage.setItem("taperLength1", originalTpLenth);
+                    //alert(taper.drugName);
 
-            if(med2 != ''){
-                var tableBodyPrint = '#taperTBody2Print';
-                var captionNamePrint = 'drugNmP1';
-                let conceptId2 = window.localStorage.getItem("conceptId2Store");
-                let floatDosage2 = window.localStorage.getItem("dosage2Store");
-                let intDuration2 = window.localStorage.getItem("duration2Store");
-                var oldWeek2 = window.localStorage.getItem("weekNo2");
-                let intTpLength2 = parseInt(tpLength) + parseInt(oldWeek2);
-                //alert(intTpLength2);
-                
-                //var secondTB = document.getElementById('secondTB');
-                //var tableBody = '#taperTBody';
-                //var tableBodyPrint = '#taperTBody2Print';
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: 'json',
-                    headers: {
-                        'Content-Type': 'application/json', 
-                        'Accept': '*/*',
-                        'Authorization': 'Bearer '+ authToken
-                    },
-                    data: JSON.stringify({"regimenDTOList":
-                    [{
-                    "sleepMedication" : med1,
-                    "currentDose" : floatDosage,
-                    "medicationDuration" : intDuration,
-                    "taperLength" : intTpLength,
-                    "conceptID" : conceptId1
-                    },
-                    {
-                    "sleepMedication" : med2,
-                    "currentDose" : floatDosage2,
-                    "medicationDuration" : intDuration2,
-                    "taperLength" : intTpLength2,
-                    "conceptID" : conceptId2
-                    }]
-                    
-                }),
-                    success: function(result){
-                        console.log(result);
-                        
-                        $(result.tapaschedules).each(function(i, taper){
-                            document.getElementById(captionName).innerHTML  = taper.drugName;
-                            document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
-                            window.localStorage.setItem("taperLength", originalTpLenth);
-                            //alert(taper.drugName);
+                    $(taper.weeklyDose).each(function(i, def){
 
-                            $(taper.weeklyDose).each(function(i, def){
+                        window["td"+i+1]= document.createElement('td');
+                        window["td"+i+1].style.border = '1px solid #dddddd';
+                        window["td"+i+1].style.textAlign = 'left';
+                        window["td"+i+1].style.padding = '8px';
 
-                                window["td"+i+1]= document.createElement('td');
-                                window["td"+i+1].style.border = '1px solid #dddddd';
-                                window["td"+i+1].style.textAlign = 'left';
-                                window["td"+i+1].style.padding = '8px';
+                        window["td"+i+2] = document.createElement('td');
+                        window["td"+i+2].style.border = '1px solid #dddddd';
+                        window["td"+i+2].style.textAlign = 'left';
+                        window["td"+i+2].style.padding = '8px';
 
-                                window["td"+i+2] = document.createElement('td');
-                                window["td"+i+2].style.border = '1px solid #dddddd';
-                                window["td"+i+2].style.textAlign = 'left';
-                                window["td"+i+2].style.padding = '8px';
+                        window["td"+i+3] = document.createElement('td');
+                        window["td"+i+3].style.border = '1px solid #dddddd';
+                        window["td"+i+3].style.textAlign = 'left';
+                        window["td"+i+3].style.padding = '8px';
 
-                                window["td"+i+3] = document.createElement('td');
-                                window["td"+i+3].style.border = '1px solid #dddddd';
-                                window["td"+i+3].style.textAlign = 'left';
-                                window["td"+i+3].style.padding = '8px';
+                        window["td"+i+4] = document.createElement('td');
+                        window["td"+i+4].style.border = '1px solid #dddddd';
+                        window["td"+i+4].style.textAlign = 'left';
+                        window["td"+i+4].style.padding = '8px';
 
-                                window["td"+i+4] = document.createElement('td');
-                                window["td"+i+4].style.border = '1px solid #dddddd';
-                                window["td"+i+4].style.textAlign = 'left';
-                                window["td"+i+4].style.padding = '8px';
+                        const selectList = document.createElement("select");
+                        selectList.style.width = '150px';
+                        $(def.dose_Combination).each(function(i, drop){
+                            const option = document.createElement("option");
+                            option.value = drop;
+                            option.text = drop;
+                            selectList.appendChild(option);
+                        })
 
-                                const selectList = document.createElement("select");
-                                selectList.style.width = '150px';
-                                $(def.dose_Combination).each(function(i, drop){
-                                    const option = document.createElement("option");
-                                    option.value = drop;
-                                    option.text = drop;
-                                    selectList.appendChild(option);
-                                })
+                        $(tableBody).append($("<tr>")
+                        .append($(window["td"+i+1]).append(i + 1))
+                        .append($(window["td"+i+2]).append(def.unrounded))
+                        .append($(window["td"+i+4]).append(def.newDose))
+                        .append($(window["td"+i+3]).append(selectList)));
 
-                                $(tableBody).append($("<tr>")
-                                .append($(window["td"+i+1]).append(i + 1))
-                                .append($(window["td"+i+2]).append(def.unrounded))
-                                .append($(window["td"+i+4]).append(def.newDose))
-                                .append($(window["td"+i+3]).append(selectList)));
+                        window["tdp2"+i+1] = document.createElement('td');
+                        window["tdp2"+i+1].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+1].style.textAlign = 'left';
+                        window["tdp2"+i+1].style.padding = '8px';
 
-                                window["tdp2"+i+1] = document.createElement('td');
-                                window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+1].style.textAlign = 'left';
-                                window["tdp2"+i+1].style.padding = '8px';
+                        window["tdp2"+i+2] = document.createElement('td');
+                        window["tdp2"+i+2].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+2].style.textAlign = 'left';
+                        window["tdp2"+i+2].style.padding = '8px';
 
-                                window["tdp2"+i+2] = document.createElement('td');
-                                window["tdp2"+i+2].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+2].style.textAlign = 'left';
-                                window["tdp2"+i+2].style.padding = '8px';
+                        window["tdp2"+i+3] = document.createElement('td');
+                        window["tdp2"+i+3].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+3].style.textAlign = 'left';
+                        window["tdp2"+i+3].style.padding = '8px';
 
-                                window["tdp2"+i+3] = document.createElement('td');
-                                window["tdp2"+i+3].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+3].style.textAlign = 'left';
-                                window["tdp2"+i+3].style.padding = '8px';
+                        window["tdp2"+i+4] = document.createElement('td');
+                        window["tdp2"+i+4].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+4].style.textAlign = 'left';
+                        window["tdp2"+i+4].style.padding = '8px';
 
-                                window["tdp2"+i+4] = document.createElement('td');
-                                window["tdp2"+i+4].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+4].style.textAlign = 'left';
-                                window["tdp2"+i+4].style.padding = '8px';
+                        const selectListPrint = document.createElement("select");
+                        selectListPrint.style.width = '150px';
+                        $(def.dose_Combination).each(function(i, dropPrint){
+                            const optionPrint = document.createElement("option");
+                            optionPrint.value = dropPrint;
+                            optionPrint.text = dropPrint;
+                            selectListPrint.appendChild(optionPrint);
+                        })
 
-                                const selectListPrint = document.createElement("select");
-                                selectListPrint.style.width = '150px';
-                                $(def.dose_Combination).each(function(i, dropPrint){
-                                    const optionPrint = document.createElement("option");
-                                    optionPrint.value = dropPrint;
-                                    optionPrint.text = dropPrint;
-                                    selectListPrint.appendChild(optionPrint);
-                                })
+                        $(tableBodyPrint).append($("<tr>")
+                        .append($(window["tdp2"+i+1]).append(i + 1))
+                        .append($(window["tdp2"+i+2]).append(def.unrounded))
+                        .append($(window["tdp2"+i+4]).append(def.newDose))
+                        .append($(window["tdp2"+i+3]).append(selectListPrint)));
+                    });
 
-                                $(tableBodyPrint).append($("<tr>")
-                                .append($(window["tdp2"+i+1]).append(i + 1))
-                                .append($(window["tdp2"+i+2]).append(def.unrounded))
-                                .append($(window["tdp2"+i+4]).append(def.newDose))
-                                .append($(window["tdp2"+i+3]).append(selectListPrint)));
-                            });
-                            tableBody = '#taperTBody2';
-                            tableBodyPrint ='#taperTHead3Print';
-                            captionName = 'drugNm2';
-                            captionNamePrint = 'drugNmP2';
-                        });
-
-                        console.log(JSON.stringify({"regimenDTOList":
-                        [{
-                        "sleepMedication" : med1,
-                        "currentDose" : floatDosage,
-                        "medicationDuration" : intDuration,
-                        "taperLength" : intTpLength,
-                        "conceptID" : conceptId1
-                        },
-                        {
-                        "sleepMedication" : med2,
-                        "currentDose" : floatDosage2,
-                        "medicationDuration" : intDuration2,
-                        "taperLength" : intTpLength2,
-                        "conceptID" : conceptId2
-                        }]
-                        
-                    }));
-
-
-                        y.style.display = 'block';         
-                        x.style.display = 'none';
-                        secondTB.style.display = 'block';
-                        window.localStorage.setItem("medQuantity", 2);
-                    }, 
-                    error: function(msg){
-                        $("#errorContainer3").html("Unable to generate Taper Schedule for the two medications");
-                    }
                 });
 
-            }else{
-                var tableBodyPrint = '#taperTBody1Print';
-                var captionNamePrint = 'drugNmP';
-
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: 'json',
-                    headers: {
-                        'Content-Type': 'application/json', 
-                        'Accept': '*/*',
-                        'Authorization': 'Bearer '+ authToken
-                    },
-                    data: JSON.stringify({"regimenDTOList":
-                    [{
-                        "sleepMedication" : med1,
-                        "currentDose" : floatDosage,
-                        "medicationDuration" : intDuration,
-                        "taperLength" : intTpLength,
-                        "conceptID" : conceptId1
-                    }]
-                }),
-                    success: function(result){
-                        console.log(result);
-                        $(result.tapaschedules).each(function(i, taper){
-                            document.getElementById(captionName).innerHTML  = taper.drugName;
-                            document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
-                            window.localStorage.setItem("taperLength", originalTpLenth);
-                            //alert(taper.drugName);
-
-                            $(taper.weeklyDose).each(function(i, def){
-
-                                window["td"+i+1]= document.createElement('td');
-                                window["td"+i+1].style.border = '1px solid #dddddd';
-                                window["td"+i+1].style.textAlign = 'left';
-                                window["td"+i+1].style.padding = '8px';
-
-                                window["td"+i+2] = document.createElement('td');
-                                window["td"+i+2].style.border = '1px solid #dddddd';
-                                window["td"+i+2].style.textAlign = 'left';
-                                window["td"+i+2].style.padding = '8px';
-
-                                window["td"+i+3] = document.createElement('td');
-                                window["td"+i+3].style.border = '1px solid #dddddd';
-                                window["td"+i+3].style.textAlign = 'left';
-                                window["td"+i+3].style.padding = '8px';
-
-                                window["td"+i+4] = document.createElement('td');
-                                window["td"+i+4].style.border = '1px solid #dddddd';
-                                window["td"+i+4].style.textAlign = 'left';
-                                window["td"+i+4].style.padding = '8px';
-
-                                const selectList = document.createElement("select");
-                                selectList.style.width = '150px';
-                                $(def.dose_Combination).each(function(i, drop){
-                                    const option = document.createElement("option");
-                                    option.value = drop;
-                                    option.text = drop;
-                                    selectList.appendChild(option);
-                                })
-
-                                $(tableBody).append($("<tr>")
-                                .append($(window["td"+i+1]).append(i + 1))
-                                .append($(window["td"+i+2]).append(def.unrounded))
-                                .append($(window["td"+i+4]).append(def.newDose))
-                                .append($(window["td"+i+3]).append(selectList)));
-
-                                window["tdp2"+i+1] = document.createElement('td');
-                                window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+1].style.textAlign = 'left';
-                                window["tdp2"+i+1].style.padding = '8px';
-
-                                window["tdp2"+i+2] = document.createElement('td');
-                                window["tdp2"+i+2].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+2].style.textAlign = 'left';
-                                window["tdp2"+i+2].style.padding = '8px';
-
-                                window["tdp2"+i+3] = document.createElement('td');
-                                window["tdp2"+i+3].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+3].style.textAlign = 'left';
-                                window["tdp2"+i+3].style.padding = '8px';
-
-                                window["tdp2"+i+4] = document.createElement('td');
-                                window["tdp2"+i+4].style.border = '1px solid #dddddd';
-                                window["tdp2"+i+4].style.textAlign = 'left';
-                                window["tdp2"+i+4].style.padding = '8px';
-
-                                const selectListPrint = document.createElement("select");
-                                selectListPrint.style.width = '150px';
-                                $(def.dose_Combination).each(function(i, dropPrint){
-                                    const optionPrint = document.createElement("option");
-                                    optionPrint.value = dropPrint;
-                                    optionPrint.text = dropPrint;
-                                    selectListPrint.appendChild(optionPrint);
-                                })
-
-                                $(tableBodyPrint).append($("<tr>")
-                                .append($(window["tdp2"+i+1]).append(i + 1))
-                                .append($(window["tdp2"+i+2]).append(def.unrounded))
-                                .append($(window["tdp2"+i+2]).append(def.newDose))
-                                .append($(window["tdp2"+i+3]).append(selectListPrint)));
-                            });
-    
-                        });
-
-
-                        y.style.display = 'block';         
-                        x.style.display = 'none';
-                        secondTB.style.display = 'none';
-                        window.localStorage.setItem("medQuantity", 1);
-                    }, 
-                    error: function(msg){
-                        $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
-                    }
-                }); 
+                var weekNo1 = $('#taperTBody tr').length;
+                window.localStorage.setItem("weekNo1", weekNo1);
+                y.style.display = 'block';         
+                x.style.display = 'none';
+                //secondTB.style.display = 'none';
+                //window.localStorage.setItem("medQuantity", 1);
+            }, 
+            error: function(msg){
+                $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
             }
+        }); 
+            //}
         
     });
+
+    //Recompute Tapering Generation Med 2
+    $('#btnRecompute2').on('click', function(event){
+        event.preventDefault();
+
+        var tableBodyPrint = ''; var captionNamePrint = '';
+        $("#taperTable2").find("tbody").empty(); //clear all the content from tbody here.
+
+        $("#taperTable3Print").find("tbody").empty();
+        tableBodyPrint = '#taperTable3Print';
+        captionNamePrint = 'drugNmP2';
+
+        var med2 = window.localStorage.getItem("med2Store");
+
+        
+        var tpLength = document.getElementById("tpLength2").value;
+        var oldWeek2 = window.localStorage.getItem("weekNo2");
+        let originalTpLenth = parseInt(tpLength);
+
+        let intTpLength2 = parseInt(tpLength) + parseInt(oldWeek2);
+        let conceptId2 = window.localStorage.getItem("conceptId2Store");
+        let floatDosage2 = window.localStorage.getItem("dosage2Store");
+        let intDuration2 = window.localStorage.getItem("duration2Store");
+        
+        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
+        //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
+        let authToken = window.localStorage.getItem("token");
+        //alert(authToken);
+        var x = document.getElementById('screen3');
+        var y = document.getElementById('screen4');
+        var tableBody = '#taperTBody2';
+        var secondTB = document.getElementById('secondTB');
+        var captionName = 'drugNm2';
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            headers: {
+                'Content-Type': 'application/json', 
+                'Accept': '*/*',
+                'Authorization': 'Bearer '+ authToken
+            },
+            data: JSON.stringify({"regimenDTOList":
+            [{
+                "sleepMedication" : med2,
+                "currentDose" : floatDosage2,
+                "medicationDuration" : intDuration2,
+                "taperLength" : intTpLength2,
+                "conceptID" : conceptId2
+            }]
+        }),
+            success: function(result){
+                console.log(result);
+                $(result.tapaschedules).each(function(i, taper){
+                    document.getElementById(captionName).innerHTML  = taper.drugName;
+                    document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
+                    window.localStorage.setItem("taperLength1", originalTpLenth);
+                    //alert(taper.drugName);
+
+                    $(taper.weeklyDose).each(function(i, def){
+
+                        window["td"+i+1]= document.createElement('td');
+                        window["td"+i+1].style.border = '1px solid #dddddd';
+                        window["td"+i+1].style.textAlign = 'left';
+                        window["td"+i+1].style.padding = '8px';
+
+                        window["td"+i+2] = document.createElement('td');
+                        window["td"+i+2].style.border = '1px solid #dddddd';
+                        window["td"+i+2].style.textAlign = 'left';
+                        window["td"+i+2].style.padding = '8px';
+
+                        window["td"+i+3] = document.createElement('td');
+                        window["td"+i+3].style.border = '1px solid #dddddd';
+                        window["td"+i+3].style.textAlign = 'left';
+                        window["td"+i+3].style.padding = '8px';
+
+                        window["td"+i+4] = document.createElement('td');
+                        window["td"+i+4].style.border = '1px solid #dddddd';
+                        window["td"+i+4].style.textAlign = 'left';
+                        window["td"+i+4].style.padding = '8px';
+
+                        const selectList = document.createElement("select");
+                        selectList.style.width = '150px';
+                        $(def.dose_Combination).each(function(i, drop){
+                            const option = document.createElement("option");
+                            option.value = drop;
+                            option.text = drop;
+                            selectList.appendChild(option);
+                        })
+
+                        $(tableBody).append($("<tr>")
+                        .append($(window["td"+i+1]).append(i + 1))
+                        .append($(window["td"+i+2]).append(def.unrounded))
+                        .append($(window["td"+i+4]).append(def.newDose))
+                        .append($(window["td"+i+3]).append(selectList)));
+
+                        window["tdp2"+i+1] = document.createElement('td');
+                        window["tdp2"+i+1].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+1].style.textAlign = 'left';
+                        window["tdp2"+i+1].style.padding = '8px';
+
+                        window["tdp2"+i+2] = document.createElement('td');
+                        window["tdp2"+i+2].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+2].style.textAlign = 'left';
+                        window["tdp2"+i+2].style.padding = '8px';
+
+                        window["tdp2"+i+3] = document.createElement('td');
+                        window["tdp2"+i+3].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+3].style.textAlign = 'left';
+                        window["tdp2"+i+3].style.padding = '8px';
+
+                        window["tdp2"+i+4] = document.createElement('td');
+                        window["tdp2"+i+4].style.border = '1px solid #dddddd';
+                        window["tdp2"+i+4].style.textAlign = 'left';
+                        window["tdp2"+i+4].style.padding = '8px';
+
+                        const selectListPrint = document.createElement("select");
+                        selectListPrint.style.width = '150px';
+                        $(def.dose_Combination).each(function(i, dropPrint){
+                            const optionPrint = document.createElement("option");
+                            optionPrint.value = dropPrint;
+                            optionPrint.text = dropPrint;
+                            selectListPrint.appendChild(optionPrint);
+                        })
+
+                        $(tableBodyPrint).append($("<tr>")
+                        .append($(window["tdp2"+i+1]).append(i + 1))
+                        .append($(window["tdp2"+i+2]).append(def.unrounded))
+                        .append($(window["tdp2"+i+4]).append(def.newDose))
+                        .append($(window["tdp2"+i+3]).append(selectListPrint)));
+                    });
+
+                });
+
+                var weekNo2 = $('#taperTBody2 tr').length;
+                window.localStorage.setItem("weekNo2", weekNo2);
+                y.style.display = 'block';         
+                x.style.display = 'none';
+                secondTB.style.display = 'block';
+                //window.localStorage.setItem("medQuantity", 1);
+            }, 
+            error: function(msg){
+                $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
+            }
+        }); 
+            //}
+        
+    });
+
+
+    
 
 
     //Final Submit of Trial 2
@@ -1415,7 +1442,8 @@ $(document).ready(function () {
         var patID = window.localStorage.getItem("patientID");
         var med1 = window.localStorage.getItem("med1Store");
         var med2 = window.localStorage.getItem("med2Store");       
-        var tpLength = window.localStorage.getItem("taperLength");
+        var tpLength1 = window.localStorage.getItem("weekNo1");
+        var tpLength2 = window.localStorage.getItem("weekNo2");
         var tapperStartDate = window.localStorage.getItem("tapperStartDate");
         let conceptId1 = window.localStorage.getItem("conceptId1Store");
         
@@ -1448,7 +1476,7 @@ $(document).ready(function () {
                     "sleepMedication" : med1,
                     "currentDose" : floatDosage,
                     "medicationDuration" : intDuration,
-                    "taperLength" : tpLength,
+                    "taperLength" : tpLength1,
                     "tapperStartDate": tapperStartDate, 
                     "conceptID" : conceptId1
                     },
@@ -1456,7 +1484,7 @@ $(document).ready(function () {
                     "sleepMedication" : med2,
                     "currentDose" : floatDosage2,
                     "medicationDuration" : intDuration2,
-                    "taperLength" : tpLength,
+                    "taperLength" : tpLength2,
                     "tapperStartDate": tapperStartDate, 
                     "conceptID" : conceptId2
                     }]

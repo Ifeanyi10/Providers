@@ -37,7 +37,7 @@
             var password = $("#pass").val();
             var confirm_password = $("#confirmPass").val();
             if(password != confirm_password) {
-                $("#divCheckPasswordMatch").html("Your retyped password need to match to proceed!");
+                $("#divCheckPasswordMatch").html("Your re-typed Password does not match, please re-enter.");
             } else {
                 $("#divCheckPasswordMatch").html(" ");
                 bt.disabled = false;
@@ -121,9 +121,33 @@ function isEmail(email) {
     return RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i).test(email);
   };
 
+  function isMobile(ph) {
+    var phoneno = /^\+?([1]{1})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if(ph.match(phoneno)){
+        return true;
+    }else{
+        return false;
+    }
+  };
+
 
 $(document).ready(function () {
 
+    $('#phone').on('blur', function(e) {
+        var currentphone = e.target.value,
+            $phNode = $(this),
+            isValid = true;
+        
+        // Validate phone Number
+        if (!isMobile(currentphone)){
+            $("#errorMobileContainer").html("Invalid Canadian Phone Number pattern");
+            $phNode.addClass('is-error');
+        }else{
+            $("#errorMobileContainer").html(" ");
+            $phNode.addClass('is-valid');
+        }
+
+    });
 
     $("#usName").keyup(validateUsername);
         //validate provider email

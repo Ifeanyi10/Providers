@@ -231,6 +231,8 @@ function displaySreeen3() {
 
     if(firstSelectedValue != ""){
         prpareScreen3(firstSelectedValue, secondSelectedValue, drugOptions1)
+        document.querySelector('#idMedications2').innerHTML = '';
+        window.localStorage.setItem("med2Store", "");
     }
     if(secondSelectedValue != ""){
         prpareScreen3(secondSelectedValue, firstSelectedValue, drugOptions2)
@@ -274,6 +276,12 @@ $(document).ready(function () {
     //Go back to select another medication
     $('#btnGoBack').on('click', function(event){
         event.preventDefault();
+        $("#taperTable").find("tbody").empty(); //clear all the content from tbody here.
+        $("#taperTable2").find("tbody").empty(); //clear all the content from tbody here.
+        $("#taperTable1Print").find("tbody").empty(); //clear all the content from tbody here.
+        $("#taperTable2Print").find("tbody").empty(); //clear all the content from tbody here.
+        $("#taperTable3Print").find("tbody").empty(); //clear all the content from tbody here.
+
         var y = document.getElementById('screen4');
         y.style.display = 'none';
         displaySreeen3();

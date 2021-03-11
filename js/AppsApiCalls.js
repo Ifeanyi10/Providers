@@ -21,7 +21,7 @@ function fillAllFields(){
             bt.disabled = false;
             $("#ageError").html("");
         }else{
-            $("#ageError").html("Please ensure patient is up to 18 years");
+            $("#ageError").html("This app is for patients 18 years and older. Please confirm the age of the patient.");
         }
         
     } else {
@@ -39,7 +39,7 @@ function fillAllFields2(){
             bt.disabled = false;
             $("#ageError2").html("");
         }else{
-            $("#ageError2").html("Please ensure patient is up to 18 years");
+            $("#ageError2").html("This app is for patients 18 years and older. Please confirm the age of the patient.");
         }
     } else {
         bt.disabled = true;
@@ -126,6 +126,20 @@ function getConceptID(selecteValue){
     return conceptId;
 }
 
+function UpdateSelectedSingle(tableId){
+    $('#taperTable tbody tr').each(function(i, def) {
+        var selection = $(this).find('td:last option:selected').val();
+        document.getElementById(tableId).rows[i + 1].cells[3].innerHTML = selection;
+    });
+}
+
+function UpdateSelectedDouble(tableId){
+    $('#taperTable2 tbody tr').each(function(i, def) {
+        var selection = $(this).find('td:last option:selected').val();
+        document.getElementById(tableId).rows[i + 1].cells[3].innerHTML = selection;
+    });
+}
+
 //Display patient details
 function getPatDetatail(){
     var x = document.getElementById('duplicateScreen');
@@ -179,6 +193,57 @@ $(document).ready(function () {
     var btMed = document.getElementById('btnMedication');
     btMed.disabled = true;
     $('#idMedications1, #dosage').keyup(fillBasicMedicationFields);
+    
+     //Randomization Test
+     $('#btnTrial16').on('click', function(event){
+        event.preventDefault();
+        var firstName = document.getElementById("patFName").value;
+        var lastName = document.getElementById("patLName").value;
+        var age = document.getElementById("patAge").value;
+        var email = document.getElementById("patEmail").value;
+        //var email = '';
+        var gender= getTrial1Gender("optradio5");
+
+        var y = document.getElementById("printSample");
+        var dup = document.getElementById("duplicateScreen");
+        //alert(gender);
+        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/randomization';  
+
+        //window.localStorage.setItem("token", "7BCcz0Duefx7ioF/20us6aKso5voeaPBgn0L+siY+lM=");
+        //let authToken = window.localStorage.getItem("token");
+        $.ajax({
+            url: url,
+            type: 'POST',
+            headers: {
+                'Content-Type': 'application/json', 
+                'Accept': '*/*',
+                'Authorization': 'Bearer '+ authToken
+              },
+            data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "gender": gender, "email" : email, 
+            "trialType" : 1, "verify": false }),
+            success: function(result){
+
+                console.log(result);
+                document.getElementById('pBlock').innerHTML = result.block;
+                document.getElementById('pStrata').innerHTML = result.stratGroup;
+                document.getElementById('pStrataV').innerHTML = result.stratValue;
+                document.getElementById('pGroupID').innerHTML = result.studyGroupID;
+                document.getElementById('pGroupN').innerHTML= result.groupName;
+                swal({title: "Patient Randomized Successfully!!", text: "Click Ok to view details", type: "success"},
+                function(){ 
+                    //window.location.href = "provider-dashboard.html";
+                    y.style.display = 'block';         
+                    dup.style.display = 'none';
+                    }
+                );
+                
+            }, 
+            error: function(msg){
+                $("#errorDuplicateContainer").html("Unable to submit patient's record");
+                sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+            }
+        });
+    });
 
     //Trial 1
     $('#btnTrial1').on('click', function(event){
@@ -186,8 +251,8 @@ $(document).ready(function () {
         var firstName = document.getElementById("patFName").value;
         var lastName = document.getElementById("patLName").value;
         var age = document.getElementById("patAge").value;
-        //var email = document.getElementById("patEmail").value;
-        var email = '';
+        var email = document.getElementById("patEmail").value;
+        //var email = '';
         var gender= getTrial1Gender("optradio5");
 
         var x = document.getElementById("screen1");
@@ -240,7 +305,7 @@ $(document).ready(function () {
                     window.localStorage.setItem("patientID", result.id);
                     // document.getElementById('usName').innerHTML = result.userName;
                     // document.getElementById('ps').innerHTML= result.password;
-                    swal({title: "Patient Recommended Successfully!!", text: "Referral code generated. App Type: Trial 1", type: "success"},
+                    swal({title: "Patient Recommended Successfully!!", text: "Referral code generated. App Type: Health enSuite Insomnia Study", type: "success"},
                     function(){ 
                         //window.location.href = "provider-dashboard.html";
                         y.style.display = 'block';         
@@ -253,6 +318,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer").html("Unable to submit patient's record");
+                sweetAlert("Unable to submit patient's record","Please try again shortly","error");
             }
         });
     });
@@ -264,8 +330,8 @@ $(document).ready(function () {
         var firstName = document.getElementById("patFName").value;
         var lastName = document.getElementById("patLName").value;
         var age = document.getElementById("patAge").value;
-        //var email = document.getElementById("patEmail").value;
-        var email = '';
+        var email = document.getElementById("patEmail").value;
+        //var email = '';
         var gender= getTrial1Gender("optradio5");
 
         var y = document.getElementById("printSample");
@@ -293,7 +359,7 @@ $(document).ready(function () {
                 window.localStorage.setItem("patientID", result.id);
                 // document.getElementById('usName').innerHTML = result.userName;
                 // document.getElementById('ps').innerHTML= result.password;
-                swal({title: "Patient Recommended Successfully!!", text: "Referral code generated. App Type: Trial 1", type: "success"},
+                swal({title: "Patient Recommended Successfully!!", text: "Referral code generated. App Type: Health enSuite Insomnia Study", type: "success"},
                 function(){ 
                     //window.location.href = "provider-dashboard.html";
                     y.style.display = 'block';         
@@ -304,6 +370,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorDuplicateContainer").html("Unable to submit patient's record");
+                sweetAlert("Unable to submit patient's record","Please try again shortly","error");
             }
         });
     });
@@ -315,8 +382,8 @@ $(document).ready(function () {
         var firstName = document.getElementById("pat2FName").value;
         var lastName = document.getElementById("pat2LName").value;
         var age = document.getElementById("pat2Age").value;
-        //var email = document.getElementById("pat2Email").value;
-        var email = '';
+        var email = document.getElementById("pat2Email").value;
+        //var email = '';
         var gender= getTrial1Gender("optradio21");
         let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/create';
         let authToken = window.localStorage.getItem("token");
@@ -369,6 +436,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer2").html("Unable to submit patient's record");
+                sweetAlert("Unable to submit patient's record","Please try again shortly","error");
             }
         });
     });
@@ -380,8 +448,8 @@ $(document).ready(function () {
         var firstName = document.getElementById("pat2FName").value;
         var lastName = document.getElementById("pat2LName").value;
         var age = document.getElementById("pat2Age").value;
-        //var email = document.getElementById("pat2Email").value;
-        var email = '';
+        var email = document.getElementById("pat2Email").value;
+        //var email = '';
         var gender= getTrial1Gender("optradio21");
         let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/create';
         let authToken = window.localStorage.getItem("token");
@@ -416,6 +484,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorDuplicateContainer2").html("Unable to submit patient's record");
+                sweetAlert("Unable to submit patient's record","Please try again shortly","error");
             }
         });
     });
@@ -440,7 +509,7 @@ $(document).ready(function () {
             success: function(result){
                 console.log(result);
                 document.getElementById('refCode').innerHTML = patRefCode;
-                swal({title: "Patient moved to Trial 1!!", text: "The patient category is Trial 1", type: "success"},
+                swal({title: "Patient moved to Health enSuite Insomnia Study!!", text: "Your patient does not need to deprescribe his/her medication", type: "success"},
                 function(){ 
                     y.style.display = 'block';         
                     x.style.display = 'none';
@@ -451,6 +520,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Attempt made to move patient to Trial 1 failed.");
+                sweetAlert("Attempt made to move patient to Trial 1 failed.","Please try again shortly","error");
             }
         });
     }
@@ -643,6 +713,7 @@ $(document).ready(function () {
                         }, 
                         error: function(msg){
                             $("#errorContainer3").html("Unable to generate Taper Schedule for the two medications");
+                            sweetAlert("Unable to generate Taper Schedule for the two medications","Please try again shortly","error");
                             // document.getElementById('drugNm').innerHTML  = 'Chlordiazepoxide';
                             // $(tableBody).append($("<tr>")
                             // .append($("<td>").append(1))
@@ -814,6 +885,7 @@ $(document).ready(function () {
                         }, 
                         error: function(msg){
                             $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
+                            sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
                         }
                     });
                 }else{
@@ -969,7 +1041,8 @@ $(document).ready(function () {
                 //window.localStorage.setItem("medQuantity", 1);
             }, 
             error: function(msg){
-                $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
+                $("#errorContainer3").html("Unable to reset Taper Schedule generated for the medication");
+                sweetAlert("Unable to reset Taper Schedule generated for the medication","Please try again shortly","error");
             }
         }); 
             //}
@@ -1111,7 +1184,8 @@ $(document).ready(function () {
                 //window.localStorage.setItem("medQuantity", 1);
             }, 
             error: function(msg){
-                $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
+                $("#errorContainer3").html("Unable to reset Taper Schedule generated for the medication");
+                sweetAlert("Unable to reset Taper Schedule generated for the medication","Please try again shortly","error");
             }
         }); 
             //}
@@ -1276,6 +1350,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
+                sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
             }
         }); 
             //}
@@ -1425,6 +1500,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
+                sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
             }
         }); 
             //}
@@ -1461,6 +1537,14 @@ $(document).ready(function () {
                 let conceptId2 = window.localStorage.getItem("conceptId2Store");
                 let floatDosage2 = window.localStorage.getItem("dosage2Store");
                 let intDuration2 = window.localStorage.getItem("duration2Store");
+
+                // var source = document.getElementById('taperTable');
+                // var destination = document.getElementById('taperTable2Print');
+                // var copy = source.cloneNode(true);
+                // copy.setAttribute('id', 'taperTable2Print');
+                // destination.parentNode.replaceChild(copy, destination);
+                UpdateSelectedSingle('taperTable2Print');
+                UpdateSelectedDouble('taperTable3Print')
 
                 $.ajax({
                     url: url,
@@ -1501,11 +1585,13 @@ $(document).ready(function () {
                     }, 
                     error: function(msg){
                         $("#errorFinalContainer").html("Unable to submit final medication, please try again shortly");
+                        sweetAlert("Unable to submit final medication","Please try again shortly","error");
                     }
                 });
 
             }else{
-
+                //UpdateSelectedData('taperTable');
+                UpdateSelectedSingle('taperTable1Print');
                 $.ajax({
                     url: url,
                     type: 'POST',
@@ -1515,12 +1601,12 @@ $(document).ready(function () {
                         'Accept': '*/*',
                         'Authorization': 'Bearer '+ authToken
                     },
-                    data: JSON.stringify({"patientID": patID, "tapperStartDate": tapperStartDate, "regimenDTOList":
+                    data: JSON.stringify({"patientID": patID, "regimenDTOList":
                     [{
                         "sleepMedication" : med1,
                         "currentDose" : floatDosage,
                         "medicationDuration" : intDuration,
-                        "taperLength" : tpLength,
+                        "taperLength" : tpLength1,
                         "tapperStartDate": tapperStartDate, 
                         "conceptID" : conceptId1
                     }]
@@ -1535,6 +1621,7 @@ $(document).ready(function () {
                     }, 
                     error: function(msg){
                         $("#errorFinalContainer").html("Unable to submit final medication, please try again shortly");
+                        sweetAlert("Unable to submit final medication","Please try again shortly","error");
                     }
                 }); 
             }

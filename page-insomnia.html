@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-
+    
     <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
 
 </head>
@@ -58,11 +58,15 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="provider-dashboard.html">
-                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                <a href="patient-dashboard.html">
+                    <b class="logo-abbr">
+                        <!-- <img src="images/logo.png" alt="">  -->
+                    </b>
+                    <span class="logo-compact">
+                        <!-- <img src="./images/logo-compact.png" alt=""> -->
+                    </span>
                     <span class="brand-title">
-                        <img src="images/logo-text.png" alt="">
+                        <!-- <img src="images/logo-text.png" alt=""> -->
                     </span>
                 </a>
             </div>
@@ -179,7 +183,7 @@
                     <div class="col-lg-12" id="screen1">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title" id="elligHead">Eligibility Screening</h4>
+                                <h4 class="card-title colorPrimary" id="elligHead">Eligibility Screening</h4><hr><br>
                                 
                                 <div class="basic-form">
                                     <form id="formInsomnia">
@@ -191,16 +195,17 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly1();" id="prescNo" value="prescNo" name="optradio1"> No</label>
                                         </div>
+                                        
 
                                         <div class="form-group hidden" id="secondQ1">
-                                            <label class="lblQuestion">Is your patient taking benzodiazepines and/or Z-drugs for sleep <span class="placeholder" id="bzra"><b title="">?</b></span></label> 
+                                            <label class="lblQuestion">Is your patient taking benzodiazepines and/or Z-drugs <sup class="placeholder" id="bzra"><b title="">i</b></sup> for sleep?</label> 
                                                 <span class="glyphicon glyphicon-phone" data-toggle="tooltip" title="Call Us"></span>
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly2();" id="forSleepYes" name="optradio2"> Yes</label>
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly2();" id="forSleepNo" name="optradio2"> No</label><br/>
 
-                                            <input type='button' class='buttonBackTxt' onclick="goBack('secondQ1','firstQ');" value='Back'/>
+                                            <input type='button' class='btn-secondary' onclick="goBack('secondQ1','firstQ');" value='Back'/>
                                         </div>
 
                                         <div class="form-group hidden" id="thirdQ2">
@@ -210,11 +215,11 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly3();" id="notForSleepNo" name="optradio3"> No</label><br/>
 
-                                            <input type='button' class='buttonBackTxt' onclick="goBack('thirdQ2','secondQ1');" value='Back'/>
+                                            <input type='button' class='btn-secondary appBtnWith' onclick="goBackQ2('thirdQ2','secondQ1');" value='Back'/>
                                         </div>
 
                                         <div class="form-group hidden" id="thirdQ1">
-                                            <label class="lblQuestion">How many?</label>
+                                            <label class="lblQuestion">How many benzodiazepines and/or Z-drugs is your patient taking for sleep?</label>
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly4();" id="good" value="good" name="optradio4"> One(1)</label>
                                             <label class="radio-inline mr-3">
@@ -222,47 +227,47 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly4();" id="bad" value="bad" name="optradio4"> More Than Two(2)</label><br/>
 
-                                            <input type='button' class='buttonBackTxt' onclick="goBack('thirdQ1','secondQ1');" value='Back'/>
+                                            <input type='button' class='btn-secondary colorOff' onclick="goBack('thirdQ1','secondQ1');" value='Back'/>
                                         </div>
 
                                         <div class="hidden" id="trial1Demo">
 
                                             <div id='errorContainer'></div>
 
-                                            <label class="lblQuestion">Health enSuite Insomnia Study</label>
+                                            <label class="lblQuestion colorSubHeader">Health enSuite Insomnia Study</label>
 
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="patFName" placeholder="Patient First Name" required>
+                                                <input type="text" class="form-control" id="patFName" placeholder="Patient’s First Name" required>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="patLName"  placeholder="Patient Last Name" required>
+                                                <input type="text" class="form-control" id="patLName"  placeholder="Patient’s Last Name" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <input type="number" class="form-control" id="patAge" placeholder="Age (Years)" max="3" required>
                                             </div>
 
-                                            <div id='ageError' style="color: red; font-weight: bolder;"></div><br/>
+                                            <div id='ageError' style="color: red; font-weight: bolder;"></div>
 
                                             <div class="form-group">
                                                 <label class="lblQuestion">Gender:</label>
                                                 <label class="radio-inline mr-3">
-                                                    <input type="radio" id="t1Male" value="MALE" name="optradio5" checked> MALE</label>
+                                                    <input type="radio" id="t1Male" value="MALE" name="optradio5" checked> Male</label>
                                                 <label class="radio-inline mr-3">
-                                                    <input type="radio" id="t1Female" value="FEMALE" name="optradio5"> FEMALE</label>
+                                                    <input type="radio" id="t1Female" value="FEMALE" name="optradio5"> Female</label>
                                                 <label class="radio-inline mr-3">
-                                                    <input type="radio" id="t1Other" value="OTHER" name="optradio5"> OTHER</label>
+                                                    <input type="radio" id="t1Other" value="OTHER" name="optradio5"> Other</label>
                                             </div>
 
-                                            <!-- <div class="form-group">
-                                                <input type="email" class="form-control" id="patEmail"  placeholder="Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120">
-                                            </div> -->
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="patEmail"  placeholder="Patient’s Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120">
+                                            </div>
 
                                             
 
                                             <div class="general-button">
-                                                <button type="submit" id="btnBackTrial1" onclick="goBack('trial1Demo','thirdQ2');" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button>
-                                                <button type="button" class="btn mb-1 btn-outline-light" id="btnTrial1">Submit</button>
+                                                <button type="submit" class="btn-secondary" id="btnBackTrial1" onclick="goBack('trial1Demo','thirdQ2');" style="margin-right: 30px;">Back</button>
+                                                <button type="button" class="btn-primary goRight" id="btnTrial1">Submit</button>
                                             </div>
 
                                         </div>
@@ -311,7 +316,7 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly5();" id="willingNo" name="optradio6"> No</label><br/>
 
-                                            <input type='button' class='buttonBackTxt' onclick="goBack('fourthQ1','thirdQ1');" value='Back'/>
+                                            <input type='button' class='btn-secondary' onclick="goBack('fourthQ1','thirdQ1');" value='Back'/>
                                         </div>
 
                                         <div class="form-group hidden" id="fifthQ1">
@@ -321,7 +326,7 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly6();" id="t2NotForSleepNo" name="optradio7"> No</label><br/>
 
-                                            <input type='button' class='buttonBackTxt' onclick="goBack('fifthQ1','fourthQ1');" value='Back'/>
+                                            <input type='button' class='btn-secondary' onclick="goBack('fifthQ1','fourthQ1');" value='Back'/>
                                         </div>
 
 
@@ -329,37 +334,37 @@
 
                                             <div id='errorContainer2'></div>
 
-                                            <label class="lblQuestion">Health enSuite Insomnia and deprescribing Study</label>
+                                            <label class="lblQuestion colorSubHeader">Health enSuite Insomnia and deprescribing Study</label>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="pat2FName" placeholder="Patient First Name" required>
+                                                <input type="text" class="form-control" id="pat2FName" placeholder="Patient’s First Name" required>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="pat2LName"  placeholder="Patient Last Name" required>
+                                                <input type="text" class="form-control" id="pat2LName"  placeholder="Patient’s Last Name" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <input type="number" class="form-control" id="pat2Age" placeholder="Age (Years)" max="3" required>
                                             </div>
 
-                                            <div id='ageError2' style="color: red; font-weight: bolder;"></div><br/>
+                                            <div id='ageError2' style="color: red; font-weight: bolder;"></div>
 
                                             <div class="form-group">
                                                 <label class="lblQuestion">Gender:</label>
                                                 <label class="radio-inline mr-3">
-                                                    <input type="radio" id="t2Male" value="MALE" name="optradio21" checked> MALE</label>
+                                                    <input type="radio" id="t2Male" value="MALE" name="optradio21" checked> Male</label>
                                                 <label class="radio-inline mr-3">
-                                                    <input type="radio" id="t2Female" value="FEMALE" name="optradio21"> FEMALE</label>
+                                                    <input type="radio" id="t2Female" value="FEMALE" name="optradio21"> Female</label>
                                                 <label class="radio-inline mr-3">
-                                                    <input type="radio" id="t2Other" value="OTHER" name="optradio21"> OTHER</label>
+                                                    <input type="radio" id="t2Other" value="OTHER" name="optradio21"> Other</label>
                                             </div>
 
-                                            <!-- <div class="form-group">
-                                                <input type="email" class="form-control" id="pat2Email"  placeholder="Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
-                                            </div> -->
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="pat2Email"  placeholder="Patient’s Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                            </div>
 
                                             <div class="general-button">
-                                                <button type="submit" id="btnBackTrial2" onclick="goBack('trial2Demo','fifthQ1');" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button>
-                                                <button type="button" class="btn mb-1 btn-outline-light" id="btnTrial2">Submit</button>
+                                                <button type="submit" id="btnBackTrial2" onclick="goBack('trial2Demo','fifthQ1');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                <button type="button" class="btn-primary goRight" id="btnTrial2">Submit</button>
                                             </div>
 
                                         </div>
@@ -375,7 +380,7 @@
                         <div class="card">
                             <div class="card-body">
                                     <div id="printdivcontent">  
-                                        <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div><br/>
+                                        <div style= "text-align:center; font-weight: bold; color: #222222;">Health enSuite Insomnia</div><br/>
                                         <div style= "text-align:justify; ">  
                                             <label>Referral Code: </label> <label id="refCode" style="font-weight: bold;"></label>
                                         </div>  <br/>
@@ -398,13 +403,13 @@
                                             Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study. 
                                         </div><br/>
                                         <div style= "text-align:justify; ">  
-                                            Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5  
+                                            Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5.  
                                         </div> <br/>
                                         <div> Best regards,</div> 
                                         <div> Health enSuite team</div> 
                                     </div> <br/> 
                                     <div class="general-button">
-                                        <button type="button" class="btn mb-1 btn-outline-light" onclick="PrintDiv();" >Print</button>
+                                        <button type="button" class="btn-primary" onclick="PrintDiv();" >Print</button>
                                     </div> 
                             </div>
                         </div>
@@ -414,7 +419,7 @@
                     <div class="col-lg-12 hidden" id="duplicateScreen">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Record Exist</h4>
+                                <h4 class="card-title colorPrimary">Record Exist</h4><hr><br>
                                 <div class="table-responsive">
 
                                     <div id='errorDuplicateContainer'></div>
@@ -436,10 +441,18 @@
                                     </table>
                                     
                                 </div>
-                                <div class="general-button">
-                                    <button type="button" id="btnIgnoreDuplicate" class="btn mb-1 btn-warning">Ignore & Continue</button>
-                                    <button type="button" id="cancelSchedule" class="btn mb-1 btn-outline-light" onclick="cancelApplication();">Cancel Application</button>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <button type="submit" class="btn-secondary" onclick="goBack('duplicateScreen','trial1Demo');" style="margin-right: 30px;">Back</button>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <button type="button" id="cancelSchedule" class="btn-outline-danger" onclick="cancelApplication();">Cancel Application</button>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <button type="button" id="btnIgnoreDuplicate" class="btn-primary goRight">Ignore & Continue</button>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -448,7 +461,7 @@
                     <div class="col-lg-12 hidden" id="duplicateScreen2">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Record Exist</h4>
+                                <h4 class="card-title colorPrimary">Record Exist</h4><hr><br>
                                 <div class="table-responsive">
 
                                     <div id='errorDuplicateContainer2'></div>
@@ -469,9 +482,17 @@
                                     </table>
                                     
                                 </div>
-                                <div class="general-button">
-                                    <button type="button" id="btnIgnoreDuplicate2" class="btn mb-1 btn-warning">Ignore & Continue</button>
-                                    <button type="button" id="cancelSchedule2" class="btn mb-1 btn-outline-light" onclick="cancelApplication();">Cancel Application</button>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <button type="submit" class="btn-secondary" onclick="goBack('duplicateScreen2','trial2Demo');" style="margin-right: 30px;">Back</button>
+                                    </div>
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-3">
+                                        <button type="button" id="cancelSchedule2" class="btn-outline-danger" onclick="cancelApplication();">Cancel</button>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <button type="button" id="btnIgnoreDuplicate2" class="btn-primary goRight">Ignore & Continue</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -481,14 +502,14 @@
                     <div class="col-lg-12 hidden" id="screen2">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">BZRAs Currently Prescribed</h4>
+                                <h4 class="card-title colorPrimary">BZRAs Currently Prescribed</h4><hr><br>
                                 
                                 <div class="basic-form">
                                     
                                     <form id="medForm">
                                         <div class="form-group" id="disp1">
                                             <div class="scrollit">
-                                            <label class="lblQuestion">Select the BZRA medication(s) the patient is currently taking regularly for insomnia: No more than two may be selected.</label>
+                                            <label class="lblQuestion colorSubHeader">Select the BZRA medication(s) the patient is currently taking regularly for insomnia: No more than two may be selected.</label>
 
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
@@ -565,9 +586,10 @@
                                                 <button type="button" id="btnMedSelect" class="btn mb-1 btn-outline-light" onclick="displaySreeen3();" disabled>Next</button>
                                             </div> 
                                         </form> -->
+
                                         <div class="general-button">
-                                            <button type="submit" id="btnBackScreen2" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button>
-                                            <button type="button" id="btnMedSelect" class="btn mb-1 btn-outline-light" onclick="displaySreeen3();" disabled>Next</button>
+                                            <button type="submit" id="btnBackScreen2" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                            <button type="button" id="btnMedSelect" class="btn-primary goRight" onclick="displaySreeen3();" disabled>Next</button>
                                         </div>
                                     </form>
                                     
@@ -580,16 +602,16 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">BZRA Regimen Details</h4>
+                                <h4 class="card-title colorPrimary">BZRA Regimen Details</h4><hr><br>
                                 <div class="basic-form">
                                     <form>
                                         <div id='errorContainer3'></div>
 
                                         <div class="lblQuestion">This page is designed to capture the starting point for the medication tapering. 
                                             If the patient is tapering their current medication, enter the dose that is currently being taken. This may be different from the dose that was prescribed.  
-                                            You may want to consider switching your patient to a new medication before tapering. If this is the case, choose the new medication from the drop down list and enter the starting dose for this new medication. <span class="placeholder" id="regimen"><b title="">?</b></span>
-                                        </div>
-                                        <label class="lblQuestion">Medication 1:</label>
+                                            You may want to consider switching your patient to a new medication before tapering. If this is the case, choose the new medication from the drop down list and enter the starting dose for this new medication. <span class="placeholder" id="regimen"><b title="">i</b></span>
+                                        </div></br>
+                                        <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px; margin-top: 10px;">Medication 1:</label>
                                         <div class="form-group">
                                             <select id="idMedications1" class="form-control"></select>
                                         </div>
@@ -612,7 +634,7 @@
                                         </div>
 
                                         <div class="hidden" id="med2">
-                                            <label class="lblQuestion">Medication 2:</label>
+                                            <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px; margin-top: 10px;">Medication 2:</label>
 
                                             <div class="form-group">
                                                 <select id="idMedications2" class="form-control"></select>
@@ -644,10 +666,9 @@
                                                 <button type="button" id="btnMedication" class="btn mb-1 btn-outline-light">Next</button>
                                             </div> 
                                         </form> -->
-
                                         <div class="general-button">
-                                            <button type="submit" id="btnBackScreen3" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button>
-                                            <button type="button" id="btnMedication" class="btn mb-1 btn-outline-light">Next</button>
+                                            <button type="submit" id="btnBackScreen3" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                            <button type="button" id="btnMedication" class="btn-primary goRight">Next</button>
                                         </div>
 
                                     </form>
@@ -657,18 +678,9 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Note</h4>
-                                <p class="text-muted"><code></code>
-                                </p>
-                                <div id="accordion-one" class="accordion">
-                                    <div class="card">
-                                        <!-- <div class="card-header">
-                                            <h5 class="mb-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><i class="fa" aria-hidden="true"></i> Accordion Header One</h5>
-                                        </div> -->
-                                        <div id="collapseOne" class="collapse show" data-parent="#accordion-one">
-                                            <div class="card-body">Some BZRAs are not easily tapered due to dosage formulation limitation. This includes capsules (chlordiazepoxide, clorazepate, flurazepam, temazepam) and specially formulated tablets (zolpidem orally disintegrating tablets). You may wish to switch to an equivalent dose of an alternative BZRA available in multiple tablet strengths that can further split into smaller doses. Taper schedule are available for shorter (oxazepam), intermediate (lorazepam), and longer (clonazepam) half-life BZRAs.</div>
-                                        </div>
-                                    </div>
+                                <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Note</label>
+                                <div style="font-style: italic;">
+                                    Some BZRAs are not easily tapered due to dosage formulation limitation. This includes capsules (chlordiazepoxide, clorazepate, flurazepam, temazepam) and specially formulated tablets (zolpidem orally disintegrating tablets). You may wish to switch to an equivalent dose of an alternative BZRA available in multiple tablet strengths that can further split into smaller doses. Taper schedule are available for shorter (oxazepam), intermediate (lorazepam), and longer (clonazepam) half-life BZRAs.
                                 </div>
                             </div>
                         </div>
@@ -679,24 +691,11 @@
                     <div class="col-lg-12 hidden" id="screen4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Taper Schedule Adjustment</h4>
-                                <form class="form-inline">
-                                    <div class="form-group mx-sm-3 mb-2">
-                                        <button type="submit" id="btnGoBack" class="btn btn-dark mb-2">Back</button>
-                                        
-                                    </div>
-                                    
-                                </form>
-                            </div>
-                        </div>
-                        <div class="scrollit">
+                                <h4 class="card-title colorPrimary">Proposed Taper Schedule</h4><hr><br>
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    <h4>Proposed Taper Schedule</h4>
-                                </div>
-                                <div class="basic-form">
+                                <div class="scrollit">
+
+                                <!-- <div class="basic-form">
                                     <form class="form-inline" style="margin-bottom: 25px;">
                                         <div class="form-group mx-sm-3 mb-2">
                                             <label class="sr-only">Password</label>
@@ -704,7 +703,7 @@
                                         </div>
                                         <div class="form-group mb-2">
                                             <label class="sr-only">Recompute 1</label>
-                                            <!-- <label class="lblAdjust">Increase or decrease the total number of weeks and click 'Recompute'</label> -->
+                                            
                                             
                                         </div>
                                         <button type="submit" id="btnRecompute" class="btn btn-dark mb-2">Recompute Med 1</button>
@@ -716,11 +715,24 @@
                                         </div>
                                         
                                     </form>
-                                </div></br>
+                                </div></br> -->
 
                                 <div class="table-responsive">
-                                    <div style="font-weight: bold;">Medication 1</div><br/>
-                                    <div id="drugNm" style="font-weight: bold;"></div>
+
+                                    <label class="lblQuestion colorSubHeader">Medication 1: </label> <label class="lblQuestion colorSubHeader" id="drugNm"></label>
+                                    <div class="row">
+                                        <div class="col-lg-3"></div>
+                                        <div class="col-lg-3" style="padding: 25px;">
+                                            <input type="number" class="form-control" id="tpLength" name="tpLength" placeholder="Taper Length" minlength="1" maxlength="3" style="width: 80%; display: inline-block; margin-right: 5px;"> <span class="placeholder" id="tipTapLength" style="display: inline-block;"><b title="">i</b></span>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="submit" id="btnRecompute" class="buttonBackTxt btnColorPrimary">Recompute</button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="submit" id="btnReset" class="buttonBackTxt colorSec">Reset</button> <span class="placeholder" id="tipReset"><b title="">i</b></span>
+                                        </div>
+                                    </div>
+
                                     <table class="table table-bordered" id="taperTable">
                                         <thead id="taperTHead">
                                             
@@ -776,15 +788,14 @@
 
                                 <div class="table-responsive hidden" id="secondTB">
 
-                                    <div class="basic-form">
+                                    <!-- <div class="basic-form">
                                         <form class="form-inline" style="margin-bottom: 25px;">
                                             <div class="form-group mx-sm-3 mb-2">
                                                 <label class="sr-only">Password</label>
-                                                <input type="number" class="form-control" id="tpLength2" name="tpLength2" placeholder="Taper Length" minlength="1" maxlength="4"> <span class="placeholder" id="tipTapLength"><b title="">?</b></span>
+                                                <input type="number" class="form-control" id="tpLength2" name="tpLength2" placeholder="Taper Length" minlength="1" maxlength="4"> <span class="placeholder" id="tipTapLength2"><b title="">?</b></span>
                                             </div>
                                             <div class="form-group mb-2">
                                                 <label class="sr-only">Recompute 2</label>
-                                                <!-- <label class="lblAdjust">Increase or decrease the total number of weeks and click 'Recompute'</label> -->
                                                 
                                             </div>
                                             <button type="submit" id="btnRecompute2" class="btn btn-dark mb-2">Recompute Med 2</button>
@@ -792,14 +803,30 @@
     
                                         <form class="form-inline">
                                             <div class="form-group mx-sm-3 mb-2">
-                                                <button type="submit" id="btnReset2" class="btn btn-dark mb-2">Reset Med 2</button> <span class="placeholder" id="tipReset"><b title="">?</b></span>
+                                                <button type="submit" id="btnReset2" class="btn btn-dark mb-2">Reset Med 2</button> <span class="placeholder" id="tipReset2"><b title="">?</b></span>
                                             </div>
                                             
                                         </form>
                                     </div>
 
                                     <div style="font-weight: bold;">Medication 2</div><br/>
-                                    <div id="drugNm2" style="font-weight: bold;"></div>
+                                    <div id="drugNm2" style="font-weight: bold;"></div> -->
+
+
+                                    <label class="lblQuestion colorSubHeader">Medication 2: </label> <label class="lblQuestion colorSubHeader" id="drugNm2"></label>
+                                    <div class="row">
+                                        <div class="col-lg-3"></div>
+                                        <div class="col-lg-3" style="padding: 25px;">
+                                            <input type="number" class="form-control" id="tpLength2" name="tpLength2" placeholder="Taper Length" minlength="1" maxlength="3" style="width: 80%; display: inline-block; margin-right: 5px;"> <span class="placeholder" id="tipTapLength2" style="display: inline-block;"><b title="">i</b></span>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="submit" id="btnRecompute2" class="buttonBackTxt btnColorPrimary">Recompute</button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="submit" id="btnReset2" class="buttonBackTxt colorSec">Reset</button> <span class="placeholder" id="tipReset"><b title="">i</b></span>
+                                        </div>
+                                    </div>
+
                                     <table class="table table-bordered" id="taperTable2">
                                         <thead id="taperTHead2">
                                             <tr>
@@ -814,26 +841,27 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
 
                             </div>
                         </div>
 
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Taper Start Date</h4>
+                                <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Taper Start Date</label>
                                 <div class="basic-form">
                                     <form class="form-inline">
                                         <div class="form-group mb-2">
                                             <label class="lblAdjust">Select a start date for this taper schedule within the next 2 weeks</label>
                                             <!-- <input type="text" readonly="readonly" size="50" class="form-control-plaintext" value="Increase or decrease the total number of weeks and click 'Recompute'"> -->
                                         </div>
-                                        <input type="text" class="form-control bootstrapMaterialDatePicker" onchange="validateStartDate();" placeholder="YYYY-MM-DD" id="mdate"> <span class="placeholder" id="tipStartDate"><b title="">?</b></span>
+                                        <!-- <input type="text" class="form-control bootstrapMaterialDatePicker" onchange="validateStartDate();" placeholder="YYYY-MM-DD" id="mdate"> <span class="placeholder" id="tipStartDate"><b title="">?</b></span> -->
+                                        <input type='text' class="form-control" id="datepicker" onchange="validateStartDate();" data-date-start-date="0d" data-date-end-date="+14d" data-date-format="yyyy-mm-dd" data-date-autoclose="true" placeholder='Select Taper Start Date' style="margin-right: 10px;"> <span class="placeholder" id="tipStartDate"><b title="">i</b></span>
                                     </form>
 
-                                    <form class="form-inline">
+                                    <form class="form-inline" style="margin-top: 20px; font-style: italic;">
                                         <div class="form-group mb-2">
-                                            <label class="lblAdjust"><strong>This program is currently designed to support patients who are willing to start tapering within 2 weeks</strong></label>
-                                            <!-- <input type="text" readonly="readonly" size="50" class="form-control-plaintext" value="Increase or decrease the total number of weeks and click 'Recompute'"> -->
+                                            <label class="lblAdjust">This program is currently designed to support patients who are willing to start tapering within 2 weeks</label>
                                         </div>
                                        
                                     </form>
@@ -841,9 +869,10 @@
 
                             </div>
                         </div>
-                    </div>  
+
                         <div class="general-button">
-                            <button type="button" id="btnStartDate" class="btn mb-1 btn-outline-light" onclick="displaySreeen5();" disabled>Next</button>
+                            <button type="submit" id="btnGoBack" class="btn-secondary">Back</button>
+                            <button type="button" id="btnStartDate" class="btn-primary goRight" onclick="displaySreeen5();" disabled>Next</button>
                         </div>
                     </div>
 
@@ -852,7 +881,7 @@
                     <div class="col-lg-12 hidden" id="screen5">
                         <div class="card">
                             <div class="card-body">
-                                <!-- <h4 class="card-title">BZRAs Currently Prescribed</h4> -->
+                                <h4 class="card-title colorPrimary">Confirm Recommendation</h4><hr><br>
                                 <div id='errorFinalContainer'></div>
                                 <div class="basic-form">
                                     <form id="medFormFinal">
@@ -871,10 +900,20 @@
                                                     Insomnia Study.</label>
                                             </div>
                                         </div>
-                                        <div class="general-button">
-                                            <button type="button" id="btnSubmitTrial2" class="btn mb-1 btn-outline-light" disabled>Submit</button>
-                                            <button type="button" class="btn mb-1 btn-outline-danger">Cancel</button>
+
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <button type="submit" id="btnBackScreen5" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                            </div>
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-lg-3">
+                                                <button type="button" class="btn-outline-danger" onclick="cancelApplication();">Cancel</button>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <button type="button" id="btnSubmitTrial2" class="btn-primary goRight">Submit</button>
+                                            </div>
                                         </div>
+
                                     </form>
                                 </div>
                             </div>
@@ -885,9 +924,7 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <div class="card-title">
-                                    <h4>Print Schedule</h4>
-                                </div>
+                                <h4 class="card-title colorPrimary">Print Schedule</h4><hr><br>
 
                         <div id="printOneNow">
                             <div id="printdivcontent1" style= "page-break-after: always;">  
@@ -982,13 +1019,24 @@
                                             
                                         </tbody>
                                     </table>
-                                </div>
+                                </div><br/><br/>
+                                <div style=" width: 100%; margin: 0 auto;">
+                                    <div style="display: inline-block; width: 50%; float: left;">
+                                        <input type="text" style="border: 0; border-bottom: 1px solid #000;" />
+                                        <div style= "font-weight: bold;">Provider’s signature</div>
+                                    </div>
+    
+                                    <div style="display: inline-block; width: 50%; float: left;">
+                                        <input type="text" style="border: 0; border-bottom: 1px solid #000;" />
+                                        <div style= "font-weight: bold;">Date</div>
+                                    </div>
+                                </div> 
                             </div>
 
                             </div>
 
                             <div class="general-button">
-                                <button type="button" class="btn mb-1 btn-outline-light" onclick="PrintDiv2();" >Print</button>
+                                <button type="button" class="btn-primary" onclick="PrintDiv2();" >Print</button>
                             </div> 
 
                         </div>
@@ -1029,7 +1077,7 @@
                                 Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study. 
                             </div><br/>
                             <div style= "text-align:justify; ">  
-                                Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5  
+                                Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5.
                             </div> <br/>
                             <div> Best regards,</div> 
                             <div> Health enSuite team</div> 
@@ -1116,23 +1164,23 @@
                                 </table>
                             </div><br/><br/>
 
-                            <div style=" width: 100%; margin: 0 auto;">
-                                <div style="display: inline-block; width: 50%; float: left;">
-                                    <input type="text" style="border: 0; border-bottom: 1px solid #000;" />
-                                    <div style= "font-weight: bold;">Prescriber’s signature</div>
-                                </div>
+                                <div style=" width: 100%; margin: 0 auto;">
+                                    <div style="display: inline-block; width: 50%; float: left;">
+                                        <input type="text" style="border: 0; border-bottom: 1px solid #000;" />
+                                        <div style= "font-weight: bold;">Provider’s signature</div>
+                                    </div>
 
-                                <div style="display: inline-block; width: 50%; float: left;">
-                                    <input type="text" style="border: 0; border-bottom: 1px solid #000;" />
-                                    <div style= "font-weight: bold;">Date</div>
-                                </div>
+                                    <div style="display: inline-block; width: 50%; float: left;">
+                                        <input type="text" style="border: 0; border-bottom: 1px solid #000;" />
+                                        <div style= "font-weight: bold;">Date</div>
+                                    </div>
                                 </div>  
                             </div>
 
                         </div>
 
                         <div class="general-button">
-                            <button type="button" class="btn mb-1 btn-outline-light" onclick="PrintDiv3();" >Print</button>
+                            <button type="button" class="btn-primary" onclick="PrintDiv3();" >Print</button>
                         </div> 
                     </div>
                 </div>

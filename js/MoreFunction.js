@@ -9,11 +9,12 @@ $(function () {
 });
 
 function logout(){
-    window.localStorage.removeItem("token");
+    window.localStorage.clear();
+    //sessionStorage.clear();
 }
 
 function notEligibleAlert(){
-    swal({title: "Oops...", text: "This patient is not ELIGIBLE!! This tool is only designed to help patients reduce and stop up to two BZRAs for insomnia.", type: "error"},
+    swal({title: "This patient is not ELIGIBLE!", text: "This tool is only designed to help patients reduce and stop up to two BZRAs for insomnia.", type: "error"},
                 function(){ 
                     window.location.href = "provider-dashboard.html";
                 }
@@ -150,7 +151,7 @@ function prpareScreen3(dispalyValue, otherDisplayValeu, medOptions){
 
 function validateStartDate(){
     var bt = document.getElementById('btnStartDate');
-    var stDate = $("#mdate").val();
+    var stDate = $("#datepicker").val();
     window.localStorage.setItem("tapperStartDate", stDate);
 
     if(stDate != '') {
@@ -270,6 +271,28 @@ function goBack(firstDisplay, secondDisplay){
     y.style.display = 'block';
 }
 
+function goBackQ2(firstDisplay, secondDisplay){
+    var x = document.getElementById(firstDisplay);
+    var y = document.getElementById(secondDisplay);
+    
+    x.style.display = 'none';
+    if(document.getElementById('prescNo').checked){
+        document.getElementById('firstQ').style.display = 'block';
+    }else{
+        y.style.display = 'block';
+    }  
+}
+
+
+//Go back to screen 2
+$('#btnBackScreen5').on('click', function(event){
+    event.preventDefault();
+    var x = document.getElementById('screen4');
+    var y = document.getElementById('screen5');
+
+    y.style.display = 'none';         
+    x.style.display = 'block';
+});
 
 $(document).ready(function () {
 
@@ -307,8 +330,6 @@ $(document).ready(function () {
 
 
  });
-
-
 
 
  function PrintDiv() {  
@@ -411,13 +432,13 @@ for (i = 0; i < checkboxes.length; i++) {
 }
 
 $('#bzra').tooltip({
-    title: "BZRAs is a benzodiazepine receptor agonists and includes the benzodiazepines and Z-drugs. Patients...",
+    title: "BZRAs are benzodiazepine receptor agonists and include the benzodiazepines and Z-drugs. Patients taking over-the-counter medications (e.g., Gravol, Benedryl, Sleep-Eze, Advil, Tylenol, and other night time formulations), tricyclic antidepressants (e.g., Amitriptyline) and other medications like Seroquel, Trazodone are eligible to use this tool. However, these medications cannot be tapered using this tool.",
     placement: "right",
-    trigger: 'hover'
+    trigger: 'hover' 
 })
 
 $('#regimen').tooltip({
-    title: "Some BZRAs are not easily tapered due to dosage formulation limitations. This includes...",
+    title: "Some BZRAs are not easily tapered due to dosage formulation limitations. This includes capsules (chlordiazepoxide, clorazepate, flurazepam, temazepam) and specially formulated tablets (zolpidem orally disintegrating tablets). You may wish to switch to an equivalent dose of an alternative BZRA available in multiple tablet strengths that can be further split into smaller doses. Taper schedules are available for shorter (oxazepam), intermediate (lorazepam), and longer (clonazepam) half-life BZRAs.",
     placement: "right",
     trigger: 'hover'
 })
@@ -429,15 +450,28 @@ $('#tipTapLength').tooltip({
     trigger: 'hover'
 })
 
-$('#tipReset').tooltip({
-    title: "Click 'Reset' to return to the original computer generated taper schedule",
+$('#tipTapLength2').tooltip({
+    title: "Increase or decrease the total number of weeks and click 'Recompute'",
     placement: "right",
     trigger: 'hover'
 })
+
+$('#tipReset').tooltip({
+    title: "Click 'Reset' to return to the original computer generated taper schedule for medication 1",
+    placement: "right",
+    trigger: 'hover'
+})
+
+$('#tipReset2').tooltip({
+    title: "Click 'Reset' to return to the original computer generated taper schedule for medication 2",
+    placement: "right",
+    trigger: 'hover'
+})
+
 tipStartDate
 
 $('#tipStartDate').tooltip({
-    title: "This program is currently designed to support patients who are willing to start tapering within 2 weeks",
+    title: "Select a start date for this taper schedule within the next 2 weeks. ",
     placement: "right",
     trigger: 'hover'
 })

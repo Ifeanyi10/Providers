@@ -48,7 +48,7 @@
     
 </head>
 
-<body class="h-100" ng-app="myapp">
+<body class="h-100 colorBackground" ng-app="myapp">
     
     <!--*******************
         Preloader start
@@ -73,10 +73,11 @@
             <div class="row justify-content-center h-100">
                 <div class="col-xl-6">
                     <div class="form-input-content" >
+                        <h4 class="bigHead">Health enSuite</h4>
                         <div class="card2 login-form mb-0">
                             <div class="card-body pt-5">
                                 
-                                    <a class="text-center" href="page-login.html"> <h4>Health enSuite Provider Sign Up</h4></a>
+                                    <a class="text-center" href="page-login.html"> <h4>Provider Sign Up</h4></a>
         
                                 <form class="mt-5 mb-5 login-input" id="regForm">
                                     <div id='errorContainer'></div>
@@ -109,7 +110,7 @@
                                     <div id='errorEmailContainer'></div>
 
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Mobile Number" pattern="\\+{1}[0-9]{10,15}$" min="10" max="15"/>
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Mobile Number" pattern="\\+{1}[0-9]{10,15}$" min="10" max="15" title="Only Canadian number with code is allowed E.g +1 000 111 2222" data-toggle="tooltip" data-placement="right"/> 
                                     </div>
                                     <div id='errorMobileContainer'></div>
 
@@ -175,7 +176,7 @@
                                         </div>
                                     </div>
 
-                                    <button class="btn login-form__btn submit w-100" id="btnSubmit">Sign Up</button>
+                                    <button class="btn mb-1 btn-info" id="btnSubmit">Sign Up</button>
                                 </form>
                                     <p class="mt-5 login-form__footer">Have account? <a href="index.html" class="text-primary">Sign In </a> instead</p>
                                     </p>
@@ -202,7 +203,7 @@
     <!-- <script src="js/MoreFunction.js"></script> -->
     <script src="js/apiCalls.js"></script>
     <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
-    <script src="js/jquery.backstretch.js" type="text/javascript"></script>
+    <!-- <script src="js/jquery.backstretch.js" type="text/javascript"></script>
     <script type="text/javascript">
         'use strict';
 
@@ -223,7 +224,7 @@
                 fade: 2000
             }
         );
-	</script>
+	</script> -->
 
 </body>
 </html>

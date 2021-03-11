@@ -35,7 +35,7 @@ function retrieveRefCode(){
             
         }, 
         error: function(msg){
-            sweetAlert("Oops...","Unable to retrieve Ref. Code. Please try again shortly","error");
+            sweetAlert("Unable to retrieve Referral Code!","Please try again shortly","error");
         }
     });
 

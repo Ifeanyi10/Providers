@@ -128,10 +128,12 @@ function isEmail(email) {
     }else{
         return false;
     }
-  };
+  }
 
 
 $(document).ready(function () {
+
+    $('[data-toggle="tooltip"]').tooltip()
 
     $('#phone').on('blur', function(e) {
         var currentphone = e.target.value,
@@ -140,11 +142,11 @@ $(document).ready(function () {
         
         // Validate phone Number
         if (!isMobile(currentphone)){
-            $("#errorMobileContainer").html("Invalid Canadian Phone Number pattern");
-            $phNode.addClass('is-error');
+            $("#errorMobileContainer").html("Invalid phone number. Enter a valid phone number.");
+            $(this).css("border","1px solid red");
         }else{
             $("#errorMobileContainer").html(" ");
-            $phNode.addClass('is-valid');
+            $(this).css("border",".5px solid #BCBCBC");
         }
 
     });
@@ -160,7 +162,7 @@ $(document).ready(function () {
         
         // Validate email
         if (!isEmail(currentEmail)){
-            $("#errorEmailContainer").html("Invalid email address pattern");
+            $("#errorEmailContainer").html("Invalid email address. Enter a valid email address");
             return;
         }
          
@@ -181,7 +183,7 @@ $(document).ready(function () {
                     $emailNode.addClass('is-valid');
                 } else{
                     $("#errorEmailContainer").html("Email address exist");
-                    sweetAlert("ALERT","Email address exist!","error");
+                    sweetAlert("Email address exist!","","error");
                     $emailNode.addClass('is-error');
                     bt.disabled = true;
                 } 
@@ -189,7 +191,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorEmailContainer").html("Email address exist");
-                sweetAlert("ALERT","Email address exist!","error");
+                sweetAlert("Email address exist!","","error");
                 $emailNode.addClass('is-error');
                 bt.disabled = true;
             }
@@ -234,7 +236,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer").html("Unable to register");
-                sweetAlert("Oops...","Account creation failed!!","error");
+                sweetAlert("Account creation failed!","Please try again shortly","error");
             }
         });
     });

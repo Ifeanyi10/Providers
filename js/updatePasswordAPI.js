@@ -20,7 +20,7 @@ function validateNewEmail(){
     var password = $("#newPass").val();
     var confirm_password = $("#confirmNewPass").val();
     if(password != confirm_password) {
-        $("#divCheckUpdatePWordMatch").html("Passwords does not match yet!");
+        $("#divCheckUpdatePWordMatch").html("The passwords you have entered do not match. Please re-enter.");
     } else {
         $("#divCheckUpdatePWordMatch").html(" ");
         bt.disabled = false;
@@ -77,7 +77,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer").html("Unable to register");
-                sweetAlert("Oops...","Password change unseccessful! Please eensure you type your current password correctly","error");
+                sweetAlert("Change of password not successful!","Please ensure you typed your current password correctly","error");
             }
         });
     });
@@ -117,7 +117,7 @@ $(document).ready(function () {
                     confEmail.disabled = false;
                 } else{
                     $("#divEmailErrorMsg").html("Email address already exist");
-                    sweetAlert("ALERT","Email address exist!","error");
+                    sweetAlert("Email address exist!","","error");
                     $emailNode.addClass('is-error');
                     bt.disabled = true;
                     confEmail.disabled = true;
@@ -126,7 +126,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#divEmailErrorMsg").html("Email address already exist");
-                //sweetAlert("ALERT","Email address exist!","error");
+                sweetAlert("Email address exist!","","error");
                 $emailNode.addClass('is-error');
                 bt.disabled = true;
             }
@@ -173,7 +173,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer").html("Unable to register");
-                sweetAlert("Oops...","Failed to update Email Address. Please try again shortly.","error");
+                sweetAlert("Failed to update Email Address","Please try again shortly.","error");
             }
         });
     });
@@ -219,7 +219,7 @@ $(document).ready(function () {
                 console.log(msg);
                 console.log(msg.status);
                 $("#errorContainer").html("Unable to register");
-                sweetAlert("Oops...","Failed to update Full Name. Please try again shortly.","error");
+                sweetAlert("Failed to update Full Name","Please try again shortly.","error");
             }
         });
     });

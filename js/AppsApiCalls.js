@@ -303,9 +303,10 @@ $(document).ready(function () {
                 else{
                     document.getElementById('refCode').innerHTML = result.referalCode;
                     window.localStorage.setItem("patientID", result.id);
+                    window.localStorage.setItem("patientName", firstName+" "+lastName);
                     // document.getElementById('usName').innerHTML = result.userName;
                     // document.getElementById('ps').innerHTML= result.password;
-                    swal({title: "Patient Recommended Successfully!!", text: "Referral code generated. App Type: Health enSuite Insomnia Study", type: "success"},
+                    swal({title: "Patient Recommended To Health enSuite Insomnia Study Successfully!", text: "Click OK to view/print the referral code.", type: "success"},
                     function(){ 
                         //window.location.href = "provider-dashboard.html";
                         y.style.display = 'block';         
@@ -357,6 +358,7 @@ $(document).ready(function () {
                 
                 document.getElementById('refCode').innerHTML = result.referalCode;
                 window.localStorage.setItem("patientID", result.id);
+                window.localStorage.setItem("patientName", firstName+" "+lastName);
                 // document.getElementById('usName').innerHTML = result.userName;
                 // document.getElementById('ps').innerHTML= result.password;
                 swal({title: "Patient Recommended Successfully!!", text: "Referral code generated. App Type: Health enSuite Insomnia Study", type: "success"},

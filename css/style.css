@@ -143,6 +143,12 @@ html {
     display: none;
   }
 
+  /* @media print{
+    div{
+      page-break-inside: avoid;
+    }
+  } */
+
   .tooltip {
     padding: 0.25rem 0.5rem;
     color: #fff;

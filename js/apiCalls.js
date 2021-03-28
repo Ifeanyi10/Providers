@@ -122,8 +122,11 @@ function isEmail(email) {
   };
 
   function isMobile(ph) {
-    var phoneno = /^\+?([1]{1})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    //var phoneno = /^\+?([1]{1})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    var phoneno = /^[+]?[1]?[-. (]?([0-9]{3})[)-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    //var phoneno = /^[+]?[01]?[- .]?(\([2-9]\d{2}\)|[2-9]\d{2})[- .]?\d{3}[- .]?\d{4}$/;
     if(ph.match(phoneno)){
+        console.log('Good!!!')
         return true;
     }else{
         return false;
@@ -132,6 +135,8 @@ function isEmail(email) {
 
 
 $(document).ready(function () {
+
+    emailIsElligible = false;
 
     $('[data-toggle="tooltip"]').tooltip()
 
@@ -179,19 +184,22 @@ $(document).ready(function () {
                 console.log(result);
                 // Finally update the state for the current field
                 if (!result) {
+                    emailIsElligible = true;
                     $("#errorEmailContainer").html("");
                     $emailNode.addClass('is-valid');
                 } else{
+                    emailIsElligible = false;
                     $("#errorEmailContainer").html("Email address exist");
-                    sweetAlert("Email address exist!","","error");
+                    sweetAlert("Email address exist!","Please use another email address","error");
                     $emailNode.addClass('is-error');
                     bt.disabled = true;
                 } 
                 
             }, 
             error: function(msg){
+                emailIsElligible = false;
                 $("#errorEmailContainer").html("Email address exist");
-                sweetAlert("Email address exist!","","error");
+                sweetAlert("Email address exist!","Please use another email address","error");
                 $emailNode.addClass('is-error');
                 bt.disabled = true;
             }
@@ -216,29 +224,39 @@ $(document).ready(function () {
         var aboutUs= getHowYouHearAboutUs();
         var otherMeans = document.getElementById("otherField");
         let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/create';
-        $.ajax({
-            url: url,
-            type: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-                'Accept': '*/*'
-            },
-            data: JSON.stringify({"email": email, "howyouheardaboutUse": aboutUs,
-                "mailingAddress": mailAddress, "name": provName, "password": password, "phonenumber": phone, 
-                "province": province, "username": username}),
-            success: function(result){
-                console.log(result);
-                swal({title: "Health enSuite welcomes you!!", text: "Your account has been created successfully. An activation link has been sent to your email address!!", type: "success"},
-                function(){ 
-                    window.location.href = "index.html";
-                }
-                );
-            }, 
-            error: function(msg){
-                $("#errorContainer").html("Unable to register");
-                sweetAlert("Account creation failed!","Please try again shortly","error");
+
+        if(emailIsElligible == true){
+            if(email == username){
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'Accept': '*/*'
+                    },
+                    data: JSON.stringify({"email": email, "howyouheardaboutUse": aboutUs,
+                        "mailingAddress": mailAddress, "name": provName, "password": password, "phonenumber": phone, 
+                        "province": province, "username": username}),
+                    success: function(result){
+                        console.log(result);
+                        swal({title: "Health enSuite welcomes you!!", text: "Your account has been created successfully. An activation link has been sent to your email address. Please click on the link to validate your account.", type: "success"},
+                        function(){ 
+                            window.location.href = "index.html";
+                        }
+                        );
+                    }, 
+                    error: function(msg){
+                        $("#errorContainer").html("Unable to register");
+                        sweetAlert("Account creation failed!","Please try again shortly","error");
+                    }
+                });
+            }else{
+                sweetAlert("Username and Email address does not match!","Your username should be the same with your email address","error");
             }
-        });
+        }else{
+            sweetAlert("Email address exist!","Please use another email address","error");
+        }
+
     });
 
 });

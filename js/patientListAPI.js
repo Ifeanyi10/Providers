@@ -9,9 +9,11 @@ function retrieveRefCode(){
     //this gives id of tr whose button was clicked 
     var data = document.getElementById(rowId).querySelectorAll("td");    
     /*returns array of all elements  within the row with given id*/ 
-    var pID = data[0].innerHTML; 
+    //var pID = data[0].innerHTML; 
+    //console.log(rowId)
+    //console.log(pID)
     //alert("Patient ID: " + pID); 
-    let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/retrieveRefcode/'+ pID;  
+    let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/retrieveRefcode/'+ rowId;  
 
     let authToken = window.localStorage.getItem("token");
     $.ajax({

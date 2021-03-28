@@ -333,9 +333,12 @@ $(document).ready(function () {
 
 
  function PrintDiv() {  
+    var patName =  "Health enSuite Team - " + window.localStorage.getItem("patientName");
     var divContents = document.getElementById("printdivcontent").innerHTML;  
     var printWindow = window.open('', '', 'height=800,width=800');  
-    printWindow.document.write('<html><head><title>Health enSuite Team</title>');  
+    printWindow.document.write('<html><head><title>');  
+    printWindow.document.write(patName); 
+    printWindow.document.write('</title>'); 
     printWindow.document.write('</head><body >');  
     printWindow.document.write(divContents);  
     printWindow.document.write('</body></html>');  
@@ -345,9 +348,12 @@ $(document).ready(function () {
 
 
 function PrintDiv2() {  
+    var patName =  "Health enSuite Team - " + window.localStorage.getItem("patientName");
     var divContents = document.getElementById("printOneNow").innerHTML;  
     var printWindow = window.open('', '', 'height=800,width=800');  
-    printWindow.document.write('<html><head><title>Health enSuite Team</title>');  
+    printWindow.document.write('<html><head><title>');  
+    printWindow.document.write(patName); 
+    printWindow.document.write('</title>');  
     printWindow.document.write('</head><body >');  
     printWindow.document.write(divContents);  
     printWindow.document.write('</body></html>');  
@@ -356,9 +362,12 @@ function PrintDiv2() {
 } 
 
 function PrintDiv3() {  
+    var patName =  "Health enSuite Team - " + window.localStorage.getItem("patientName");
     var divContents = document.getElementById("printTwoNow").innerHTML;  
     var printWindow = window.open('', '', 'height=800,width=800');  
-    printWindow.document.write('<html><head><title>Health enSuite Team</title>');  
+    printWindow.document.write('<html><head><title>');  
+    printWindow.document.write(patName); 
+    printWindow.document.write('</title>'); 
     printWindow.document.write('</head><body >');  
     printWindow.document.write(divContents);  
     printWindow.document.write('</body></html>');  

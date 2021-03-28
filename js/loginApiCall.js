@@ -17,7 +17,7 @@ function isEmail(email) {
         data: JSON.stringify({"code": username}),
         success: function(result){
             console.log(result);
-            swal({title: "Email Address Received!!", text: "A reset password link will be sent to this email address if it has a valid account!!", type: "success"},
+            swal({title: "Email Address Received!", text: "A reset password link will be sent to this email address if it has a valid account.", type: "success"},
             function(){ 
                 window.location.href = "index.html";
             }
@@ -26,13 +26,13 @@ function isEmail(email) {
         error: function(msg){
             console.log(msg);
             if(msg){
-                swal({title: "Email Address Received!!", text: "A reset password link will be sent to this email address if it has a valid account!!", type: "success"},
+                swal({title: "Email Address Received!", text: "A reset password link will be sent to this email address if it has a valid account.", type: "success"},
                     function(){ 
                         window.location.href = "index.html";
                     }
                 );
             }else{
-                sweetAlert("Username does not exist!.","","error");
+                sweetAlert("Username does not exist!","","error");
             }
             
         }
@@ -41,9 +41,15 @@ function isEmail(email) {
 
 $(document).ready(function () {
 
+    let errorNote = window.localStorage.getItem("loginError");
+    if(errorNote == "true"){
+        sweetAlert("Failed To Load Account Details!!","Please check your network and login again","error");
+    }
+
     //Login Provider
     $('#btnSignin').on('click', function(event){
         event.preventDefault();
+        window.localStorage.clear();
         var username = document.getElementById('username').value;
         var password = document.getElementById('pass').value;
         let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/authentication/login';
@@ -91,7 +97,7 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 //$("#errorContainer").html("Incorrect Username or Password");
-                sweetAlert("Incorrect username or password!!","Please confirm your login credentials and try again","error");
+                sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
             }
         });
     });
@@ -104,7 +110,7 @@ $(document).ready(function () {
         // Validate email
         if (!isEmail(username)){
             //$("#errorEmailContainer").html("Invalid email address. Enter a valid email address");
-            sweetAlert("Invalid email address!","Enter a valid email address","error");
+            sweetAlert("Invalid email address!","Enter a valid email address.","error");
             return;
         }
          
@@ -121,7 +127,7 @@ $(document).ready(function () {
                 console.log(result);
                 // Finally update the state for the current field
                 if (!result) {
-                    sweetAlert("Username does not exist!","Please enter your current username and try again","error");
+                    sweetAlert("Username does not exist!","Please enter your current username and try again.","error");
                 } else{                   
                     receiveEmail(username);
                 } 
@@ -131,7 +137,7 @@ $(document).ready(function () {
                 if(msg.status == 409 && msg.responseJSON == true){
                     receiveEmail(username);
                 }else{
-                    sweetAlert("Unable to confirm username!","Please try again shortly","error");
+                    sweetAlert("Unable to confirm username!","Please try again shortly.","error");
                 }
                 
             }

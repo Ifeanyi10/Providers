@@ -15,13 +15,18 @@
     <script language="javascript">
 
         window.onload = function getProviderProfile(){
-
-                                    document.getElementById('provProfName').innerHTML =  window.localStorage.getItem("providerName");
-                                    document.getElementById('provProfEmail').innerHTML =  window.localStorage.getItem("providerEmail");
-                                    document.getElementById('provProfPh').innerHTML =  window.localStorage.getItem("providerPhone");
-                                    document.getElementById('provProfMailAdd').innerHTML =  window.localStorage.getItem("providerAddress");
-                                    document.getElementById('provProfProvice').innerHTML =  window.localStorage.getItem("providerProvince");
-       
+                                    window.localStorage.setItem("loginError", false);
+                                    let proName = window.localStorage.getItem("providerName");
+                                    if(proName == " "){
+                                        window.localStorage.setItem("loginError", true);
+                                        window.location.href = "index.html";
+                                    }else{
+                                        document.getElementById('provProfName').innerHTML =  window.localStorage.getItem("providerName");
+                                        document.getElementById('provProfEmail').innerHTML =  window.localStorage.getItem("providerEmail");
+                                        document.getElementById('provProfPh').innerHTML =  window.localStorage.getItem("providerPhone");
+                                        document.getElementById('provProfMailAdd').innerHTML =  window.localStorage.getItem("providerAddress");
+                                        document.getElementById('provProfProvice').innerHTML =  window.localStorage.getItem("providerProvince");
+                                    }
                         }
     
           </script>
@@ -55,7 +60,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="patient-dashboard.html">
+                <a href="provider-dashboard.html">
                     <b class="logo-abbr">
                         <!-- <img src="images/logo.png" alt="">  -->
                     </b>
@@ -179,7 +184,7 @@
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4 col-xl-6">
+                    <div class="col-lg-6 col-xl-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media align-items-center mb-4">

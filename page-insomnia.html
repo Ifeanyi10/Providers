@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    
+
     <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
 
 </head>
@@ -47,7 +47,7 @@
         Preloader end
     ********************-->
 
-    
+
     <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -58,7 +58,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="patient-dashboard.html">
+                <a href="provider-dashboard.html">
                     <b class="logo-abbr">
                         <!-- <img src="images/logo.png" alt="">  -->
                     </b>
@@ -78,18 +78,18 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">    
+        <div class="header">
             <div class="header-content clearfix">
-                
+
                 <div class="nav-control">
                     <div class="hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                 </div>
-                
+
                 <div class="header-right">
                     <ul class="clearfix">
-                        
+
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
@@ -115,7 +115,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar">           
+        <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">Provider Dashboard</li>
@@ -141,8 +141,8 @@
                             <li><a href="./layout-horizontal.html">Horizontal</a></li>
                             <li><a href="./layout-boxed.html">Boxed</a></li>
                             <li><a href="./layout-wide.html">Wide</a></li>
-                            
-                            
+
+
                             <li><a href="./layout-fixed-header.html">Fixed Header</a></li>
                             <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li> -->
                         </ul>
@@ -179,15 +179,15 @@
 
             <div class="container-fluid mt-3">
                 <div class="row">
-                    
+
                     <div class="col-lg-12" id="screen1">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary" id="elligHead">Eligibility Screening</h4><hr><br>
-                                
+
                                 <div class="basic-form">
                                     <form id="formInsomnia">
-                                        
+
                                         <div class="form-group" id="firstQ">
                                             <label class="lblQuestion">Is your patient currently prescribed any medication(s) to treat insomnia?</label>
                                             <label class="radio-inline mr-3">
@@ -195,10 +195,10 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly1();" id="prescNo" value="prescNo" name="optradio1"> No</label>
                                         </div>
-                                        
+
 
                                         <div class="form-group hidden" id="secondQ1">
-                                            <label class="lblQuestion">Is your patient taking benzodiazepines and/or Z-drugs <sup class="placeholder" id="bzra"><b title="">i</b></sup> for sleep?</label> 
+                                            <label class="lblQuestion">Is your patient taking benzodiazepines and/or Z-drugs <sup class="placeholder" id="bzra"><b title="">i</b></sup> for sleep?</label>
                                                 <span class="glyphicon glyphicon-phone" data-toggle="tooltip" title="Call Us"></span>
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly2();" id="forSleepYes" name="optradio2"> Yes</label>
@@ -263,50 +263,59 @@
                                                 <input type="email" class="form-control" id="patEmail"  placeholder="Patient’s Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120">
                                             </div>
 
-                                            
+                                            <div class="row">
+                                                <div class="col-lg-3"></div>
+                                                <div class="col-lg-3">
+                                                    <button type="submit" class="btn-secondary goRight" id="btnBackTrial1" onclick="goBack('trial1Demo','thirdQ2');" style="margin-right: 30px;">Back</button>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <button type="button" class="btn-primary " id="btnTrial1">Submit</button>
+                                                </div>
+                                                <div class="col-lg-3"></div>
+                                            </div>
 
-                                            <div class="general-button">
+                                            <!-- <div class="general-button">
                                                 <button type="submit" class="btn-secondary" id="btnBackTrial1" onclick="goBack('trial1Demo','thirdQ2');" style="margin-right: 30px;">Back</button>
                                                 <button type="button" class="btn-primary goRight" id="btnTrial1">Submit</button>
-                                            </div>
+                                            </div> -->
 
                                         </div>
 
 
 
                                         <!-- <div id="printSample" class="hidden">
-                                            <div id="printdivcontent">  
+                                            <div id="printdivcontent">
                                                 <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div><br/>
-                                                <div style= "text-align:justify; ">  
+                                                <div style= "text-align:justify; ">
                                                     <label>Referral Code: </label> <label id="refCode" style="font-weight: bold;"></label>
                                                 </div>  <br/>
-                                                <div style= "text-align:justify; ">  
+                                                <div style= "text-align:justify; ">
                                                     <label>Username: </label> <label id="usName" style="font-weight: bold;"></label>
                                                 </div>  <br/>
-                                                <div style= "text-align:justify; ">  
+                                                <div style= "text-align:justify; ">
                                                     <label>Password: </label> <label id="ps" style="font-weight: bold;"></label>
                                                 </div>  <br/>
-                                                <div style= "text-align:justify; ">  
-                                                    Here are the steps to follow to be able to access the Health enSuite Insomnia app: 
+                                                <div style= "text-align:justify; ">
+                                                    Here are the steps to follow to be able to access the Health enSuite Insomnia app:
                                                 </div> <br/>
-                                                <div style= "text-align:justify; ">  
-                                                    Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.  
+                                                <div style= "text-align:justify; ">
+                                                    Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                                                 </div> <br/>
-                                                <div style= "text-align:justify; ">  
-                                                    Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here. 
+                                                <div style= "text-align:justify; ">
+                                                    Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here.
                                                 </div><br/>
-                                                <div style= "text-align:justify; ">  
-                                                    Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study. 
+                                                <div style= "text-align:justify; ">
+                                                    Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study.
                                                 </div><br/>
-                                                <div style= "text-align:justify; ">  
-                                                    Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5  
+                                                <div style= "text-align:justify; ">
+                                                    Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5
                                                 </div> <br/>
-                                                <div> Best regards,</div> 
-                                                <div> Health enSuite team</div> 
-                                            </div> <br/> 
+                                                <div> Best regards,</div>
+                                                <div> Health enSuite team</div>
+                                            </div> <br/>
                                             <div class="general-button">
                                                 <button type="button" class="btn mb-1 btn-outline-light" onclick="PrintDiv();" >Print</button>
-                                            </div> 
+                                            </div>
                                         </div> -->
 
                                         <div class="form-group hidden" id="fourthQ1">
@@ -362,10 +371,21 @@
                                                 <input type="email" class="form-control" id="pat2Email"  placeholder="Patient’s Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
                                             </div>
 
-                                            <div class="general-button">
+                                            <div class="row">
+                                                <div class="col-lg-3"></div>
+                                                <div class="col-lg-3">
+                                                    <button type="submit" id="btnBackTrial2" onclick="goBack('trial2Demo','fifthQ1');" class="btn-secondary goRight" style="margin-right: 30px;">Back</button>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <button type="button" class="btn-primary" id="btnTrial2">Submit</button>
+                                                </div>
+                                                <div class="col-lg-3"></div>
+                                            </div>
+
+                                            <!-- <div class="general-button">
                                                 <button type="submit" id="btnBackTrial2" onclick="goBack('trial2Demo','fifthQ1');" class="btn-secondary" style="margin-right: 30px;">Back</button>
                                                 <button type="button" class="btn-primary goRight" id="btnTrial2">Submit</button>
-                                            </div>
+                                            </div> -->
 
                                         </div>
 
@@ -379,38 +399,50 @@
                     <div class="col-lg-12 hidden" id="printSample">
                         <div class="card">
                             <div class="card-body">
-                                    <div id="printdivcontent">  
+                                    <div id="printdivcontent">
                                         <div style= "text-align:center; font-weight: bold; color: #222222;">Health enSuite Insomnia</div><br/>
-                                        <div style= "text-align:justify; ">  
+                                        <div style= "text-align:justify; ">
                                             <label>Referral Code: </label> <label id="refCode" style="font-weight: bold;"></label>
                                         </div>  <br/>
-                                        <!-- <div style= "text-align:justify; ">  
+                                        <!-- <div style= "text-align:justify; ">
                                             <label>Username: </label> <label id="usName" style="font-weight: bold;"></label>
                                         </div>  <br/>
-                                        <div style= "text-align:justify; ">  
+                                        <div style= "text-align:justify; ">
                                             <label>Password: </label> <label id="ps" style="font-weight: bold;"></label>
                                         </div>  <br/> -->
-                                        <div style= "text-align:justify; ">  
-                                            Here are the steps to follow to be able to access the Health enSuite Insomnia app: 
+                                        <div style= "text-align:justify; ">
+                                            Here are the steps to follow to be able to access the Health enSuite Insomnia app:
                                         </div> <br/>
-                                        <div style= "text-align:justify; ">  
-                                            Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.  
+                                        <div style= "text-align:justify; ">
+                                            Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                                         </div> <br/>
-                                        <div style= "text-align:justify; ">  
-                                            Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here. 
+                                        <div style= "text-align:justify; ">
+                                            Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here.
                                         </div><br/>
-                                        <div style= "text-align:justify; ">  
-                                            Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study. 
+                                        <div style= "text-align:justify; ">
+                                            Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study.
                                         </div><br/>
-                                        <div style= "text-align:justify; ">  
-                                            Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5.  
+                                        <div style= "text-align:justify; ">
+                                            Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5.
                                         </div> <br/>
-                                        <div> Best regards,</div> 
-                                        <div> Health enSuite team</div> 
-                                    </div> <br/> 
+                                        <div> Best regards,</div>
+                                        <div> Health enSuite team</div>
+                                    </div> <br/>
+
+                                    <!-- <div class="row">
+                                        <div class="col-lg-3"></div>
+                                        <div class="col-lg-3">
+                                            <button type="submit" class="btn-secondary goRight" id="btnBackTrial1" onclick="goBack('trial1Demo','thirdQ2');" style="margin-right: 30px;">Back</button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn-primary " id="btnTrial1">Submit</button>
+                                        </div>
+                                        <div class="col-lg-3"></div>
+                                    </div> -->
                                     <div class="general-button">
-                                        <button type="button" class="btn-primary" onclick="PrintDiv();" >Print</button>
-                                    </div> 
+                                        <button type="button" class="btn-primary" onclick="PrintDiv();" style="margin-right: 60px;">Print</button>
+                                        <button type="button" class="btn-colorSec" onclick="cancelApplication();" >Back To Home</button>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -423,7 +455,7 @@
                                 <div class="table-responsive">
 
                                     <div id='errorDuplicateContainer'></div>
-                                    
+
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
                                             <tr>
@@ -437,9 +469,9 @@
                                             </tr>
                                         </thead>
                                         <tbody id="duplicateTBody"></tbody>
-                                        
+
                                     </table>
-                                    
+
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4">
@@ -478,9 +510,9 @@
                                             </tr>
                                         </thead>
                                         <tbody id="duplicate2TBody"></tbody>
-                                        
+
                                     </table>
-                                    
+
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3">
@@ -503,9 +535,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary">BZRAs Currently Prescribed</h4><hr><br>
-                                
+
                                 <div class="basic-form">
-                                    
+
                                     <form id="medForm">
                                         <div class="form-group" id="disp1">
                                             <div class="scrollit">
@@ -584,15 +616,26 @@
                                             </div>
                                             <div class="form-group mx-sm-3 mb-2">
                                                 <button type="button" id="btnMedSelect" class="btn mb-1 btn-outline-light" onclick="displaySreeen3();" disabled>Next</button>
-                                            </div> 
+                                            </div>
                                         </form> -->
 
-                                        <div class="general-button">
+                                        <div class="row">
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-lg-3">
+                                                <button type="submit" id="btnBackScreen2" class="btn-secondary goRight" style="margin-right: 30px;">Back</button>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <button type="button" id="btnMedSelect" class="btn-primary" onclick="displaySreeen3();" disabled>Next</button>
+                                            </div>
+                                            <div class="col-lg-3"></div>
+                                        </div>
+
+                                        <!-- <div class="general-button">
                                             <button type="submit" id="btnBackScreen2" class="btn-secondary" style="margin-right: 30px;">Back</button>
                                             <button type="button" id="btnMedSelect" class="btn-primary goRight" onclick="displaySreeen3();" disabled>Next</button>
-                                        </div>
+                                        </div> -->
                                     </form>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -607,8 +650,8 @@
                                     <form>
                                         <div id='errorContainer3'></div>
 
-                                        <div class="lblQuestion">This page is designed to capture the starting point for the medication tapering. 
-                                            If the patient is tapering their current medication, enter the dose that is currently being taken. This may be different from the dose that was prescribed.  
+                                        <div class="lblQuestion">This page is designed to capture the starting point for the medication tapering.
+                                            If the patient is tapering their current medication, enter the dose that is currently being taken. This may be different from the dose that was prescribed.
                                             You may want to consider switching your patient to a new medication before tapering. If this is the case, choose the new medication from the drop down list and enter the starting dose for this new medication. <span class="placeholder" id="regimen"><b title="">i</b></span>
                                         </div></br>
                                         <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px; margin-top: 10px;">Medication 1:</label>
@@ -639,11 +682,11 @@
                                             <div class="form-group">
                                                 <select id="idMedications2" class="form-control"></select>
                                             </div>
-    
+
                                             <div class="form-group">
                                                 <input type="number" class="form-control" id="dosage2" name="dosage2" placeholder="Current dose (mg)" minlength="10" disabled/>
                                             </div>
-    
+
                                             <div class="form-group">
                                                 <select id="inputDuration2" onchange="checkDuration();" class="form-control">
                                                     <option value="">Duration of medication (e.g less than 14 days)</option>
@@ -664,12 +707,24 @@
                                             </div>
                                             <div class="form-group mx-sm-3 mb-2">
                                                 <button type="button" id="btnMedication" class="btn mb-1 btn-outline-light">Next</button>
-                                            </div> 
+                                            </div>
                                         </form> -->
-                                        <div class="general-button">
+
+                                        <div class="row">
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-lg-3">
+                                                <button type="submit" id="btnBackScreen3" class="btn-secondary goRight" style="margin-right: 30px;">Back</button>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <button type="button" id="btnMedication" class="btn-primary">Next</button>
+                                            </div>
+                                            <div class="col-lg-3"></div>
+                                        </div>
+
+                                        <!-- <div class="general-button">
                                             <button type="submit" id="btnBackScreen3" class="btn-secondary" style="margin-right: 30px;">Back</button>
                                             <button type="button" id="btnMedication" class="btn-primary goRight">Next</button>
-                                        </div>
+                                        </div> -->
 
                                     </form>
                                 </div>
@@ -703,8 +758,8 @@
                                         </div>
                                         <div class="form-group mb-2">
                                             <label class="sr-only">Recompute 1</label>
-                                            
-                                            
+
+
                                         </div>
                                         <button type="submit" id="btnRecompute" class="btn btn-dark mb-2">Recompute Med 1</button>
                                     </form>
@@ -713,7 +768,7 @@
                                         <div class="form-group mx-sm-3 mb-2">
                                             <button type="submit" id="btnReset" class="btn btn-dark mb-2">Reset Med 1</button> <span class="placeholder" id="tipReset"><b title="">?</b></span>
                                         </div>
-                                        
+
                                     </form>
                                 </div></br> -->
 
@@ -735,7 +790,7 @@
 
                                     <table class="table table-bordered" id="taperTable">
                                         <thead id="taperTHead">
-                                            
+
                                             <tr>
                                                 <th>Taper week</th>
                                                 <th>Provider recommended taper dose (mg)</th>
@@ -749,7 +804,7 @@
                                                 <td>Week 1</td>
                                                 <td>Alprazolam</td>
                                                 <td>
-                                                    <select class="selectAdjust">        
+                                                    <select class="selectAdjust">
                                                     <option value="volvo">10</option>
                                                     <option value="saab">7.5</option>
                                                     <option value="mercedes">5</option>
@@ -784,7 +839,7 @@
                                     </table>
                                 </div><br/></br>
 
-                                
+
 
                                 <div class="table-responsive hidden" id="secondTB">
 
@@ -796,16 +851,16 @@
                                             </div>
                                             <div class="form-group mb-2">
                                                 <label class="sr-only">Recompute 2</label>
-                                                
+
                                             </div>
                                             <button type="submit" id="btnRecompute2" class="btn btn-dark mb-2">Recompute Med 2</button>
                                         </form>
-    
+
                                         <form class="form-inline">
                                             <div class="form-group mx-sm-3 mb-2">
                                                 <button type="submit" id="btnReset2" class="btn btn-dark mb-2">Reset Med 2</button> <span class="placeholder" id="tipReset2"><b title="">?</b></span>
                                             </div>
-                                            
+
                                         </form>
                                     </div>
 
@@ -837,7 +892,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="taperTBody2">
-                                            
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -863,17 +918,28 @@
                                         <div class="form-group mb-2">
                                             <label class="lblAdjust">This program is currently designed to support patients who are willing to start tapering within 2 weeks</label>
                                         </div>
-                                       
+
                                     </form>
                                 </div>
 
                             </div>
                         </div>
 
-                        <div class="general-button">
+                        <div class="row">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-3">
+                                <button type="submit" id="btnGoBack" class="btn-secondary goRight" style="margin-right: 30px;">Back</button>
+                            </div>
+                            <div class="col-lg-3">
+                                <button type="button" id="btnStartDate" class="btn-primary" onclick="displaySreeen5();" disabled>Next</button>
+                            </div>
+                            <div class="col-lg-3"></div>
+                        </div>
+
+                        <!-- <div class="general-button">
                             <button type="submit" id="btnGoBack" class="btn-secondary">Back</button>
                             <button type="button" id="btnStartDate" class="btn-primary goRight" onclick="displaySreeen5();" disabled>Next</button>
-                        </div>
+                        </div> -->
                     </div>
 
 
@@ -886,17 +952,17 @@
                                 <div class="basic-form">
                                     <form id="medFormFinal">
                                         <div class="form-group">
-                                            
+
                                             <div class="lblQuestion">The tapering schedule is ready to print. Please confirm that this patient has insomnia
                                                 and would benefit from cognitive behavioural therapy.
                                             </div>
-                                            
+
                                         </div>
                                         <div class="form-group">
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" id="chkLast" class="form-check-input" value="" onchange="validateLastSubmit();">Cognitive behavioural therapy is recommended 
-                                                    for <label id="pName" style="font-weight: bold;"></label>. I would like to refer <label id="pFirstName" style="font-weight: bold;"></label> to Health enSuite 
+                                                    <input type="checkbox" id="chkLast" class="form-check-input" value="" onchange="validateLastSubmit();">Cognitive behavioural therapy is recommended
+                                                    for <label id="pName" style="font-weight: bold;"></label>. I would like to refer <label id="pFirstName" style="font-weight: bold;"></label> to Health enSuite
                                                     Insomnia Study.</label>
                                             </div>
                                         </div>
@@ -927,36 +993,36 @@
                                 <h4 class="card-title colorPrimary">Print Schedule</h4><hr><br>
 
                         <div id="printOneNow">
-                            <div id="printdivcontent1" style= "page-break-after: always;">  
+                            <div id="printdivcontent1" style= "page-break-after: always;">
                                 <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div>
                                 <div style= "text-align:center; font-weight: bold;">Referral Instructions</div><br/>
-                                <div style= "text-align:justify; ">  
+                                <div style= "text-align:justify; ">
                                     <label>Referral Code: </label> <label id="refCode1" style="font-weight: bold;"></label>
                                 </div>  <br/>
-                                <!-- <div style= "text-align:justify; ">  
+                                <!-- <div style= "text-align:justify; ">
                                     <label>Username: </label> <label id="usName1" style="font-weight: bold;"></label>
                                 </div>  <br/>
-                                <div style= "text-align:justify; ">  
+                                <div style= "text-align:justify; ">
                                     <label>Password: </label> <label id="ps1" style="font-weight: bold;"></label>
                                 </div>  <br/> -->
-                                <div style= "text-align:justify; ">  
-                                    Here are the steps to follow to be able to access the Health enSuite Insomnia app: 
+                                <div style= "text-align:justify; ">
+                                    Here are the steps to follow to be able to access the Health enSuite Insomnia app:
                                 </div> <br/>
-                                <div style= "text-align:justify; ">  
-                                    Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.  
+                                <div style= "text-align:justify; ">
+                                    Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                                 </div> <br/>
-                                <div style= "text-align:justify; ">  
-                                    Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here. 
+                                <div style= "text-align:justify; ">
+                                    Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here.
                                 </div><br/>
-                                <div style= "text-align:justify; ">  
-                                    Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study. 
+                                <div style= "text-align:justify; ">
+                                    Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study.
                                 </div><br/>
-                                <div style= "text-align:justify; ">  
-                                    Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5  
+                                <div style= "text-align:justify; ">
+                                    Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5
                                 </div> <br/>
-                                <div> Best regards,</div> 
-                                <div> Health enSuite team</div> 
-                            </div> <br/> 
+                                <div> Best regards,</div>
+                                <div> Health enSuite team</div>
+                            </div> <br/>
 
                             <div class="hidden" id="printdivcontent2" style= "page-break-after: always;">
 
@@ -964,27 +1030,27 @@
                                 <div style= "text-align:center; font-weight: bold;">Recommended Sleep Medication Tapering Schedule</div><br/>
 
                                 <div style= "text-align:left; font-weight: bold;">Provider information</div><br/>
-                                <div style= "text-align:justify; ">  
+                                <div style= "text-align:justify; ">
                                     <label>Name: </label> <label id="provName" style="font-weight: bold;"></label>
                                 </div>  <br/>
-                                <div style= "text-align:justify; ">  
+                                <div style= "text-align:justify; ">
                                     <label>Address: </label> <label id="provAdd" style="font-weight: bold;"></label>
                                 </div>  <br/>
-                                <div style= "text-align:justify; ">  
+                                <div style= "text-align:justify; ">
                                     <label>Phone: </label> <label id="provPh" style="font-weight: bold;"></label>
                                 </div>  <br/><br/>
 
-                                <div style= "text-align:justify; ">  
+                                <div style= "text-align:justify; ">
                                     <label>Patient Name: </label> <label id="patiName" style="font-weight: bold;"></label>
                                 </div>  <br/>
-                                <div style= "text-align:justify; ">  
+                                <div style= "text-align:justify; ">
                                     <label>Date Issued: </label> <label id="myDate" style="font-weight: bold;"></label>
                                 </div>  <br/>
-                                
-                                <div style= "text-align:justify; ">  
-                                    Please taper as directed in the table on the next page.   
+
+                                <div style= "text-align:justify; ">
+                                    Please taper as directed in the table on the next page.
                                 </div> <br/>
-                                <div style= "text-align:justify; ">  
+                                <div style= "text-align:justify; ">
                                     Please consult your pharmacist for advice on how to best implement this schedule. Based on available pills strengths some modifications to this schedule may be needed. Changes recommended by your provider or pharmacist should be noted in the column labelled “Recommended Dose Combinations”.
                                 </div> <br/>
 
@@ -995,10 +1061,10 @@
                                 <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div>
                                 <div style= "text-align:center; font-weight: bold;">Recommended Sleep Medication Tapering Schedule</div><br/>
 
-                                <div style= "text-align:justify; ">  
+                                <div style= "text-align:justify; ">
                                     <label>Patient Name: </label> <label id="patiName3" style="font-weight: bold;"></label>
                                 </div>  <br/>
-                                <div style= "text-align:justify; ">  
+                                <div style= "text-align:justify; ">
                                     <label>Date Issued: </label> <label id="myDate3" style="font-weight: bold;"></label>
                                 </div>  <br/>
 
@@ -1007,7 +1073,7 @@
                                     <div id="drugNmP" style="font-weight: bold;"></div>
                                     <table style= "border-collapse: collapse; border: 1px solid #272b30; border-bottom-width: 2px; width: 100%; margin-bottom: 1rem; background-color: transparent;" id="taperTable1Print">
                                         <thead id="taperTHead1Print" style= "border: 1px solid #dee2e6; border-bottom-width: 2px; ">
-                                            
+
                                         <tr>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Taper week</th>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Provider recommended taper dose (mg)</th>
@@ -1016,7 +1082,7 @@
                                         </tr>
                                         </thead>
                                         <tbody id="taperTBody1Print" style= "border: 1px solid #272b30; border-bottom-width: 2px; ">
-                                            
+
                                         </tbody>
                                     </table>
                                 </div><br/><br/>
@@ -1025,19 +1091,19 @@
                                         <input type="text" style="border: 0; border-bottom: 1px solid #000;" />
                                         <div style= "font-weight: bold;">Provider’s signature</div>
                                     </div>
-    
+
                                     <div style="display: inline-block; width: 50%; float: left;">
                                         <input type="text" style="border: 0; border-bottom: 1px solid #000;" />
                                         <div style= "font-weight: bold;">Date</div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
 
                             </div>
 
                             <div class="general-button">
                                 <button type="button" class="btn-primary" onclick="PrintDiv2();" >Print</button>
-                            </div> 
+                            </div>
 
                         </div>
                     </div>
@@ -1052,36 +1118,36 @@
 
                         <div id="printTwoNow">
 
-                        <div style= "page-break-after: always;" id="printdivcontent12">  
+                        <div style= "page-break-after: always;" id="printdivcontent12">
                             <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div>
                             <div style= "text-align:center; font-weight: bold;">Referral Instructions</div><br/>
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 <label>Referral Code: </label> <label id="refCode2" style="font-weight: bold;"></label>
                             </div>  <br/>
-                            <!-- <div style= "text-align:justify; ">  
+                            <!-- <div style= "text-align:justify; ">
                                 <label>Username: </label> <label id="usName2" style="font-weight: bold;"></label>
                             </div>  <br/>
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 <label>Password: </label> <label id="ps2" style="font-weight: bold;"></label>
                             </div>  <br/> -->
-                            <div style= "text-align:justify; ">  
-                                Here are the steps to follow to be able to access the Health enSuite Insomnia app: 
+                            <div style= "text-align:justify; ">
+                                Here are the steps to follow to be able to access the Health enSuite Insomnia app:
                             </div> <br/>
-                            <div style= "text-align:justify; ">  
-                                Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.  
+                            <div style= "text-align:justify; ">
+                                Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                             </div> <br/>
-                            <div style= "text-align:justify; ">  
-                                Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here. 
+                            <div style= "text-align:justify; ">
+                                Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here.
                             </div><br/>
-                            <div style= "text-align:justify; ">  
-                                Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study. 
+                            <div style= "text-align:justify; ">
+                                Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study.
                             </div><br/>
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5.
                             </div> <br/>
-                            <div> Best regards,</div> 
-                            <div> Health enSuite team</div> 
-                        </div> <br/> 
+                            <div> Best regards,</div>
+                            <div> Health enSuite team</div>
+                        </div> <br/>
 
                         <div class="hidden" id="printdivcontent22" style= "page-break-after: always;">
 
@@ -1089,27 +1155,27 @@
                             <div style= "text-align:center; font-weight: bold;">Recommended Sleep Medication Tapering Schedule</div><br/>
 
                             <div style= "text-align:left; font-weight: bold;">Provider information</div><br/>
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 <label>Name: </label> <label id="provName2" style="font-weight: bold;"></label>
                             </div>  <br/>
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 <label>Address: </label> <label id="provAdd2" style="font-weight: bold;"></label>
                             </div>  <br/>
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 <label>Phone: </label> <label id="provPh2" style="font-weight: bold;"></label>
                             </div>  <br/><br/>
 
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 <label>Patient Name: </label> <label id="patiName2" style="font-weight: bold;"></label>
                             </div>  <br/>
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 <label>Date Issued: </label> <label id="myDate2" style="font-weight: bold;"></label>
                             </div>  <br/>
-                            
-                            <div style= "text-align:justify; ">  
-                                Please taper as directed in the table on the next page.   
+
+                            <div style= "text-align:justify; ">
+                                Please taper as directed in the table on the next page.
                             </div> <br/>
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 Please consult your pharmacist for advice on how to best implement this schedule. Based on available pills strengths some modifications to this schedule may be needed. Changes recommended by your provider or pharmacist should be noted in the column labelled “Recommended Dose Combinations”.
                             </div> <br/>
 
@@ -1120,10 +1186,10 @@
                             <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div>
                             <div style= "text-align:center; font-weight: bold;">Recommended Sleep Medication Tapering Schedule</div><br/>
 
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 <label>Patient Name: </label> <label id="patiName32" style="font-weight: bold;"></label>
                             </div>  <br/>
-                            <div style= "text-align:justify; ">  
+                            <div style= "text-align:justify; ">
                                 <label>Date Issued: </label> <label id="myDate32" style="font-weight: bold;"></label>
                             </div>  <br/>
 
@@ -1141,12 +1207,12 @@
 
                                     </thead>
                                     <tbody id="taperTBody2Print" style= "border: 1px solid #272b30; border-bottom-width: 2px; ">
-                                        
+
                                     </tbody>
                                 </table>
                             </div><br/>
 
-                            <div class="table-responsive" id="firstTBPrint3">
+                            <div class="table-responsive" id="firstTBPrint3" style= "page-break-inside: avoid;">
                                 <div style="font-weight: bold;">Medication 2</div><br/>
                                 <div id="drugNmP2" style="font-weight: bold;"></div>
                                 <table style= "border-collapse: collapse; border: 1px solid #272b30; border-bottom-width: 2px; width: 100%; margin-bottom: 1rem; background-color: transparent;" id="taperTable3Print">
@@ -1159,7 +1225,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="taperTBody3Print" style= "border: 1px solid #272b30; border-bottom-width: 2px; ">
-                                        
+
                                     </tbody>
                                 </table>
                             </div><br/><br/>
@@ -1174,28 +1240,29 @@
                                         <input type="text" style="border: 0; border-bottom: 1px solid #000;" />
                                         <div style= "font-weight: bold;">Date</div>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
 
                         </div>
 
                         <div class="general-button">
-                            <button type="button" class="btn-primary" onclick="PrintDiv3();" >Print</button>
-                        </div> 
+                            <button type="button" class="btn-primary" onclick="PrintDiv3();" style="margin-right: 60px;">Print</button>
+                            <button type="button" class="btn-colorSec" onclick="cancelApplication();" >Back To Home</button>
+                        </div>
                     </div>
                 </div>
                 </div>
 
-                    
-                </div>   
+
+                </div>
             </div>
             <!-- #/ container -->
         </div>
         <!--**********************************
             Content body end
         ***********************************-->
-        
-        
+
+
         <!--**********************************
             Footer start
         ***********************************-->

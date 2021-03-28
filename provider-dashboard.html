@@ -13,6 +13,7 @@
     <!-- Chartist -->
     <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
     <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
@@ -21,6 +22,7 @@
         window.onload = function getProviderProfile(){
                             let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/profile-id';
                             let authToken = window.localStorage.getItem("token");
+                            window.localStorage.setItem("loginError", false);
                             $.ajax({
                                 url: url,
                                 type: 'GET',
@@ -43,7 +45,7 @@
                                 }, 
                                 error: function(msg){
                                     console.log("Loading Provider details failed");
-                                    sweetAlert("Failed To Load Account Details!!","Your account details was not able to load. Please login again","error");
+                                    window.localStorage.setItem("loginError", true);
                                     window.location.href = "index.html";
                                 }
                             });
@@ -80,7 +82,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="patient-dashboard.html">
+                <a href="provider-dashboard.html">
                     <b class="logo-abbr">
                         <!-- <img src="images/logo.png" alt="">  -->
                     </b>
@@ -446,6 +448,7 @@
     <!-- ChartistJS -->
     <script src="./plugins/chartist/js/chartist.min.js"></script>
     <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
 
     <script language="javascript">
         function loadPatientList(){

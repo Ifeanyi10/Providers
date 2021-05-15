@@ -1,11 +1,15 @@
+var urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
+//var urlDomain = 'http://192.168.6.15:8083/';
+
+
 function isEmail(email) {
     // eslint-disable-next-line no-useless-escape
     return RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i).test(email);
   };
 
   function receiveEmail(username){
-    console.log('here2');
-    let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/authentication/confirmusername';
+    //console.log('here2');
+    let url = urlDomain + 'insomnia/v1/authentication/confirmusername';
 
     $.ajax({
         url: url,
@@ -52,7 +56,7 @@ $(document).ready(function () {
         window.localStorage.clear();
         var username = document.getElementById('username').value;
         var password = document.getElementById('pass').value;
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/authentication/login';
+        let url = urlDomain + 'insomnia/v1/authentication/login';
 
 
         // const data = JSON.stringify({
@@ -78,28 +82,35 @@ $(document).ready(function () {
         //   xhr.setRequestHeader('accept', '*/*')
           
         //   xhr.send(data)
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-                'Accept': '*/*'            
-              },
-            data: JSON.stringify({"password": password, "username": username}),
-            success: function(result){
-                //alert(result);
-                console.log(result);
-                //set timeer (30 minutes) to disable the token 
-                window.localStorage.setItem("token", result.token);
-                //alert(window.localStorage.getItem("token"));
-                window.location.href = "provider-dashboard.html";
-            }, 
-            error: function(msg){
-                //$("#errorContainer").html("Incorrect Username or Password");
-                sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
-            }
-        });
+        if(username != '' && password != ''){
+            $.ajax({
+                url: url,
+                type: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'Accept': '*/*'            
+                  },
+                data: JSON.stringify({"password": password, "username": username}),
+                success: function(result){
+                    //alert(result);
+                    console.log(result);
+                    //set timeer (30 minutes) to disable the token 
+                    window.localStorage.setItem("token", result.token);
+                    window.localStorage.setItem("isAdmin", result.admin);
+                    window.localStorage.setItem("urlDomain", urlDomain);
+                    window.localStorage.setItem("isNewProviderLogin", true);
+                    //alert(window.localStorage.getItem("token"));
+                    window.location.href = "provider-dashboard.html";
+                }, 
+                error: function(msg){
+                    //$("#errorContainer").html("Incorrect Username or Password");
+                    sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
+                }
+            });
+        }else{
+            sweetAlert("Attention!","Please fill the fields properly and login","info");
+        }
+        
     });
 
     //Confirm Provider Email
@@ -114,7 +125,7 @@ $(document).ready(function () {
             return;
         }
          
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/checkEmail';
+        let url = urlDomain + 'insomnia/v1/provider/checkEmail';
         $.ajax({
             url: url,
             type: 'POST',

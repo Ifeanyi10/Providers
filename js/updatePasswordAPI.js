@@ -1,3 +1,5 @@
+var urlDomain = window.localStorage.getItem("urlDomain");
+
 function validateNewEmail(){
     var bt = document.getElementById('btnChangeEmail');
     var newE = $("#newEmail").val();
@@ -20,7 +22,8 @@ function validateNewEmail(){
     var password = $("#newPass").val();
     var confirm_password = $("#confirmNewPass").val();
     if(password != confirm_password) {
-        $("#divCheckUpdatePWordMatch").html("The passwords you have entered do not match. Please re-enter.");
+        $("#divCheckUpdatePWordMatch").html("You need to re-enter your new password to proceed.");
+        bt.disabled = true;
     } else {
         $("#divCheckUpdatePWordMatch").html(" ");
         bt.disabled = false;
@@ -44,6 +47,53 @@ $(document).ready(function () {
     $('#confirmNewPass').keyup(validatePassword);
     $('#confirmNewEmail').keyup(validateNewEmail);
     emailIsElligible = false;
+    let authTokenPatient = '';
+
+    $(window).focus(function () {
+        //do something
+        let authToken = window.localStorage.getItem("token");
+        authTokenPatient = window.localStorage.getItem("patientToken");
+        console.log("You are in this tab and the token is: "+authToken);
+        if(authToken == null){
+            //urlDomain = 'http://health.us-east-2.elasticbeanstalk.com/';
+            urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
+            window.localStorage.setItem("urlDomain", urlDomain);
+            $('#loginModal').modal('show');
+        }
+    });
+
+    //Quick Provider Login
+    $('#btnQuickLogin').on('click', function(event){
+        event.preventDefault();
+        window.localStorage.clear();
+        var username = document.getElementById('quickUsername').value;
+        var password = document.getElementById('quickPass').value;
+        let url = urlDomain + 'insomnia/v1/authentication/login';
+
+        if(username != '' && password != ''){
+            $.ajax({
+                url: url,
+                type: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'Accept': '*/*'            
+                  },
+                data: JSON.stringify({"password": password, "username": username}),
+                success: function(result){
+                    window.localStorage.setItem("token", result.token);
+                    window.localStorage.setItem("patientToken", authTokenPatient);
+                    $('#loginModal').modal('hide');
+                }, 
+                error: function(msg){
+                    //$("#errorContainer").html("Incorrect Username or Password");
+                    sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
+                }
+            });
+        }else{
+            sweetAlert("Attention!","Please fill the fields properly and login","info");
+        }
+        
+    });
 
     //Provider Change of password within the app
     $('#btnChangePass').on('click', function(event){
@@ -54,7 +104,7 @@ $(document).ready(function () {
         var patEmail = window.localStorage.getItem("providerEmail");
 
         let authToken = window.localStorage.getItem("token");
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/authentication/changepasswordinapp';
+        let url = urlDomain + 'insomnia/v1/authentication/changepasswordinapp';
         $.ajax({
             url: url,
             type: 'POST',
@@ -100,7 +150,7 @@ $(document).ready(function () {
             return;
         }
          
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/checkEmail';
+        let url = urlDomain + 'insomnia/v1/provider/checkEmail';
         $.ajax({
             url: url,
             type: 'POST',
@@ -154,7 +204,7 @@ $(document).ready(function () {
         var currentName = window.localStorage.getItem("providerName");
 
         let authToken = window.localStorage.getItem("token");
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/updateprofile';
+        let url = urlDomain + 'insomnia/v1/provider/updateprofile';
 
         if(emailIsElligible == true){
             $.ajax({
@@ -203,7 +253,7 @@ $(document).ready(function () {
         var currentEmail = window.localStorage.getItem("providerEmail");
 
         let authToken = window.localStorage.getItem("token");
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/updateprofile';
+        let url = urlDomain + 'insomnia/v1/provider/updateprofile';
         $.ajax({
             url: url,
             type: 'POST',

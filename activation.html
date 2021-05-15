@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Health enSuite Provider Account Activation</title>
     <!-- Favicon icon -->
-    <!-- <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png"> -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
     <link href="css/style.css" rel="stylesheet">
     <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
@@ -16,10 +16,11 @@
     <script language="javascript">
 
     window.onload = function valiadteProvider(){
+                        var urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
                         var lastPart = window.location.href.split("code").pop();
-                        //var lastPart = 'ZPQr8x5PzDFLh4yY2YJoQStq74hT50i5TxRf/1QRyI0';
+                        //var lastPart = '1/D3Y9/lasEWA7Hzw493Z2eVQ/Uqx8Fh7EVyOwzT6Ns=';
                         //alert(lastPart);
-                        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/activate';
+                        let url = urlDomain + 'insomnia/v1/provider/activate';
                         $.ajax({
                             url: url,
                             type: 'GET',
@@ -31,7 +32,7 @@
                             success: function(result){
                                 console.log(result);
                                 swal({
-                                title: "Account Activation Successful!!!",
+                                title: "Account Activation Successful!",
                                 // text: "You can login to your account now",
                                 type: "success",
                                 showCancelButton: true,
@@ -46,7 +47,7 @@
                                 if (isConfirm) {
                                     window.location.href = "index.html";
                                 } else {
-                                    swal("You chose to login later", "Please visit http://healthensuite.000webhostapp.com/ to login.", "warning");
+                                    swal("You chose to login later", "Please visit http://healthensuite.000webhostapp.com/ to login.", "info");
                                 }
                                 });
                             }, 

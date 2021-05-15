@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Health enSuite Insomnia App Recommendation</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
     <!-- Custom Stylesheet -->
     <link href="./plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
     <!-- Page plugins css -->
@@ -26,9 +26,88 @@
     <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    
+
     <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
-    
+
+    <script language="javascript">
+
+        window.onload = function displayTable(){
+                            var urlDomain = window.localStorage.getItem("urlDomain");
+                            let url = urlDomain + 'insomnia/v1/admin/randblock';
+                            let authToken = window.localStorage.getItem("token");
+
+                            $.ajax({
+                                url: url,
+                                type: 'GET',
+                                dataType: 'json',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Accept': '*/*'
+                                },
+
+                                success: function(result){
+                                    console.log(result);
+
+                                        $(result).each(function(i, def){
+
+                                            window["td"+i+1]= document.createElement('td');
+                                            window["td"+i+1].style.border = '1px solid #dddddd';
+                                            window["td"+i+1].style.textAlign = 'left';
+                                            window["td"+i+1].style.padding = '8px';
+
+                                            window["td"+i+2] = document.createElement('td');
+                                            window["td"+i+2].style.border = '1px solid #dddddd';
+                                            window["td"+i+2].style.textAlign = 'left';
+                                            window["td"+i+2].style.padding = '8px';
+
+                                            window["td"+i+3] = document.createElement('td');
+                                            window["td"+i+3].style.border = '1px solid #dddddd';
+                                            window["td"+i+3].style.textAlign = 'left';
+                                            window["td"+i+3].style.padding = '8px';
+
+                                            window["td"+i+4] = document.createElement('td');
+                                            window["td"+i+4].style.border = '1px solid #dddddd';
+                                            window["td"+i+4].style.textAlign = 'left';
+                                            window["td"+i+4].style.padding = '8px';
+
+                                            window["td"+i+5] = document.createElement('td');
+                                            window["td"+i+5].style.border = '1px solid #dddddd';
+                                            window["td"+i+5].style.textAlign = 'left';
+                                            window["td"+i+5].style.padding = '8px';
+
+                                            window["td"+i+6] = document.createElement('td');
+                                            window["td"+i+6].style.border = '1px solid #dddddd';
+                                            window["td"+i+6].style.textAlign = 'left';
+                                            window["td"+i+6].style.padding = '8px';
+
+                                            window["td"+i+7] = document.createElement('td');
+                                            window["td"+i+7].style.border = '1px solid #dddddd';
+                                            window["td"+i+7].style.textAlign = 'left';
+                                            window["td"+i+7].style.padding = '8px';
+
+
+                                            $("#randTBody").append($("<tr>")
+                                            .append($(window["td"+i+1]).append(def.id))
+                                            .append($(window["td"+i+2]).append(def.patientName))
+                                            .append($(window["td"+i+3]).append(def.block))
+                                            .append($(window["td"+i+4]).append(def.stratGroup))
+                                            .append($(window["td"+i+5]).append(def.stratValue))
+                                            .append($(window["td"+i+6]).append(def.studyGroupID))
+                                            .append($(window["td"+i+7]).append(def.groupName)));
+
+
+                                        });
+
+                                },
+                                error: function(msg){
+
+                                    sweetAlert("Unable To Display Randomization Table","Please try again shortly","error");
+                                }
+                            });
+                            }
+
+          </script>
+
 
 </head>
 
@@ -48,7 +127,7 @@
         Preloader end
     ********************-->
 
-    
+
     <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -67,7 +146,7 @@
                         <!-- <img src="./images/logo-compact.png" alt=""> -->
                     </span>
                     <span class="brand-title">
-                        <!-- <img src="images/logo-text.png" alt=""> -->
+                        <img src="images/logo-text.png" alt="" width="174" height="40" style="border-radius: 15px;">
                     </span>
                 </a>
             </div>
@@ -79,18 +158,18 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">    
+        <div class="header">
             <div class="header-content clearfix">
-                
+
                 <div class="nav-control">
                     <div class="hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                 </div>
-                
+
                 <div class="header-right">
                     <ul class="clearfix">
-                        
+
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
@@ -116,7 +195,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar">           
+        <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">Provider Dashboard</li>
@@ -142,8 +221,8 @@
                             <li><a href="./layout-horizontal.html">Horizontal</a></li>
                             <li><a href="./layout-boxed.html">Boxed</a></li>
                             <li><a href="./layout-wide.html">Wide</a></li>
-                            
-                            
+
+
                             <li><a href="./layout-fixed-header.html">Fixed Header</a></li>
                             <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li> -->
                         </ul>
@@ -180,15 +259,15 @@
 
             <div class="container-fluid mt-3">
                 <div class="row">
-                    
-                    <div class="col-lg-12" id="screen1">
+
+                    <div class="col-lg-12 hidden" id="screen1">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title" id="elligHead">Eligibility Screening</h4>
-                                
+
                                 <div class="basic-form">
                                     <form id="formInsomnia">
-                                        
+
                                         <div class="form-group" id="firstQ">
                                             <label class="lblQuestion">Is your patient currently prescribed any medication(s) to treat insomnia?</label>
                                             <label class="radio-inline mr-3">
@@ -196,10 +275,10 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly1();" id="prescNo" value="prescNo" name="optradio1"> No</label>
                                         </div>
-                                        
+
 
                                         <div class="form-group hidden" id="secondQ1">
-                                            <label class="lblQuestion">Is your patient taking benzodiazepines and/or Z-drugs <span class="placeholder" id="bzra"><b title="">?</b></span> for sleep?</label> 
+                                            <label class="lblQuestion">Is your patient taking benzodiazepines and/or Z-drugs <span class="placeholder" id="bzra"><b title="">?</b></span> for sleep?</label>
                                                 <span class="glyphicon glyphicon-phone" data-toggle="tooltip" title="Call Us"></span>
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly2();" id="forSleepYes" name="optradio2"> Yes</label>
@@ -264,7 +343,7 @@
                                                 <input type="email" class="form-control" id="patEmail"  placeholder="Patient’s Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120">
                                             </div>
 
-                                            
+
 
                                             <div class="general-button">
                                                 <button type="submit" id="btnBackTrial16" onclick="goBack('trial1Demo','thirdQ2');" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button>
@@ -276,38 +355,38 @@
 
 
                                         <!-- <div id="printSample" class="hidden">
-                                            <div id="printdivcontent">  
+                                            <div id="printdivcontent">
                                                 <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div><br/>
-                                                <div style= "text-align:justify; ">  
+                                                <div style= "text-align:justify; ">
                                                     <label>Referral Code: </label> <label id="refCode" style="font-weight: bold;"></label>
                                                 </div>  <br/>
-                                                <div style= "text-align:justify; ">  
+                                                <div style= "text-align:justify; ">
                                                     <label>Username: </label> <label id="usName" style="font-weight: bold;"></label>
                                                 </div>  <br/>
-                                                <div style= "text-align:justify; ">  
+                                                <div style= "text-align:justify; ">
                                                     <label>Password: </label> <label id="ps" style="font-weight: bold;"></label>
                                                 </div>  <br/>
-                                                <div style= "text-align:justify; ">  
-                                                    Here are the steps to follow to be able to access the Health enSuite Insomnia app: 
+                                                <div style= "text-align:justify; ">
+                                                    Here are the steps to follow to be able to access the Health enSuite Insomnia app:
                                                 </div> <br/>
-                                                <div style= "text-align:justify; ">  
-                                                    Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.  
+                                                <div style= "text-align:justify; ">
+                                                    Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                                                 </div> <br/>
-                                                <div style= "text-align:justify; ">  
-                                                    Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here. 
+                                                <div style= "text-align:justify; ">
+                                                    Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here.
                                                 </div><br/>
-                                                <div style= "text-align:justify; ">  
-                                                    Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study. 
+                                                <div style= "text-align:justify; ">
+                                                    Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study.
                                                 </div><br/>
-                                                <div style= "text-align:justify; ">  
-                                                    Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5  
+                                                <div style= "text-align:justify; ">
+                                                    Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5
                                                 </div> <br/>
-                                                <div> Best regards,</div> 
-                                                <div> Health enSuite team</div> 
-                                            </div> <br/> 
+                                                <div> Best regards,</div>
+                                                <div> Health enSuite team</div>
+                                            </div> <br/>
                                             <div class="general-button">
                                                 <button type="button" class="btn mb-1 btn-outline-light" onclick="PrintDiv();" >Print</button>
-                                            </div> 
+                                            </div>
                                         </div> -->
 
                                         <div class="form-group hidden" id="fourthQ1">
@@ -333,7 +412,7 @@
 
                                         <div class="hidden" id="trial2Demo">
 
-                                            
+
 
                                         </div>
 
@@ -347,44 +426,44 @@
                     <div class="col-lg-12 hidden" id="printSample">
                         <div class="card">
                             <div class="card-body">
-                                    <div id="printdivcontent">  
+                                    <div id="printdivcontent">
                                         <div style= "text-align:center; font-weight: bold;">Patient Randomization Details</div><br/>
-                                        <div style= "text-align:justify; ">  
+                                        <div style= "text-align:justify; ">
                                             <label>Patient Block: </label> <label id="pBlock" style="font-weight: bold;"></label>
                                         </div>  <br/>
-                                        <div style= "text-align:justify; ">  
+                                        <div style= "text-align:justify; ">
                                             <label>Patient Strata: </label> <label id="pStrata" style="font-weight: bold;"></label>
                                         </div>  <br/>
-                                        <div style= "text-align:justify; ">  
+                                        <div style= "text-align:justify; ">
                                             <label>Patient Strata Value: </label> <label id="pStrataV" style="font-weight: bold;"></label>
                                         </div>  <br/>
 
-                                        <div style= "text-align:justify; ">  
+                                        <div style= "text-align:justify; ">
                                             <label>Patient Group ID: </label> <label id="pGroupID" style="font-weight: bold;"></label>
                                         </div>  <br/>
-                                        <div style= "text-align:justify; ">  
+                                        <div style= "text-align:justify; ">
                                             <label>Patient Group Name: </label> <label id="pGroupN" style="font-weight: bold;"></label>
                                         </div>  <br/>
-                                        
-                                    </div> <br/> 
+
+                                    </div> <br/>
                                     <div class="general-button">
                                         <button type="button" class="btn mb-1 btn-outline-dark lblAdjust" onclick="startOver();" >Start Over</button>
                                         <button type="button" id="btnRandTable" class="btn mb-1 btn-outline-danger lblAdjust" >View All</button>
-                                    </div> 
-                                    
+                                    </div>
+
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="col-lg-12 hidden" id="randDisplay">
+                    <div class="col-lg-12" id="randDisplay">
 
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">
                                     <h4>Randomization Table</h4>
                                 </div>
-                                
+
                                 <div class="scrollit">
                                     <div class="table-responsive" >
 
@@ -401,14 +480,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="randTBody">
-                                                
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div><br/>
-                                <div class="general-button">
+                                <!-- <div class="general-button">
                                     <button type="button" class="btn mb-1 btn-outline-dark lblAdjust" onclick="startOver();" >Start Over</button>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
@@ -416,16 +495,16 @@
                     </div>
 
 
-                    
-                </div>   
+
+                </div>
             </div>
             <!-- #/ container -->
         </div>
         <!--**********************************
             Content body end
         ***********************************-->
-        
-        
+
+
         <!--**********************************
             Footer start
         ***********************************-->

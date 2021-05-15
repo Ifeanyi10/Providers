@@ -1,3 +1,5 @@
+var urlDomain = window.localStorage.getItem("urlDomain");
+ 
  //insomnia trial 1 gender
  function getTrial1Gender(elementName) {
     var genderInfo = document.forms['formInsomnia'].elements[elementName];
@@ -469,6 +471,8 @@ function goBackQ2(firstDisplay, secondDisplay){
 }
 
 
+
+
 $(document).ready(function () {
 
     //Go back to select another medication
@@ -532,7 +536,7 @@ $(document).ready(function () {
         var y = document.getElementById("printSample");
         var dup = document.getElementById("screen1");
         //alert(gender);
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/randomization';  
+        let url = urlDomain + 'insomnia/v1/patient/randomization';  
 
         //window.localStorage.setItem("token", "7BCcz0Duefx7ioF/20us6aKso5voeaPBgn0L+siY+lM=");
         //let authToken = window.localStorage.getItem("token");
@@ -576,7 +580,7 @@ $(document).ready(function () {
         var x = document.getElementById('printSample');
         var y = document.getElementById('randDisplay');
 
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/randblock';
+        let url = urlDomain + 'insomnia/v1/patient/randblock';
         //let authToken = window.localStorage.getItem("token");
 
         $.ajax({

@@ -1,3 +1,6 @@
+//var urlDomain = window.localStorage.getItem("urlDomain");
+var urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
+
 // function validatePassword(){
 //     var bt = document.getElementById('btnSubmit');
 //     var password = $("#pass").val();
@@ -144,15 +147,23 @@ $(document).ready(function () {
         var currentphone = e.target.value,
             $phNode = $(this),
             isValid = true;
-        
-        // Validate phone Number
-        if (!isMobile(currentphone)){
-            $("#errorMobileContainer").html("Invalid phone number. Enter a valid phone number.");
-            $(this).css("border","1px solid red");
+
+        if(currentphone.length != 0){
+            console.log('Phone: '+currentphone)
+            // Validate phone Number
+            if (!isMobile(currentphone)){
+                $("#errorMobileContainer").html("Invalid phone number. Enter a valid phone number.");
+                $(this).css("border","1px solid red");
+            }else{
+                $("#errorMobileContainer").html(" ");
+                $(this).css("border",".5px solid #BCBCBC");
+            }
         }else{
             $("#errorMobileContainer").html(" ");
             $(this).css("border",".5px solid #BCBCBC");
         }
+        
+        
 
     });
 
@@ -171,7 +182,7 @@ $(document).ready(function () {
             return;
         }
          
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/checkEmail';
+        let url = urlDomain + 'insomnia/v1/provider/checkEmail';
         $.ajax({
             url: url,
             type: 'POST',
@@ -223,7 +234,7 @@ $(document).ready(function () {
         var password = document.getElementById("pass").value;
         var aboutUs= getHowYouHearAboutUs();
         var otherMeans = document.getElementById("otherField");
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/create';
+        let url = urlDomain + 'insomnia/v1/provider/create';
 
         if(emailIsElligible == true){
             if(email == username){
@@ -239,7 +250,7 @@ $(document).ready(function () {
                         "province": province, "username": username}),
                     success: function(result){
                         console.log(result);
-                        swal({title: "Health enSuite welcomes you!!", text: "Your account has been created successfully. An activation link has been sent to your email address. Please click on the link to validate your account.", type: "success"},
+                        swal({title: "Health enSuite welcomes you!", text: "Your account has been created successfully. An activation link has been sent to your email address. Please click on the link to validate your account.", type: "success"},
                         function(){ 
                             window.location.href = "index.html";
                         }

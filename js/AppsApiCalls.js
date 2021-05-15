@@ -1,3 +1,5 @@
+var urlDomain = window.localStorage.getItem("urlDomain");
+ 
  //insomnia trial 1 gender
  function getTrial1Gender(elementName) {
     var genderInfo = document.forms['formInsomnia'].elements[elementName];
@@ -22,6 +24,7 @@ function fillAllFields(){
             $("#ageError").html("");
         }else{
             $("#ageError").html("This app is for patients 18 years and older. Please confirm the age of the patient.");
+            bt.disabled = true;
         }
         
     } else {
@@ -40,6 +43,7 @@ function fillAllFields2(){
             $("#ageError2").html("");
         }else{
             $("#ageError2").html("This app is for patients 18 years and older. Please confirm the age of the patient.");
+            bt.disabled = true;
         }
     } else {
         bt.disabled = true;
@@ -81,31 +85,7 @@ function fillBasicMedicationFields2(){
 }
 
 
-function checkDuration(){
-    var bt = document.getElementById('btnMedication');
-    var med2 = document.getElementById("idMedications2").value;
-    var meds = $("#idMedications1").val();
-    var dose = $("#dosage").val();
-    var dose2 = $("#dosage2").val();
-    var duration = $("#inputDuration").val();
-    var duration2 = $("#inputDuration2").val();
-    
-    if (meds != '' && dose != '' && duration != '')  {
 
-        if(med2 != ''){
-            if (dose2 != '' && duration2 != ''){
-                bt.disabled = false;
-            }else{
-                bt.disabled = true;
-            }
-        }else{
-            bt.disabled = false;
-        }
-        
-    } else {
-        bt.disabled = true;
-    }
-}
 
 
 function getConceptID(selecteValue){
@@ -124,6 +104,44 @@ function getConceptID(selecteValue){
         }       
     }
     return conceptId;
+}
+
+function addAction(tableId){
+    $(tableId).each(function(i, def) {
+            var $drop = $(this).find('select');
+            $drop.on("change", function(e) {
+                UpdateDropDownValues(tableId);
+            });
+    });
+}
+
+function UpdateDropDownValues(tableId){
+    var seV = [];
+    let rowIndex = event.target.parentNode.parentNode.rowIndex;
+    var selection = '';
+    $(tableId).each(function(i, def) {
+        if(i == (rowIndex - 1)){
+            selection = $(this).find('td:last option:selected').index();
+            var drop = $(this).find('select');
+            drop.find('option').each(function(index,element){
+                seV.push(element.value);
+            });
+        }
+    });
+
+    var newSeV = seV.splice(parseInt(selection))
+    //newSeV.reverse();
+    $(tableId).each(function(i, def) {
+        console.log('My i: ' + i)
+        if (i > (rowIndex -1)){
+            var select = $(this).find('select');
+            select.empty();
+            $.each(newSeV, function(i, p) {
+                select.append($('<option></option>').val(p).html(p));
+            });
+        }
+        
+    });
 }
 
 function UpdateSelectedSingle(tableId){
@@ -150,7 +168,7 @@ function getPatDetatail(){
     // /*returns array of all elements  within the row with given id*/ 
     // var pID = data[0].innerHTML; 
     // alert("Patient ID: " + pID); 
-    // let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/retrieveRefcode/'+ pID;  
+    // let url = urlDomain + 'insomnia/v1/patient/retrieveRefcode/'+ pID;  
 
     // let authToken = window.localStorage.getItem("token");
     // $.ajax({
@@ -193,6 +211,56 @@ $(document).ready(function () {
     var btMed = document.getElementById('btnMedication');
     btMed.disabled = true;
     $('#idMedications1, #dosage').keyup(fillBasicMedicationFields);
+
+    var oneMedicationReturned = false;
+    let authTokenPatient = '';
+    var doCombi = [];
+
+    $(window).focus(function () {
+        //do something
+        let authToken = window.localStorage.getItem("token");
+        authTokenPatient = window.localStorage.getItem("patientToken");
+        console.log("You are in this tab and the token is: "+authToken);
+        if(authToken == null){
+            //urlDomain = 'http://192.168.6.15:8083/';
+            urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
+            window.localStorage.setItem("urlDomain", urlDomain);
+            $('#loginModal').modal('show');
+        }
+    });
+
+    //Quick Provider Login
+    $('#btnQuickLogin').on('click', function(event){
+        event.preventDefault();
+        window.localStorage.clear();
+        var username = document.getElementById('quickUsername').value;
+        var password = document.getElementById('quickPass').value;
+        let url = urlDomain + 'insomnia/v1/authentication/login';
+
+        if(username != '' && password != ''){
+            $.ajax({
+                url: url,
+                type: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'Accept': '*/*'            
+                  },
+                data: JSON.stringify({"password": password, "username": username}),
+                success: function(result){
+                    window.localStorage.setItem("token", result.token);
+                    window.localStorage.setItem("patientToken", authTokenPatient);
+                    $('#loginModal').modal('hide');
+                }, 
+                error: function(msg){
+                    //$("#errorContainer").html("Incorrect Username or Password");
+                    sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
+                }
+            });
+        }else{
+            sweetAlert("Attention!","Please fill the fields properly and login","info");
+        }
+        
+    });//end of quick login
     
      //Randomization Test
      $('#btnTrial16').on('click', function(event){
@@ -207,7 +275,7 @@ $(document).ready(function () {
         var y = document.getElementById("printSample");
         var dup = document.getElementById("duplicateScreen");
         //alert(gender);
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/randomization';  
+        let url = urlDomain + 'insomnia/v1/patient/randomization';  
 
         //window.localStorage.setItem("token", "7BCcz0Duefx7ioF/20us6aKso5voeaPBgn0L+siY+lM=");
         //let authToken = window.localStorage.getItem("token");
@@ -251,7 +319,11 @@ $(document).ready(function () {
         var firstName = document.getElementById("patFName").value;
         var lastName = document.getElementById("patLName").value;
         var age = document.getElementById("patAge").value;
+        age = parseInt(age)
         var email = document.getElementById("patEmail").value;
+        if(email == ''){
+            email = null;
+        }
         //var email = '';
         var gender= getTrial1Gender("optradio5");
 
@@ -260,7 +332,7 @@ $(document).ready(function () {
         //var z = document.getElementById("elligHead");
         var dup = document.getElementById("duplicateScreen");
         //alert(gender);
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/create';  
+        let url = urlDomain + 'insomnia/v1/patient/create';  
 
         //window.localStorage.setItem("token", "7BCcz0Duefx7ioF/20us6aKso5voeaPBgn0L+siY+lM=");
         let authToken = window.localStorage.getItem("token");
@@ -272,7 +344,7 @@ $(document).ready(function () {
                 'Accept': '*/*',
                 'Authorization': 'Bearer '+ authToken
               },
-            data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "gender": gender, "email" : email, 
+            data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "gender": gender,
             "trialType" : 1, "verify": true }),
             success: function(result){
 
@@ -302,7 +374,8 @@ $(document).ready(function () {
                 }
                 else{
                     document.getElementById('refCode').innerHTML = result.referalCode;
-                    window.localStorage.setItem("patientID", result.id);
+                    var patIDVar = result.referalCode;
+                    window.localStorage.setItem("patientID", patIDVar.split("-",1));
                     window.localStorage.setItem("patientName", firstName+" "+lastName);
                     // document.getElementById('usName').innerHTML = result.userName;
                     // document.getElementById('ps').innerHTML= result.password;
@@ -331,14 +404,18 @@ $(document).ready(function () {
         var firstName = document.getElementById("patFName").value;
         var lastName = document.getElementById("patLName").value;
         var age = document.getElementById("patAge").value;
+        age = parseInt(age)
         var email = document.getElementById("patEmail").value;
+        if(email == ''){
+            email = null;
+        }
         //var email = '';
         var gender= getTrial1Gender("optradio5");
 
         var y = document.getElementById("printSample");
         var dup = document.getElementById("duplicateScreen");
         //alert(gender);
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/create';  
+        let url = urlDomain + 'insomnia/v1/patient/create';  
 
         //window.localStorage.setItem("token", "7BCcz0Duefx7ioF/20us6aKso5voeaPBgn0L+siY+lM=");
         let authToken = window.localStorage.getItem("token");
@@ -350,14 +427,15 @@ $(document).ready(function () {
                 'Accept': '*/*',
                 'Authorization': 'Bearer '+ authToken
               },
-            data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "gender": gender, "email" : email, 
+            data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "gender": gender,
             "trialType" : 1, "verify": false }),
             success: function(result){
 
                 console.log(result);
                 
                 document.getElementById('refCode').innerHTML = result.referalCode;
-                window.localStorage.setItem("patientID", result.id);
+                var patIDVar = result.referalCode;
+                window.localStorage.setItem("patientID", patIDVar.split("-",1));
                 window.localStorage.setItem("patientName", firstName+" "+lastName);
                 // document.getElementById('usName').innerHTML = result.userName;
                 // document.getElementById('ps').innerHTML= result.password;
@@ -384,10 +462,14 @@ $(document).ready(function () {
         var firstName = document.getElementById("pat2FName").value;
         var lastName = document.getElementById("pat2LName").value;
         var age = document.getElementById("pat2Age").value;
+        age = parseInt(age)
         var email = document.getElementById("pat2Email").value;
+        if(email == ''){
+            email = null;
+        }
         //var email = '';
         var gender= getTrial1Gender("optradio21");
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/create';
+        let url = urlDomain + 'insomnia/v1/patient/create';
         let authToken = window.localStorage.getItem("token");
         var x = document.getElementById('screen1');
         var y = document.getElementById('screen2');
@@ -400,7 +482,7 @@ $(document).ready(function () {
                 'Accept': '*/*',
                 'Authorization': 'Bearer '+ authToken
               },
-            data: JSON.stringify({"age": age, "email": email, "firstName": firstName, "gender": gender, "lastName": lastName,
+            data: JSON.stringify({"age": age, "firstName": firstName, "gender": gender, "lastName": lastName,
             "trialType" : 2, "verify": true }),
             success: function(result){
                 console.log(result);
@@ -426,7 +508,8 @@ $(document).ready(function () {
                     window.localStorage.setItem("patientFName", firstName);
                     window.localStorage.setItem("trial2RefCode", result.referalCode);
                     document.getElementById('refCode1').innerHTML = result.referalCode;
-                    window.localStorage.setItem("patientID", result.id);
+                    var patIDVar = result.referalCode;
+                    window.localStorage.setItem("patientID", patIDVar.split("-",1));
                     //document.getElementById('usName1').innerHTML = result.userName;
                     //document.getElementById('ps1').innerHTML= result.password;
                     document.getElementById('refCode2').innerHTML = result.referalCode;
@@ -450,10 +533,14 @@ $(document).ready(function () {
         var firstName = document.getElementById("pat2FName").value;
         var lastName = document.getElementById("pat2LName").value;
         var age = document.getElementById("pat2Age").value;
+        age = parseInt(age)
         var email = document.getElementById("pat2Email").value;
+        if(email == ''){
+            email = null;
+        }
         //var email = '';
         var gender= getTrial1Gender("optradio21");
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/create';
+        let url = urlDomain + 'insomnia/v1/patient/create';
         let authToken = window.localStorage.getItem("token");
         var x = document.getElementById('screen1');
         var y = document.getElementById('screen2');
@@ -466,7 +553,7 @@ $(document).ready(function () {
                 'Accept': '*/*',
                 'Authorization': 'Bearer '+ authToken
               },
-            data: JSON.stringify({"age": age, "email": email, "firstName": firstName, "gender": gender, "lastName": lastName,
+            data: JSON.stringify({"age": age, "firstName": firstName, "gender": gender, "lastName": lastName,
             "trialType" : 2, "verify": false }),
             success: function(result){
                 console.log(result);
@@ -474,7 +561,8 @@ $(document).ready(function () {
                     window.localStorage.setItem("patientFName", firstName);
                     window.localStorage.setItem("trial2RefCode", result.referalCode);
                     document.getElementById('refCode1').innerHTML = result.referalCode;
-                    window.localStorage.setItem("patientID", result.id);
+                    var patIDVar = result.referalCode;
+                    window.localStorage.setItem("patientID", patIDVar.split("-",1));
                     //document.getElementById('usName1').innerHTML = result.userName;
                     //document.getElementById('ps1').innerHTML= result.password;
                     document.getElementById('refCode2').innerHTML = result.referalCode;
@@ -494,7 +582,7 @@ $(document).ready(function () {
 
     //Move patient to tial 1
     function revertToTrialOne(){
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/updatetrial';
+        let url = urlDomain + 'insomnia/v1/patient/updatetrial';
         let authToken = window.localStorage.getItem("token");
         let patRefCode = window.localStorage.getItem("trial2RefCode");
         var x = document.getElementById('screen3');
@@ -560,14 +648,14 @@ $(document).ready(function () {
 
         
         
-            let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
+            let url = urlDomain + 'insomnia/v1/tapper/create';
             //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
             let authToken = window.localStorage.getItem("token");
             //alert(authToken);
             var x = document.getElementById('screen3');
             var y = document.getElementById('screen4');
             var tableBody = '#taperTBody';
-            var secondTB = document.getElementById('secondTB');
+            var secondTB = document.getElementById('accordion-two');
             var captionName = 'drugNm';
             let floatDosage = parseFloat(dosage);
             window.localStorage.setItem("dosageStore", floatDosage);
@@ -634,27 +722,31 @@ $(document).ready(function () {
 
                                     window["td"+i+2] = document.createElement('td');
                                     window["td"+i+2].style.border = '1px solid #dddddd';
-                                    window["td"+i+2].style.textAlign = 'left';
+                                    window["td"+i+2].style.textAlign = 'center';
                                     window["td"+i+2].style.padding = '8px';
 
                                     window["td"+i+3] = document.createElement('td');
                                     window["td"+i+3].style.border = '1px solid #dddddd';
-                                    window["td"+i+3].style.textAlign = 'left';
+                                    window["td"+i+3].style.textAlign = 'center';
                                     window["td"+i+3].style.padding = '8px';
 
                                     window["td"+i+4] = document.createElement('td');
                                     window["td"+i+4].style.border = '1px solid #dddddd';
-                                    window["td"+i+4].style.textAlign = 'left';
+                                    window["td"+i+4].style.textAlign = 'center';
                                     window["td"+i+4].style.padding = '8px';
 
                                     const selectList = document.createElement("select");
                                     selectList.style.width = '150px';
-                                    $(def.dose_Combination).each(function(i, drop){
+                                    
+                                    doCombi = def.dose_Combination;
+                                    doCombi.reverse();
+                                    $(doCombi).each(function(i, drop){
                                         const option = document.createElement("option");
                                         option.value = drop;
                                         option.text = drop;
                                         selectList.appendChild(option);
                                     })
+                                    
 
                                     $(tableBody).append($("<tr>")
                                     .append($(window["td"+i+1]).append(i + 1))
@@ -669,22 +761,24 @@ $(document).ready(function () {
 
                                     window["tdp2"+i+2] = document.createElement('td');
                                     window["tdp2"+i+2].style.border = '1px solid #dddddd';
-                                    window["tdp2"+i+2].style.textAlign = 'left';
+                                    window["tdp2"+i+2].style.textAlign = 'center';
                                     window["tdp2"+i+2].style.padding = '8px';
 
                                     window["tdp2"+i+4] = document.createElement('td');
                                     window["tdp2"+i+4].style.border = '1px solid #dddddd';
-                                    window["tdp2"+i+4].style.textAlign = 'left';
+                                    window["tdp2"+i+4].style.textAlign = 'center';
                                     window["tdp2"+i+4].style.padding = '8px';
 
                                     window["tdp2"+i+3] = document.createElement('td');
                                     window["tdp2"+i+3].style.border = '1px solid #dddddd';
-                                    window["tdp2"+i+3].style.textAlign = 'left';
+                                    window["tdp2"+i+3].style.textAlign = 'center';
                                     window["tdp2"+i+3].style.padding = '8px';
 
                                     const selectListPrint = document.createElement("select");
                                     selectListPrint.style.width = '150px';
-                                    $(def.dose_Combination).each(function(i, dropPrint){
+                                    doCombi = def.dose_Combination;
+                                    doCombi.reverse();
+                                    $(doCombi).each(function(i, dropPrint){
                                         const optionPrint = document.createElement("option");
                                         optionPrint.value = dropPrint;
                                         optionPrint.text = dropPrint;
@@ -707,6 +801,8 @@ $(document).ready(function () {
                             var weekNo2 = $('#taperTBody2 tr').length;
                             window.localStorage.setItem("weekNo1", weekNo1);
                             window.localStorage.setItem("weekNo2", weekNo2);
+                            addAction('#taperTable tbody tr');
+                            addAction('#taperTable2 tbody tr');
 
                             y.style.display = 'block';         
                             x.style.display = 'none';
@@ -716,6 +812,21 @@ $(document).ready(function () {
                         error: function(msg){
                             $("#errorContainer3").html("Unable to generate Taper Schedule for the two medications");
                             sweetAlert("Unable to generate Taper Schedule for the two medications","Please try again shortly","error");
+                           console.log(JSON.stringify({"regimenDTOList":
+                           [{
+                           "sleepMedication" : med1,
+                           "currentDose" : floatDosage,
+                           "medicationDuration" : intDuration,
+                           "conceptID" : conceptId1
+                           },
+                           {
+                           "sleepMedication" : med2,
+                           "currentDose" : floatDosage2,
+                           "medicationDuration" : intDuration2,
+                           "conceptID" : conceptId2
+                           }]
+                           
+                       }));
                             // document.getElementById('drugNm').innerHTML  = 'Chlordiazepoxide';
                             // $(tableBody).append($("<tr>")
                             // .append($("<td>").append(1))
@@ -770,13 +881,201 @@ $(document).ready(function () {
                             
                         }
                     });
-                }else{
-                    revertToTrialOne();
-                }
+                }else if(duration == 10 && duration2 == 10){
+                    swal({
+                        title: "Attention!",
+                         text: "At least one of the medication duration shows that patient has taken the medication 'Less than 14 days'. If this is true, the patients will be automatically be re-assigned",
+                        type: "info",
+                        showCancelButton: true,
+                        confirmButtonColor: "#2087c8",
+                        confirmButtonText: "Yes, reassign the patient",
+                        cancelButtonColor: "#01AA73",
+                        cancelButtonText: "No, let me review the duration(s)",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                        },
+                        function(isConfirm){
+                        if (isConfirm) {
+                            swal.close()
+                            revertToTrialOne();
+                        } else {
+                            swal.close()
+                        }
+                    });
+                    
+                }else if(duration == 10 || duration2 == 10){
+
+                    swal({
+                        title: "Attention!",
+                         text: "At least one of the medication duration shows that patient has taken the medication 'Less than 14 days'. If this is true, the medication with 'Less than 14 days' will not be printed",
+                        type: "info",
+                        showCancelButton: true,
+                        confirmButtonColor: "#2087c8",
+                        confirmButtonText: "Yes, continue",
+                        cancelButtonColor: "#01AA73",
+                        cancelButtonText: "No, let me review the duration(s)",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                        },
+                        function(isConfirm){
+                        if (isConfirm) {
+                            swal.close()
+                            //execute and generate either of the medications
+
+                            var tableBodyPrint = '#taperTBody1Print';
+                            var captionNamePrint = 'drugNmP';
+                            tbIdentity = '#taperTable tbody tr';
+                            let myJson = {"regimenDTOList":[{
+                                            "sleepMedication" : med1,
+                                            "currentDose" : floatDosage,
+                                            "medicationDuration" : intDuration,
+                                            "conceptID" : conceptId1
+                                            }]
+                                        };
+                            if(duration == 10){
+                                let conceptId2 = getConceptID(med2);
+                                window.localStorage.setItem("conceptId1Store", conceptId2);//this was swapped
+                                let floatDosage2 = parseFloat(dosage2);
+                                window.localStorage.setItem("dosageStore", floatDosage2);//this was swapped
+                                let intDuration2 = parseInt(duration2);
+                                window.localStorage.setItem("durationStore", intDuration2);//this was swapped
+                                window.localStorage.setItem("med1Store", med2);//this was swapped
+
+                                myJson = {"regimenDTOList":[{
+                                            "sleepMedication" : med2,
+                                            "currentDose" : floatDosage2,
+                                            "medicationDuration" : intDuration2,
+                                            "conceptID" : conceptId2
+                                            }]
+                                        };
+                            }
+
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                dataType: 'json',
+                                headers: {
+                                    'Content-Type': 'application/json', 
+                                    'Accept': '*/*',
+                                    'Authorization': 'Bearer '+ authToken
+                                },
+                                data: JSON.stringify(myJson),
+                                success: function(result){
+                                    console.log(result);
+                                    $(result.tapaschedules).each(function(i, taper){
+                                        document.getElementById(captionName).innerHTML  = taper.drugName;
+                                        document.getElementById(captionNamePrint).innerHTML  = taper.drugName;
+                                        window.localStorage.setItem("taperLength", taper.taperLength);
+                                        //alert(taper.drugName);
+
+                                        $(taper.weeklyDose).each(function(i, def){
+
+                                            window["td"+i+1]= document.createElement('td');
+                                            window["td"+i+1].style.border = '1px solid #dddddd';
+                                            window["td"+i+1].style.textAlign = 'left';
+                                            window["td"+i+1].style.padding = '8px';
+
+                                            window["td"+i+2] = document.createElement('td');
+                                            window["td"+i+2].style.border = '1px solid #dddddd';
+                                            window["td"+i+2].style.textAlign = 'center';
+                                            window["td"+i+2].style.padding = '8px';
+
+                                            window["td"+i+3] = document.createElement('td');
+                                            window["td"+i+3].style.border = '1px solid #dddddd';
+                                            window["td"+i+3].style.textAlign = 'center';
+                                            window["td"+i+3].style.padding = '8px';
+
+                                            window["td"+i+4] = document.createElement('td');
+                                            window["td"+i+4].style.border = '1px solid #dddddd';
+                                            window["td"+i+4].style.textAlign = 'center';
+                                            window["td"+i+4].style.padding = '8px';
+
+                                            const selectList = document.createElement("select");
+                                            selectList.style.width = '150px';
+                                            doCombi = def.dose_Combination;
+                                            doCombi.reverse();
+                                            $(doCombi).each(function(i, drop){
+                                                const option = document.createElement("option");
+                                                option.value = drop;
+                                                option.text = drop;
+                                                selectList.appendChild(option);
+                                            })
+                                            //selectList.onchange = function(){UpdateDropDownValues(tbIdentity)};
+
+                                            $(tableBody).append($("<tr>")
+                                            .append($(window["td"+i+1]).append(i + 1))
+                                            .append($(window["td"+i+2]).append(def.unrounded))
+                                            .append($(window["td"+i+4]).append(def.newDose))
+                                            .append($(window["td"+i+3]).append(selectList)));
+
+                                            window["tdp2"+i+1] = document.createElement('td');
+                                            window["tdp2"+i+1].style.border = '1px solid #dddddd';
+                                            window["tdp2"+i+1].style.textAlign = 'left';
+                                            window["tdp2"+i+1].style.padding = '8px';
+
+                                            window["tdp2"+i+2] = document.createElement('td');
+                                            window["tdp2"+i+2].style.border = '1px solid #dddddd';
+                                            window["tdp2"+i+2].style.textAlign = 'center';
+                                            window["tdp2"+i+2].style.padding = '8px';
+
+                                            window["tdp2"+i+3] = document.createElement('td');
+                                            window["tdp2"+i+3].style.border = '1px solid #dddddd';
+                                            window["tdp2"+i+3].style.textAlign = 'center';
+                                            window["tdp2"+i+3].style.padding = '8px';
+
+                                            window["tdp2"+i+4] = document.createElement('td');
+                                            window["tdp2"+i+4].style.border = '1px solid #dddddd';
+                                            window["tdp2"+i+4].style.textAlign = 'center';
+                                            window["tdp2"+i+4].style.padding = '8px';
+
+                                            const selectListPrint = document.createElement("select");
+                                            selectListPrint.style.width = '150px';
+                                            doCombi = def.dose_Combination;
+                                            doCombi.reverse();
+                                            $(doCombi).each(function(i, dropPrint){
+                                                const optionPrint = document.createElement("option");
+                                                optionPrint.value = dropPrint;
+                                                optionPrint.text = dropPrint;
+                                                selectListPrint.appendChild(optionPrint);
+                                            })
+                                            
+
+                                            $(tableBodyPrint).append($("<tr>")
+                                            .append($(window["tdp2"+i+1]).append(i + 1))
+                                            .append($(window["tdp2"+i+2]).append(def.unrounded))
+                                            .append($(window["tdp2"+i+4]).append(def.newDose))
+                                            .append($(window["tdp2"+i+3]).append(selectListPrint)));
+                                        });
+                
+                                    });
+
+                                    addAction('#taperTable tbody tr');
+                                    var weekNo1 = $('#taperTBody tr').length;
+                                    window.localStorage.setItem("weekNo1", weekNo1);
+                                    y.style.display = 'block';         
+                                    x.style.display = 'none';
+                                    secondTB.style.display = 'none';
+                                    window.localStorage.setItem("medQuantity", 1);
+                                }, 
+                                error: function(msg){
+                                    $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
+                                    sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
+                                }
+                            });
+                            
+                            oneMedicationReturned = true;
+
+                        } else {
+                            swal.close()
+                        }
+                    });//end of swal function to confirm from the provider before proceeding with one medication generation
+
+                }//end of two medications generation
             }else{
                 if(duration != 10){
                     var tableBodyPrint = '#taperTBody1Print';
                     var captionNamePrint = 'drugNmP';
+                    tbIdentity = '#taperTable tbody tr';
 
                     $.ajax({
                         url: url,
@@ -812,27 +1111,30 @@ $(document).ready(function () {
 
                                     window["td"+i+2] = document.createElement('td');
                                     window["td"+i+2].style.border = '1px solid #dddddd';
-                                    window["td"+i+2].style.textAlign = 'left';
+                                    window["td"+i+2].style.textAlign = 'center';
                                     window["td"+i+2].style.padding = '8px';
 
                                     window["td"+i+3] = document.createElement('td');
                                     window["td"+i+3].style.border = '1px solid #dddddd';
-                                    window["td"+i+3].style.textAlign = 'left';
+                                    window["td"+i+3].style.textAlign = 'center';
                                     window["td"+i+3].style.padding = '8px';
 
                                     window["td"+i+4] = document.createElement('td');
                                     window["td"+i+4].style.border = '1px solid #dddddd';
-                                    window["td"+i+4].style.textAlign = 'left';
+                                    window["td"+i+4].style.textAlign = 'center';
                                     window["td"+i+4].style.padding = '8px';
 
                                     const selectList = document.createElement("select");
                                     selectList.style.width = '150px';
+                                    doCombi = def.dose_Combination;
+                                    doCombi.reverse();
                                     $(def.dose_Combination).each(function(i, drop){
                                         const option = document.createElement("option");
                                         option.value = drop;
                                         option.text = drop;
                                         selectList.appendChild(option);
                                     })
+                                    //selectList.onchange = function(){UpdateDropDownValues(tbIdentity)};
 
                                     $(tableBody).append($("<tr>")
                                     .append($(window["td"+i+1]).append(i + 1))
@@ -847,27 +1149,30 @@ $(document).ready(function () {
 
                                     window["tdp2"+i+2] = document.createElement('td');
                                     window["tdp2"+i+2].style.border = '1px solid #dddddd';
-                                    window["tdp2"+i+2].style.textAlign = 'left';
+                                    window["tdp2"+i+2].style.textAlign = 'center';
                                     window["tdp2"+i+2].style.padding = '8px';
 
                                     window["tdp2"+i+3] = document.createElement('td');
                                     window["tdp2"+i+3].style.border = '1px solid #dddddd';
-                                    window["tdp2"+i+3].style.textAlign = 'left';
+                                    window["tdp2"+i+3].style.textAlign = 'center';
                                     window["tdp2"+i+3].style.padding = '8px';
 
                                     window["tdp2"+i+4] = document.createElement('td');
                                     window["tdp2"+i+4].style.border = '1px solid #dddddd';
-                                    window["tdp2"+i+4].style.textAlign = 'left';
+                                    window["tdp2"+i+4].style.textAlign = 'center';
                                     window["tdp2"+i+4].style.padding = '8px';
 
                                     const selectListPrint = document.createElement("select");
                                     selectListPrint.style.width = '150px';
-                                    $(def.dose_Combination).each(function(i, dropPrint){
+                                    doCombi = def.dose_Combination;
+                                    doCombi.reverse();
+                                    $(doCombi).each(function(i, dropPrint){
                                         const optionPrint = document.createElement("option");
                                         optionPrint.value = dropPrint;
                                         optionPrint.text = dropPrint;
                                         selectListPrint.appendChild(optionPrint);
                                     })
+                                    
 
                                     $(tableBodyPrint).append($("<tr>")
                                     .append($(window["tdp2"+i+1]).append(i + 1))
@@ -878,6 +1183,7 @@ $(document).ready(function () {
         
                             });
 
+                            addAction('#taperTable tbody tr');
                             var weekNo1 = $('#taperTBody tr').length;
                             window.localStorage.setItem("weekNo1", weekNo1);
                             y.style.display = 'block';         
@@ -891,7 +1197,26 @@ $(document).ready(function () {
                         }
                     });
                 }else{
-                    revertToTrialOne();
+                    swal({
+                        title: "Attention!",
+                         text: "At least one of the medication duration shows that patient has taken the medication 'Less than 14 days'. If this is true, the patients will be automatically be re-assigned",
+                        type: "info",
+                        showCancelButton: true,
+                        confirmButtonColor: "#2087c8",
+                        confirmButtonText: "Yes, reassign the patient",
+                        cancelButtonColor: "#01AA73",
+                        cancelButtonText: "No, let me review the duration(s)",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                        },
+                        function(isConfirm){
+                        if (isConfirm) {
+                            swal.close()
+                            revertToTrialOne();
+                        } else {
+                            swal.close()
+                        }
+                    });
                 }  
 
             }
@@ -923,7 +1248,7 @@ $(document).ready(function () {
 
         let conceptId1 = window.localStorage.getItem("conceptId1Store");
         
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
+        let url = urlDomain + 'insomnia/v1/tapper/create';
         //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
         let authToken = window.localStorage.getItem("token");
         //alert(authToken);
@@ -969,27 +1294,30 @@ $(document).ready(function () {
 
                         window["td"+i+2] = document.createElement('td');
                         window["td"+i+2].style.border = '1px solid #dddddd';
-                        window["td"+i+2].style.textAlign = 'left';
+                        window["td"+i+2].style.textAlign = 'center';
                         window["td"+i+2].style.padding = '8px';
 
                         window["td"+i+3] = document.createElement('td');
                         window["td"+i+3].style.border = '1px solid #dddddd';
-                        window["td"+i+3].style.textAlign = 'left';
+                        window["td"+i+3].style.textAlign = 'center';
                         window["td"+i+3].style.padding = '8px';
 
                         window["td"+i+4] = document.createElement('td');
                         window["td"+i+4].style.border = '1px solid #dddddd';
-                        window["td"+i+4].style.textAlign = 'left';
+                        window["td"+i+4].style.textAlign = 'center';
                         window["td"+i+4].style.padding = '8px';
 
                         const selectList = document.createElement("select");
                         selectList.style.width = '150px';
-                        $(def.dose_Combination).each(function(i, drop){
+                        doCombi = def.dose_Combination;
+                        doCombi.reverse();
+                        $(doCombi).each(function(i, drop){
                             const option = document.createElement("option");
                             option.value = drop;
                             option.text = drop;
                             selectList.appendChild(option);
                         })
+                        //selectList.onchange = function(){UpdateDropDownValues(tbIdentity)};
 
                         $(tableBody).append($("<tr>")
                         .append($(window["td"+i+1]).append(i + 1))
@@ -1004,22 +1332,24 @@ $(document).ready(function () {
 
                         window["tdp2"+i+2] = document.createElement('td');
                         window["tdp2"+i+2].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+2].style.textAlign = 'left';
+                        window["tdp2"+i+2].style.textAlign = 'center';
                         window["tdp2"+i+2].style.padding = '8px';
 
                         window["tdp2"+i+3] = document.createElement('td');
                         window["tdp2"+i+3].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+3].style.textAlign = 'left';
+                        window["tdp2"+i+3].style.textAlign = 'center';
                         window["tdp2"+i+3].style.padding = '8px';
 
                         window["tdp2"+i+4] = document.createElement('td');
                         window["tdp2"+i+4].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+4].style.textAlign = 'left';
+                        window["tdp2"+i+4].style.textAlign = 'center';
                         window["tdp2"+i+4].style.padding = '8px';
 
                         const selectListPrint = document.createElement("select");
                         selectListPrint.style.width = '150px';
-                        $(def.dose_Combination).each(function(i, dropPrint){
+                        doCombi = def.dose_Combination;
+                        doCombi.reverse();
+                        $(doCombi).each(function(i, dropPrint){
                             const optionPrint = document.createElement("option");
                             optionPrint.value = dropPrint;
                             optionPrint.text = dropPrint;
@@ -1035,6 +1365,7 @@ $(document).ready(function () {
 
                 });
 
+                addAction('#taperTable tbody tr');
                 var weekNo1 = $('#taperTBody tr').length;
                 window.localStorage.setItem("weekNo1", weekNo1);
                 y.style.display = 'block';         
@@ -1068,14 +1399,14 @@ $(document).ready(function () {
         let floatDosage2 = window.localStorage.getItem("dosage2Store");
         let intDuration2 = window.localStorage.getItem("duration2Store");
         
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
+        let url = urlDomain + 'insomnia/v1/tapper/create';
         //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
         let authToken = window.localStorage.getItem("token");
         //alert(authToken);
         var x = document.getElementById('screen3');
         var y = document.getElementById('screen4');
         var tableBody = '#taperTBody2';
-        var secondTB = document.getElementById('secondTB');
+        var secondTB = document.getElementById('accordion-two');
         var captionName = 'drugNm2';
 
         $.ajax({
@@ -1112,17 +1443,17 @@ $(document).ready(function () {
 
                         window["td"+i+2] = document.createElement('td');
                         window["td"+i+2].style.border = '1px solid #dddddd';
-                        window["td"+i+2].style.textAlign = 'left';
+                        window["td"+i+2].style.textAlign = 'center';
                         window["td"+i+2].style.padding = '8px';
 
                         window["td"+i+3] = document.createElement('td');
                         window["td"+i+3].style.border = '1px solid #dddddd';
-                        window["td"+i+3].style.textAlign = 'left';
+                        window["td"+i+3].style.textAlign = 'center';
                         window["td"+i+3].style.padding = '8px';
 
                         window["td"+i+4] = document.createElement('td');
                         window["td"+i+4].style.border = '1px solid #dddddd';
-                        window["td"+i+4].style.textAlign = 'left';
+                        window["td"+i+4].style.textAlign = 'center';
                         window["td"+i+4].style.padding = '8px';
 
                         const selectList = document.createElement("select");
@@ -1147,22 +1478,24 @@ $(document).ready(function () {
 
                         window["tdp2"+i+2] = document.createElement('td');
                         window["tdp2"+i+2].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+2].style.textAlign = 'left';
+                        window["tdp2"+i+2].style.textAlign = 'center';
                         window["tdp2"+i+2].style.padding = '8px';
 
                         window["tdp2"+i+3] = document.createElement('td');
                         window["tdp2"+i+3].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+3].style.textAlign = 'left';
+                        window["tdp2"+i+3].style.textAlign = 'center';
                         window["tdp2"+i+3].style.padding = '8px';
 
                         window["tdp2"+i+4] = document.createElement('td');
                         window["tdp2"+i+4].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+4].style.textAlign = 'left';
+                        window["tdp2"+i+4].style.textAlign = 'center';
                         window["tdp2"+i+4].style.padding = '8px';
 
                         const selectListPrint = document.createElement("select");
                         selectListPrint.style.width = '150px';
-                        $(def.dose_Combination).each(function(i, dropPrint){
+                        doCombi = def.dose_Combination;
+                        doCombi.reverse();
+                        $(doCombi).each(function(i, dropPrint){
                             const optionPrint = document.createElement("option");
                             optionPrint.value = dropPrint;
                             optionPrint.text = dropPrint;
@@ -1178,6 +1511,7 @@ $(document).ready(function () {
 
                 });
 
+                addAction('#taperTable2 tbody tr');
                 var weekNo2 = $('#taperTBody2 tr').length;
                 window.localStorage.setItem("weekNo2", weekNo2);
                 y.style.display = 'block';         
@@ -1230,7 +1564,7 @@ $(document).ready(function () {
 
         let conceptId1 = window.localStorage.getItem("conceptId1Store");
         
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
+        let url = urlDomain + 'insomnia/v1/tapper/create';
         //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
         let authToken = window.localStorage.getItem("token");
         //alert(authToken);
@@ -1277,22 +1611,24 @@ $(document).ready(function () {
 
                         window["td"+i+2] = document.createElement('td');
                         window["td"+i+2].style.border = '1px solid #dddddd';
-                        window["td"+i+2].style.textAlign = 'left';
+                        window["td"+i+2].style.textAlign = 'center';
                         window["td"+i+2].style.padding = '8px';
 
                         window["td"+i+3] = document.createElement('td');
                         window["td"+i+3].style.border = '1px solid #dddddd';
-                        window["td"+i+3].style.textAlign = 'left';
+                        window["td"+i+3].style.textAlign = 'center';
                         window["td"+i+3].style.padding = '8px';
 
                         window["td"+i+4] = document.createElement('td');
                         window["td"+i+4].style.border = '1px solid #dddddd';
-                        window["td"+i+4].style.textAlign = 'left';
+                        window["td"+i+4].style.textAlign = 'center';
                         window["td"+i+4].style.padding = '8px';
 
                         const selectList = document.createElement("select");
                         selectList.style.width = '150px';
-                        $(def.dose_Combination).each(function(i, drop){
+                        doCombi = def.dose_Combination;
+                        doCombi.reverse();
+                        $(doCombi).each(function(i, drop){
                             const option = document.createElement("option");
                             option.value = drop;
                             option.text = drop;
@@ -1312,22 +1648,24 @@ $(document).ready(function () {
 
                         window["tdp2"+i+2] = document.createElement('td');
                         window["tdp2"+i+2].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+2].style.textAlign = 'left';
+                        window["tdp2"+i+2].style.textAlign = 'center';
                         window["tdp2"+i+2].style.padding = '8px';
 
                         window["tdp2"+i+3] = document.createElement('td');
                         window["tdp2"+i+3].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+3].style.textAlign = 'left';
+                        window["tdp2"+i+3].style.textAlign = 'center';
                         window["tdp2"+i+3].style.padding = '8px';
 
                         window["tdp2"+i+4] = document.createElement('td');
                         window["tdp2"+i+4].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+4].style.textAlign = 'left';
+                        window["tdp2"+i+4].style.textAlign = 'center';
                         window["tdp2"+i+4].style.padding = '8px';
 
                         const selectListPrint = document.createElement("select");
                         selectListPrint.style.width = '150px';
-                        $(def.dose_Combination).each(function(i, dropPrint){
+                        doCombi = def.dose_Combination;
+                        doCombi.reverse();
+                        $(doCombi).each(function(i, dropPrint){
                             const optionPrint = document.createElement("option");
                             optionPrint.value = dropPrint;
                             optionPrint.text = dropPrint;
@@ -1343,6 +1681,7 @@ $(document).ready(function () {
 
                 });
 
+                addAction('#taperTable tbody tr');
                 var weekNo1 = $('#taperTBody tr').length;
                 window.localStorage.setItem("weekNo1", weekNo1);
                 y.style.display = 'block';         
@@ -1382,14 +1721,14 @@ $(document).ready(function () {
         let floatDosage2 = window.localStorage.getItem("dosage2Store");
         let intDuration2 = window.localStorage.getItem("duration2Store");
         
-        let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/create';
+        let url = urlDomain + 'insomnia/v1/tapper/create';
         //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
         let authToken = window.localStorage.getItem("token");
         //alert(authToken);
         var x = document.getElementById('screen3');
         var y = document.getElementById('screen4');
         var tableBody = '#taperTBody2';
-        var secondTB = document.getElementById('secondTB');
+        var secondTB = document.getElementById('accordion-two');
         var captionName = 'drugNm2';
 
         $.ajax({
@@ -1427,22 +1766,24 @@ $(document).ready(function () {
 
                         window["td"+i+2] = document.createElement('td');
                         window["td"+i+2].style.border = '1px solid #dddddd';
-                        window["td"+i+2].style.textAlign = 'left';
+                        window["td"+i+2].style.textAlign = 'center';
                         window["td"+i+2].style.padding = '8px';
 
                         window["td"+i+3] = document.createElement('td');
                         window["td"+i+3].style.border = '1px solid #dddddd';
-                        window["td"+i+3].style.textAlign = 'left';
+                        window["td"+i+3].style.textAlign = 'center';
                         window["td"+i+3].style.padding = '8px';
 
                         window["td"+i+4] = document.createElement('td');
                         window["td"+i+4].style.border = '1px solid #dddddd';
-                        window["td"+i+4].style.textAlign = 'left';
+                        window["td"+i+4].style.textAlign = 'center';
                         window["td"+i+4].style.padding = '8px';
 
                         const selectList = document.createElement("select");
                         selectList.style.width = '150px';
-                        $(def.dose_Combination).each(function(i, drop){
+                        doCombi = def.dose_Combination;
+                        doCombi.reverse();
+                        $(doCombi).each(function(i, drop){
                             const option = document.createElement("option");
                             option.value = drop;
                             option.text = drop;
@@ -1462,22 +1803,24 @@ $(document).ready(function () {
 
                         window["tdp2"+i+2] = document.createElement('td');
                         window["tdp2"+i+2].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+2].style.textAlign = 'left';
+                        window["tdp2"+i+2].style.textAlign = 'center';
                         window["tdp2"+i+2].style.padding = '8px';
 
                         window["tdp2"+i+3] = document.createElement('td');
                         window["tdp2"+i+3].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+3].style.textAlign = 'left';
+                        window["tdp2"+i+3].style.textAlign = 'center';
                         window["tdp2"+i+3].style.padding = '8px';
 
                         window["tdp2"+i+4] = document.createElement('td');
                         window["tdp2"+i+4].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+4].style.textAlign = 'left';
+                        window["tdp2"+i+4].style.textAlign = 'center';
                         window["tdp2"+i+4].style.padding = '8px';
 
                         const selectListPrint = document.createElement("select");
                         selectListPrint.style.width = '150px';
-                        $(def.dose_Combination).each(function(i, dropPrint){
+                        doCombi = def.dose_Combination;
+                        doCombi.reverse();
+                        $(doCombi).each(function(i, dropPrint){
                             const optionPrint = document.createElement("option");
                             optionPrint.value = dropPrint;
                             optionPrint.text = dropPrint;
@@ -1493,6 +1836,7 @@ $(document).ready(function () {
 
                 });
 
+                addAction('#taperTable2 tbody tr');
                 var weekNo2 = $('#taperTBody2 tr').length;
                 window.localStorage.setItem("weekNo2", weekNo2);
                 y.style.display = 'block';         
@@ -1518,78 +1862,133 @@ $(document).ready(function () {
         event.preventDefault();
 
         var patID = window.localStorage.getItem("patientID");
-        var med1 = window.localStorage.getItem("med1Store");
         var med2 = window.localStorage.getItem("med2Store");       
         var tpLength1 = window.localStorage.getItem("weekNo1");
         var tpLength2 = window.localStorage.getItem("weekNo2");
         var tapperStartDate = window.localStorage.getItem("tapperStartDate");
-        let conceptId1 = window.localStorage.getItem("conceptId1Store");
+        //var tapperStartDate = $("#datepicker").val();
         
-
-        
-        
-            let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/tapper/save';
+            let url = urlDomain + 'insomnia/v1/tapper/save';
             //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
             let authToken = window.localStorage.getItem("token");
-
+            var med1 = window.localStorage.getItem("med1Store");
             let floatDosage = window.localStorage.getItem("dosageStore");
             let intDuration = window.localStorage.getItem("durationStore");
+            let conceptId1 = window.localStorage.getItem("conceptId1Store");
 
             if(med2 != ''){
-                let conceptId2 = window.localStorage.getItem("conceptId2Store");
-                let floatDosage2 = window.localStorage.getItem("dosage2Store");
-                let intDuration2 = window.localStorage.getItem("duration2Store");
 
-                // var source = document.getElementById('taperTable');
-                // var destination = document.getElementById('taperTable2Print');
-                // var copy = source.cloneNode(true);
-                // copy.setAttribute('id', 'taperTable2Print');
-                // destination.parentNode.replaceChild(copy, destination);
-                UpdateSelectedSingle('taperTable2Print');
-                UpdateSelectedDouble('taperTable3Print')
-
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: 'json',
-                    headers: {
-                        'Content-Type': 'application/json', 
-                        'Accept': '*/*',
-                        'Authorization': 'Bearer '+ authToken
-                    },
-                    data: JSON.stringify({"patientID": patID, "regimenDTOList":
-                    [{
-                    "sleepMedication" : med1,
-                    "currentDose" : floatDosage,
-                    "medicationDuration" : intDuration,
-                    "taperLength" : tpLength1,
-                    "tapperStartDate": tapperStartDate, 
-                    "conceptID" : conceptId1
-                    },
-                    {
-                    "sleepMedication" : med2,
-                    "currentDose" : floatDosage2,
-                    "medicationDuration" : intDuration2,
-                    "taperLength" : tpLength2,
-                    "tapperStartDate": tapperStartDate, 
-                    "conceptID" : conceptId2
-                    }]
-                    
-                }),
-                    success: function(result){
-                        console.log(result);
-                        if (result) {
-                            displayPrintPreview();
-                        } else{
-                            $("#errorFinalContainer").html("Unable to submit final medication");
+                if(oneMedicationReturned){
+                    UpdateSelectedSingle('taperTable1Print');
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'Content-Type': 'application/json', 
+                            'Accept': '*/*',
+                            'Authorization': 'Bearer '+ authToken
+                        },
+                        data: JSON.stringify({"patientID": patID, "regimenDTOList":
+                        [{
+                            "sleepMedication" : med1,
+                            "currentDose" : floatDosage,
+                            "medicationDuration" : intDuration,
+                            "taperLength" : tpLength1,
+                            "taperStartDate": tapperStartDate, 
+                            "conceptID" : conceptId1
+                        }]
+                    }),
+                        success: function(result){
+                            console.log(result);
+                            if (result) {
+                                displayPrintPreview();
+                            } else{
+                                $("#errorFinalContainer").html("Unable to submit final medication");
+                            }
+                        }, 
+                        error: function(msg){
+                            $("#errorFinalContainer").html("Unable to submit final medication, please try again shortly");
+                            sweetAlert("Unable to submit final medication","Please try again shortly","error");
                         }
+                    });
+                }//End of when 1 out of the 2 medications was returned
+                else{
+                    let conceptId2 = window.localStorage.getItem("conceptId2Store");
+                    let floatDosage2 = window.localStorage.getItem("dosage2Store");
+                    let intDuration2 = window.localStorage.getItem("duration2Store");
+
+                    // var source = document.getElementById('taperTable');
+                    // var destination = document.getElementById('taperTable2Print');
+                    // var copy = source.cloneNode(true);
+                    // copy.setAttribute('id', 'taperTable2Print');
+                    // destination.parentNode.replaceChild(copy, destination);
+                    UpdateSelectedSingle('taperTable2Print');
+                    UpdateSelectedDouble('taperTable3Print')
+
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'Content-Type': 'application/json', 
+                            'Accept': '*/*',
+                            'Authorization': 'Bearer '+ authToken
+                        },
+                        data: JSON.stringify({"patientID": patID, "regimenDTOList":
+                        [{
+                        "sleepMedication" : med1,
+                        "currentDose" : floatDosage,
+                        "medicationDuration" : intDuration,
+                        "taperLength" : tpLength1,
+                        "taperStartDate": tapperStartDate, 
+                        "conceptID" : conceptId1
+                        },
+                        {
+                        "sleepMedication" : med2,
+                        "currentDose" : floatDosage2,
+                        "medicationDuration" : intDuration2,
+                        "taperLength" : tpLength2,
+                        "taperStartDate": tapperStartDate, 
+                        "conceptID" : conceptId2
+                        }]
                         
-                    }, 
-                    error: function(msg){
-                        $("#errorFinalContainer").html("Unable to submit final medication, please try again shortly");
-                        sweetAlert("Unable to submit final medication","Please try again shortly","error");
-                    }
-                });
+                    }),
+                        success: function(result){
+                            console.log(result);
+                            if (result) {
+                                displayPrintPreview();
+                            } else{
+                                $("#errorFinalContainer").html("Unable to submit final medication");
+                            }
+
+                            console.log(JSON.stringify({"patientID": patID, "regimenDTOList":
+                            [{
+                            "sleepMedication" : med1,
+                            "currentDose" : floatDosage,
+                            "medicationDuration" : intDuration,
+                            "taperLength" : tpLength1,
+                            "taperStartDate": tapperStartDate, 
+                            "conceptID" : conceptId1
+                            },
+                            {
+                            "sleepMedication" : med2,
+                            "currentDose" : floatDosage2,
+                            "medicationDuration" : intDuration2,
+                            "taperLength" : tpLength2,
+                            "taperStartDate": tapperStartDate, 
+                            "conceptID" : conceptId2
+                            }]
+                            
+                        }));
+                            
+                        }, 
+                        error: function(msg){
+                            $("#errorFinalContainer").html("Unable to submit final medication, please try again shortly");
+                            sweetAlert("Unable to submit final medication","Please try again shortly","error");
+                        }
+                    });
+                }
 
             }else{
                 //UpdateSelectedData('taperTable');
@@ -1609,7 +2008,7 @@ $(document).ready(function () {
                         "currentDose" : floatDosage,
                         "medicationDuration" : intDuration,
                         "taperLength" : tpLength1,
-                        "tapperStartDate": tapperStartDate, 
+                        "taperStartDate": tapperStartDate, 
                         "conceptID" : conceptId1
                     }]
                 }),

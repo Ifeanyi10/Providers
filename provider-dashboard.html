@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Health enSuite Provider Dashboard</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
     <!-- Pignose Calender -->
     <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
@@ -20,7 +20,11 @@
     <script language="javascript">
 
         window.onload = function getProviderProfile(){
-                            let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/provider/profile-id';
+                            var isNewProviderLogin = window.localStorage.getItem("isNewProviderLogin");
+                            if(isNewProviderLogin == 'true'){$('#exampleModalDisclaimer').modal('show');}
+
+                            var urlDomain = window.localStorage.getItem("urlDomain");
+                            let url = urlDomain + 'insomnia/v1/provider/profile-id';
                             let authToken = window.localStorage.getItem("token");
                             window.localStorage.setItem("loginError", false);
                             $.ajax({
@@ -32,6 +36,7 @@
                                     'Authorization': 'Bearer '+ authToken
                                 },
                                 success: function(result){
+                                    checkforAdminRight();
                                     console.log(result);
                                     window.localStorage.setItem("providerName", result.name);
                                     window.localStorage.setItem("providerPhone", result.phonenumber);
@@ -45,10 +50,24 @@
                                 }, 
                                 error: function(msg){
                                     console.log("Loading Provider details failed");
+                                    //console.log(urlDomain);
                                     window.localStorage.setItem("loginError", true);
                                     window.location.href = "index.html";
                                 }
                             });
+                        }
+
+                        function checkforAdminRight(){
+                            var isAdmin = window.localStorage.getItem("isAdmin");
+                            if(isAdmin == "true"){
+                                $(".myAdmin").css('display', 'block'); 
+                                console.log('Randomization Enabled')
+                            }else{
+                                $(".myAdmin").css('display', 'none'); 
+                                console.log('Randomization disabled')
+                            }
+                            window.localStorage.setItem("isNewProviderLogin", false);
+                            console.log('Changed to false')
                         }
     
           </script>
@@ -90,7 +109,7 @@
                         <!-- <img src="./images/logo-compact.png" alt=""> -->
                     </span>
                     <span class="brand-title">
-                        <!-- <img src="images/logo-text.png" alt=""> -->
+                        <img src="images/logo-text.png" alt="" width="174" height="40" style="border-radius: 15px;">
                     </span>
                 </a>
             </div>
@@ -202,7 +221,14 @@
                         </ul>
                     </li>
 
-                    
+                    <li class="mega-menu mega-menu-sm myAdmin">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Randomization</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./randomization.html">View Randomization</a></li>
+                        </ul>
+                    </li>
                     
                 </ul>
             </div>
@@ -218,6 +244,22 @@
 
             <div class="container-fluid mt-3">
                 <div class="row">
+
+                    <div class="modal fade" id="exampleModalDisclaimer">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Disclaimmer!!!</h5>
+                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>This device in no way replaces decisions made by or the treatment plan given to you by your primary healthcare provider. The Health enSuite Insomnia App will only be used to assist your healthcare provider support a deprescribing decision or refer you to cognitive behavioural therapy.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="card gradient-1"  onclick="loadPatientList();">
                             <div class="card-body">
@@ -398,6 +440,40 @@
                         </div>
                     </div>-->
                     
+
+                    <div class="bootstrap-modal">
+                        <!-- Modal Change Email-->
+                        <div class="modal fade" id="loginModal">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalTitle">Provider Quick Login</h5>
+                                        <!-- <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                        </button> -->
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="lookup">
+                                            You have been away! Please sign in again. This is to ensure that your account is not access by someone else.
+                                        </div>
+                                        <form class="mt-5 mb-5 login-input">
+    
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="quickUsername" placeholder="Username">
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" id="quickPass" placeholder="Password">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="btnQuickLogin" class="btn btn-primary">Sign In</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
             </div>
             <!-- #/ container -->
         </div>
@@ -453,7 +529,60 @@
     <script language="javascript">
         function loadPatientList(){
             window.location.href = "patient-list.html";
-     }
+        }
+
+        var urlDomain = window.localStorage.getItem("urlDomain");
+
+        $(document).ready(function () {
+            let authTokenPatient = '';
+            $(window).focus(function () {
+            //do something
+            authTokenPatient = window.localStorage.getItem("patientToken");
+            let authToken = window.localStorage.getItem("token");
+            console.log("You are in this tab and the token is Provider: "+authToken);
+            console.log("You are in this tab and the token is Patients: "+authTokenPatient);
+            if(authToken == null){
+                //urlDomain = 'http://health.us-east-2.elasticbeanstalk.com/';
+                //urlDomain = 'http://192.168.6.15:8083/';
+                urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
+                window.localStorage.setItem("urlDomain", urlDomain);
+                $('#loginModal').modal('show');
+            }
+        });
+
+        //Quick Provider Login
+        $('#btnQuickLogin').on('click', function(event){
+            event.preventDefault();
+            window.localStorage.clear();
+            var username = document.getElementById('quickUsername').value;
+            var password = document.getElementById('quickPass').value;
+            let url = urlDomain + 'insomnia/v1/authentication/login';
+
+            if(username != '' && password != ''){
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'Accept': '*/*'            
+                    },
+                    data: JSON.stringify({"password": password, "username": username}),
+                    success: function(result){
+                        window.localStorage.setItem("token", result.token);
+                        window.localStorage.setItem("patientToken", authTokenPatient);
+                        $('#loginModal').modal('hide');
+                    }, 
+                    error: function(msg){
+                        //$("#errorContainer").html("Incorrect Username or Password");
+                        sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
+                    }
+                });
+            }else{
+                sweetAlert("Attention!","Please fill the fields properly and login","info");
+            }
+            
+        });//end of quick login
+     })
 
     </script>
     

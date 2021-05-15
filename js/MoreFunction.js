@@ -16,7 +16,7 @@ function logout(){
 function notEligibleAlert(){
     swal({title: "This patient is not ELIGIBLE!", text: "This tool is only designed to help patients reduce and stop up to two BZRAs for insomnia.", type: "error"},
                 function(){ 
-                    window.location.href = "provider-dashboard.html";
+                    //window.location.href = "provider-dashboard.html";
                 }
                 );
 }
@@ -28,13 +28,44 @@ function hideDispaly1() {
     var z = document.getElementById('thirdQ2');
 
     if (document.getElementById('prescYes').checked) {
-        x.style.display = 'none';
+        //x.style.display = 'none';
         y.style.display = 'block'; 
-        z.style.display = 'none';           
+        z.style.display = 'none';  
+        $('input[name=optradio2]').prop("checked",false); 
+        $('input[name=optradio3]').prop("checked",false);
+
+        document.getElementById('thirdQ1').style.display = 'none';     
+        $('input[name=good]').prop("checked",false); 
+
+        document.getElementById('trial1Demo').style.display = 'none';
+
+        document.getElementById('fourthQ1').style.display = 'none';
+        $('input[name=optradio6]').prop("checked",false); 
+
+        document.getElementById('fifthQ1').style.display = 'none';
+        $('input[name=optradio7]').prop("checked",false); 
+
+        document.getElementById('trial2Demo').style.display = 'none';
+
     } else if (document.getElementById('prescNo').checked){
-        x.style.display = 'none';
+        //x.style.display = 'none';
         y.style.display = 'none';
         z.style.display = 'block'; 
+        $('input[name=optradio2]').prop("checked",false);
+        $('input[name=optradio3]').prop("checked",false);
+
+        document.getElementById('thirdQ1').style.display = 'none';
+        $('input[name=good]').prop("checked",false);  
+
+        document.getElementById('trial1Demo').style.display = 'none';
+
+        document.getElementById('fourthQ1').style.display = 'none';
+        $('input[name=optradio6]').prop("checked",false); 
+
+        document.getElementById('fifthQ1').style.display = 'none';
+        $('input[name=optradio7]').prop("checked",false); 
+
+        document.getElementById('trial2Demo').style.display = 'none';
         //notEligibleAlert();
     }
 }
@@ -45,13 +76,38 @@ function hideDispaly2() {
     var z = document.getElementById('thirdQ2');
 
     if (document.getElementById('forSleepYes').checked) {
-        x.style.display = 'none';
+        //x.style.display = 'none';
         y.style.display = 'block'; 
-        z.style.display = 'none';            
+        z.style.display = 'none';   
+        $('input[name=optradio4]').prop("checked",false);
+        $('input[name=optradio3]').prop("checked",false);  
+
+        document.getElementById('trial1Demo').style.display = 'none';
+
+        document.getElementById('fourthQ1').style.display = 'none';
+        $('input[name=optradio6]').prop("checked",false); 
+
+        document.getElementById('fifthQ1').style.display = 'none';
+        $('input[name=optradio7]').prop("checked",false); 
+
+        document.getElementById('trial2Demo').style.display = 'none';
+
     } else if (document.getElementById('forSleepNo').checked){
-        x.style.display = 'none';
+        //x.style.display = 'none';
         y.style.display = 'none';
         z.style.display = 'block'; 
+        $('input[name=optradio4]').prop("checked",false);
+        $('input[name=optradio3]').prop("checked",false); 
+
+        document.getElementById('trial1Demo').style.display = 'none';
+
+        document.getElementById('fourthQ1').style.display = 'none';
+        $('input[name=optradio6]').prop("checked",false); 
+
+        document.getElementById('fifthQ1').style.display = 'none';
+        $('input[name=optradio7]').prop("checked",false); 
+
+        document.getElementById('trial2Demo').style.display = 'none';
     }
 }
 
@@ -64,12 +120,30 @@ function hideDispaly3() {
     var t1O = document.getElementById('t1Other');
 
     if (document.getElementById('notForSleepNo').checked) {
-        x.style.display = 'none';
+        //x.style.display = 'none';
         y.style.display = 'block'; 
+
+        document.getElementById('fourthQ1').style.display = 'none';
+        $('input[name=optradio6]').prop("checked",false); 
+
+        document.getElementById('fifthQ1').style.display = 'none';
+        $('input[name=optradio7]').prop("checked",false); 
+
+        document.getElementById('trial2Demo').style.display = 'none';
            
     } else if (document.getElementById('notForSleepYes').checked){
-        x.style.display = 'none';
+        //x.style.display = 'none';
         notEligibleAlert();
+        y.style.display = 'none'; 
+        $('input[name=optradio3]').prop("checked",false); 
+
+        document.getElementById('fourthQ1').style.display = 'none';
+        $('input[name=optradio6]').prop("checked",false); 
+
+        document.getElementById('fifthQ1').style.display = 'none';
+        $('input[name=optradio7]').prop("checked",false); 
+
+        document.getElementById('trial2Demo').style.display = 'none';
     }
 }
 
@@ -78,12 +152,25 @@ function hideDispaly4() {
     var y = document.getElementById('fourthQ1');
 
     if (document.getElementById('good').checked || document.getElementById('good2').checked) {
-        x.style.display = 'none';
+        //x.style.display = 'none';
         y.style.display = 'block'; 
+        if(document.getElementById('good').checked ){window.localStorage.setItem("howMany", 1);}
+        if(document.getElementById('good2').checked ){window.localStorage.setItem("howMany", 2);}
                    
     } else if (document.getElementById('bad').checked){
-        x.style.display = 'none';
+        //x.style.display = 'none';
         notEligibleAlert();
+        $('input[name=optradio4]').prop("checked",false); 
+
+        document.getElementById('trial1Demo').style.display = 'none';
+
+        document.getElementById('fourthQ1').style.display = 'none';
+        $('input[name=optradio6]').prop("checked",false); 
+
+        document.getElementById('fifthQ1').style.display = 'none';
+        $('input[name=optradio7]').prop("checked",false); 
+
+        document.getElementById('trial2Demo').style.display = 'none';
     }
 }
 
@@ -92,12 +179,20 @@ function hideDispaly5() {
     var y = document.getElementById('fifthQ1');
 
     if (document.getElementById('willingYes').checked) {
-        x.style.display = 'none';
+        //x.style.display = 'none';
         y.style.display = 'block'; 
                    
     } else if (document.getElementById('willingNo').checked){
-        x.style.display = 'none';
+        //x.style.display = 'none';
         notEligibleAlert();
+        $('input[name=optradio6]').prop("checked",false); 
+
+        document.getElementById('trial1Demo').style.display = 'none'
+
+        document.getElementById('fifthQ1').style.display = 'none';
+        $('input[name=optradio7]').prop("checked",false); 
+
+        document.getElementById('trial2Demo').style.display = 'none';
     }
 }
 
@@ -111,12 +206,17 @@ function hideDispaly6() {
     var t1O = document.getElementById('t2Other');
 
     if (document.getElementById('t2NotForSleepNo').checked) {
-        x.style.display = 'none';
+        //x.style.display = 'none';
         y.style.display = 'block'; 
            
     } else if (document.getElementById('t2NotForSleepYes').checked){
-        x.style.display = 'none';
+        //x.style.display = 'none';
         notEligibleAlert();
+        $('input[name=optradio7]').prop("checked",false); 
+
+        document.getElementById('trial1Demo').style.display = 'none'
+
+        document.getElementById('trial2Demo').style.display = 'none';
     }
 }
 
@@ -205,29 +305,86 @@ function validateLastSubmit(){
         }
 }
 
+
+
+    var medSet = [];
+    
+    $("input[name='medCAT']").change(function() {
+    var checked = $(this).val();
+      if ($(this).is(':checked')) {
+        medSet.push(checked);
+      }else{
+      medSet.splice($.inArray(checked, medSet),1);
+      }
+      
+    });
+
+var firstValue = "";
+var secondValue = "";  
+
+function fillMedCheck(){
+    var meds = document.forms['medForm2'].elements['medCAT'];
+    for (i = 0; i < meds.length; i++) {  
+        if(meds[i].value == firstValue){
+            meds[i].checked = true;
+        }  
+        if(meds[i].value == secondValue){
+            meds[i].checked = true;
+        } 
+    }
+}
+
+function checkDuration(){
+    var bt = document.getElementById('btnMedication');
+    var med2 = document.getElementById("idMedications2").value;
+    var meds = $("#idMedications1").val();
+    var dose = $("#dosage").val();
+    var dose2 = $("#dosage2").val();
+    var duration = $("#inputDuration").val();
+    var duration2 = $("#inputDuration2").val();
+    
+    if (meds != '' && dose != '' && duration != '')  {
+
+        if(med2 != ''){
+            if (dose2 != '' && duration2 != ''){
+                bt.disabled = false;
+            }else{
+                bt.disabled = true;
+            }
+        }else{
+            bt.disabled = false;
+        }
+        
+    } else {
+        bt.disabled = true;
+    }
+}
+
+
 function displaySreeen3() {
     var x = document.getElementById('screen2');
     var y = document.getElementById('screen3');
     var z = document.getElementById('med2');
-    var meds = document.forms['medForm'].elements['medCAT'];
+    //var meds = document.forms['medForm'].elements['medCAT'];
     var firstSelectedValue = ""; 
     var secondSelectedValue = "";
     var initialCount = 0;
     let drugOptions1 = "idMedications1";
     let drugOptions2 = "idMedications2";
+    let howMany = window.localStorage.getItem("howMany");
 
-    for (i = 0; i < meds.length; i++) {    
-        if(meds[i].checked == true){
+    for (i = 0; i < medSet.length; i++) {    
             if(initialCount < 2){
                 if(initialCount == 0){
-                    firstSelectedValue =  meds[i].value;
+                    firstSelectedValue =  medSet[i];
+                    firstValue = medSet[i];
                 } 
                 if(initialCount == 1){
-                    secondSelectedValue =  meds[i].value;
+                    secondSelectedValue =  medSet[i];
+                    secondValue = medSet[i];
                 }    
                 initialCount += 1;                            
-            }
-        } 
+            } 
     }
 
     if(firstSelectedValue != ""){
@@ -238,10 +395,63 @@ function displaySreeen3() {
     if(secondSelectedValue != ""){
         prpareScreen3(secondSelectedValue, firstSelectedValue, drugOptions2)
         z.style.display = 'block';
+    }else{
+        z.style.display = 'none';
     }
 
-    y.style.display = 'block';  
-    x.style.display = 'none';
+    checkDuration();
+
+    if(howMany == limit){
+        y.style.display = 'block';  
+        x.style.display = 'none';
+    } else if(howMany == 1 && limit == 2){
+        swal({
+            title: "The Number of Medications Does Not Correspond!",
+             text: "You indicated that your patient is currently taking 1 benzodiazepines and/or Z-drugs earlier but you selected 2 BZRA medication(s) here",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#2087c8",
+            confirmButtonText: "Yes, I am aware. Continue",
+            cancelButtonColor: "#01AA73",
+            cancelButtonText: "Ok, Let me deselect 1 BZRA Medication",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                swal.close()
+                y.style.display = 'block';  
+                x.style.display = 'none';
+            } else {
+                swal.close()
+            }
+        });
+
+    } else if(howMany == 2 && limit == 1){
+        swal({
+            title: "The Number of Medications Does Not Correspond!",
+             text: "You indicated that your patient is currently taking 2 benzodiazepines and/or Z-drugs earlier but you selected 1 BZRA medication(s) here",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#2087c8",
+            confirmButtonText: "Yes, I am aware. Continue",
+            cancelButtonColor: "#01AA73",
+            cancelButtonText: "Ok, Let me add 1 BZRA Medication",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                swal.close()
+                y.style.display = 'block';  
+                x.style.display = 'none';
+            } else {
+                swal.close()
+            }
+        });
+    }
+
+    
 }
 
 function displaySreeen4() {
@@ -407,6 +617,7 @@ function checkMedicationLimit() {
 limit = 0; //set limit
 
 checkboxes = document.forms['medForm'].elements['medCAT']; //select all checkboxes
+checkboxes2 = document.forms['medForm2'].elements['medCAT']; //select all checkboxes
 
 function checker(elem) {
   if (elem.checked) { //if checked, increment counter
@@ -420,7 +631,7 @@ function checker(elem) {
     if (limit == 2) {
       if (!checkboxes[i].checked) {
         checkboxes[i].disabled = true; // and disable unchecked checkboxes
-
+        checkboxes2[i].disabled = true; // and disable unchecked checkboxes
       }
 
     } else { //if limit is less than two
@@ -439,6 +650,42 @@ for (i = 0; i < checkboxes.length; i++) {
     checker(this);
   }
 }
+
+
+
+function checker2(elem) {
+  if (elem.checked) { //if checked, increment counter
+    limit++;
+  } else {
+    limit--; //else, decrement counter
+  }
+
+
+  for (i = 0; i < checkboxes2.length; i++) { // loop through all 
+
+    if (limit == 2) {
+      if (!checkboxes2[i].checked) {
+        checkboxes2[i].disabled = true; // and disable unchecked checkboxes
+
+      }
+
+    } else { //if limit is less than two
+
+      if (!checkboxes2[i].checked) {
+        checkboxes2[i].disabled = false; // enable unchecked checkboxes
+      }
+
+    }
+  }
+
+}
+
+for (i = 0; i < checkboxes2.length; i++) {
+    checkboxes2[i].onclick = function() { //call function on click and send current element as param
+    checker2(this);
+  }
+}
+
 
 $('#bzra').tooltip({
     title: "BZRAs are benzodiazepine receptor agonists and include the benzodiazepines and Z-drugs. Patients taking over-the-counter medications (e.g., Gravol, Benedryl, Sleep-Eze, Advil, Tylenol, and other night time formulations), tricyclic antidepressants (e.g., Amitriptyline) and other medications like Seroquel, Trazodone are eligible to use this tool. However, these medications cannot be tapered using this tool.",
@@ -477,13 +724,13 @@ $('#tipReset2').tooltip({
     trigger: 'hover'
 })
 
-tipStartDate
+//tipStartDate
 
-$('#tipStartDate').tooltip({
-    title: "Select a start date for this taper schedule within the next 2 weeks. ",
-    placement: "right",
-    trigger: 'hover'
-})
+// $('#tipStartDate').tooltip({
+//     title: "Select a start date for this taper schedule within the next 2 weeks. ",
+//     placement: "right",
+//     trigger: 'hover'
+// })
 
 $('#tipGoBack').tooltip({
     title: "Click Back button to adjust medication taper values",

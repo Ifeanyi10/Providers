@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Health enSuite Insomnia App Recommendation</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
     <!-- Custom Stylesheet -->
     <link href="./plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
     <!-- Page plugins css -->
@@ -66,7 +66,7 @@
                         <!-- <img src="./images/logo-compact.png" alt=""> -->
                     </span>
                     <span class="brand-title">
-                        <!-- <img src="images/logo-text.png" alt=""> -->
+                        <img src="images/logo-text.png" alt="" width="174" height="40" style="border-radius: 15px;">
                     </span>
                 </a>
             </div>
@@ -165,6 +165,7 @@
                             <li><a href="./patient-list.html">Records</a></li>
                         </ul>
                     </li>
+
                 </ul>
             </div>
         </div>
@@ -180,7 +181,7 @@
             <div class="container-fluid mt-3">
                 <div class="row">
 
-                    <div class="col-lg-12" id="screen1">
+                    <div class="col-lg-8" id="screen1">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary" id="elligHead">Eligibility Screening</h4><hr><br>
@@ -205,7 +206,7 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly2();" id="forSleepNo" name="optradio2"> No</label><br/>
 
-                                            <input type='button' class='btn-secondary' onclick="goBack('secondQ1','firstQ');" value='Back'/>
+                                            <!-- <input type='button' class='btn-secondary' onclick="goBack('secondQ1','firstQ');" value='Back'/> -->
                                         </div>
 
                                         <div class="form-group hidden" id="thirdQ2">
@@ -215,19 +216,19 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly3();" id="notForSleepNo" name="optradio3"> No</label><br/>
 
-                                            <input type='button' class='btn-secondary appBtnWith' onclick="goBackQ2('thirdQ2','secondQ1');" value='Back'/>
+                                            <!-- <input type='button' class='btn-secondary appBtnWith' onclick="goBackQ2('thirdQ2','secondQ1');" value='Back'/> -->
                                         </div>
 
                                         <div class="form-group hidden" id="thirdQ1">
                                             <label class="lblQuestion">How many benzodiazepines and/or Z-drugs is your patient taking for sleep?</label>
                                             <label class="radio-inline mr-3">
-                                                <input type="radio" onclick="hideDispaly4();" id="good" value="good" name="optradio4"> One(1)</label>
+                                                <input type="radio" onclick="hideDispaly4();" id="good" value="good" name="optradio4"> One</label>
                                             <label class="radio-inline mr-3">
-                                                <input type="radio" onclick="hideDispaly4();" id="good2" value="good" name="optradio4"> Two(2)</label>
+                                                <input type="radio" onclick="hideDispaly4();" id="good2" value="good" name="optradio4"> Two</label>
                                             <label class="radio-inline mr-3">
-                                                <input type="radio" onclick="hideDispaly4();" id="bad" value="bad" name="optradio4"> More Than Two(2)</label><br/>
+                                                <input type="radio" onclick="hideDispaly4();" id="bad" value="bad" name="optradio4"> More Than Two</label><br/>
 
-                                            <input type='button' class='btn-secondary colorOff' onclick="goBack('thirdQ1','secondQ1');" value='Back'/>
+                                            <!-- <input type='button' class='btn-secondary colorOff' onclick="goBack('thirdQ1','secondQ1');" value='Back'/> -->
                                         </div>
 
                                         <div class="hidden" id="trial1Demo">
@@ -266,10 +267,11 @@
                                             <div class="row">
                                                 <div class="col-lg-3"></div>
                                                 <div class="col-lg-3">
-                                                    <button type="submit" class="btn-secondary goRight" id="btnBackTrial1" onclick="goBack('trial1Demo','thirdQ2');" style="margin-right: 30px;">Back</button>
+                                                    <!-- <button type="submit" class="btn-secondary goRight" id="btnBackTrial1" onclick="goBack('trial1Demo','thirdQ2');" style="margin-right: 30px;">Back</button> -->
+                                                    <button type="button" class="btn-primary goRight" id="btnTrial1">Submit</button>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <button type="button" class="btn-primary " id="btnTrial1">Submit</button>
+                                                    <!-- <button type="button" class="btn-primary " id="btnTrial1">Submit</button> -->
                                                 </div>
                                                 <div class="col-lg-3"></div>
                                             </div>
@@ -325,7 +327,7 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly5();" id="willingNo" name="optradio6"> No</label><br/>
 
-                                            <input type='button' class='btn-secondary' onclick="goBack('fourthQ1','thirdQ1');" value='Back'/>
+                                            <!-- <input type='button' class='btn-secondary' onclick="goBack('fourthQ1','thirdQ1');" value='Back'/> -->
                                         </div>
 
                                         <div class="form-group hidden" id="fifthQ1">
@@ -335,7 +337,7 @@
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly6();" id="t2NotForSleepNo" name="optradio7"> No</label><br/>
 
-                                            <input type='button' class='btn-secondary' onclick="goBack('fifthQ1','fourthQ1');" value='Back'/>
+                                            <!-- <input type='button' class='btn-secondary' onclick="goBack('fifthQ1','fourthQ1');" value='Back'/> -->
                                         </div>
 
 
@@ -374,10 +376,11 @@
                                             <div class="row">
                                                 <div class="col-lg-3"></div>
                                                 <div class="col-lg-3">
-                                                    <button type="submit" id="btnBackTrial2" onclick="goBack('trial2Demo','fifthQ1');" class="btn-secondary goRight" style="margin-right: 30px;">Back</button>
+                                                    <!-- <button type="submit" id="btnBackTrial2" onclick="goBack('trial2Demo','fifthQ1');" class="btn-secondary goRight" style="margin-right: 30px;">Back</button> -->
+                                                    <button type="button" class="btn-primary goRight" id="btnTrial2">Submit</button>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <button type="button" class="btn-primary" id="btnTrial2">Submit</button>
+                                                    <!-- <button type="button" class="btn-primary" id="btnTrial2">Submit</button> -->
                                                 </div>
                                                 <div class="col-lg-3"></div>
                                             </div>
@@ -396,11 +399,12 @@
                     </div>
 
 
-                    <div class="col-lg-12 hidden" id="printSample">
+                    <div class="col-lg-8 hidden" id="printSample">
                         <div class="card">
                             <div class="card-body">
                                     <div id="printdivcontent">
-                                        <div style= "text-align:center; font-weight: bold; color: #222222;">Health enSuite Insomnia</div><br/>
+                                        <div style= "text-align:center; font-weight: bold; color: #2087c8; font-size: 1.75rem;"><img src="images/logo-text.png" alt="" width="348" height="80" style="border-radius: 30px;"></div>
+                                        <div style= "text-align:center; font-weight: bold; color: #01AA73; font-size: 1.3rem;">Referral Instructions</div><br/>
                                         <div style= "text-align:justify; ">
                                             <label>Referral Code: </label> <label id="refCode" style="font-weight: bold;"></label>
                                         </div>  <br/>
@@ -448,7 +452,7 @@
                     </div>
 
 
-                    <div class="col-lg-12 hidden" id="duplicateScreen">
+                    <div class="col-lg-8 hidden" id="duplicateScreen">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary">Record Exist</h4><hr><br>
@@ -490,7 +494,7 @@
                     </div>
 
 
-                    <div class="col-lg-12 hidden" id="duplicateScreen2">
+                    <div class="col-lg-8 hidden" id="duplicateScreen2">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary">Record Exist</h4><hr><br>
@@ -531,7 +535,7 @@
                     </div>
 
 
-                    <div class="col-lg-12 hidden" id="screen2">
+                    <div class="col-lg-8 hidden" id="screen2">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary">BZRAs Currently Prescribed</h4><hr><br>
@@ -641,19 +645,117 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12 hidden" id="screen3">
+                    <div class="col-lg-8 hidden" id="screen3">
 
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary">BZRA Regimen Details</h4><hr><br>
                                 <div class="basic-form">
-                                    <form>
+                                    <form id="medForm2">
                                         <div id='errorContainer3'></div>
 
                                         <div class="lblQuestion">This page is designed to capture the starting point for the medication tapering.
                                             If the patient is tapering their current medication, enter the dose that is currently being taken. This may be different from the dose that was prescribed.
                                             You may want to consider switching your patient to a new medication before tapering. If this is the case, choose the new medication from the drop down list and enter the starting dose for this new medication. <span class="placeholder" id="regimen"><b title="">i</b></span>
-                                        </div></br>
+                                        </div>
+
+                                        <div class="bootstrap-modal">
+                                            
+                                            <button type="button" class='btnEdit' onclick="fillMedCheck();" data-toggle="modal" data-target="#exampleModalMed" style="width: 50; margin-left: 40%; margin-right: 10%; margin-top: 20px;" >
+                                                <i class="icon-note menu-icon"></i><span class="nav-text">Add/Remove Medication</span>
+                                            </button>
+                                            <!-- Modal Change Password-->
+                                            <div class="modal fade" id="exampleModalMed">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalTitle">Add/Remove Medication</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form class="mt-5 mb-5 login-input">
+                                                                <div class="form-group" id="disp2">
+                                                                    <div class="scrollit">
+                                                                    <label class="lblQuestion colorSubHeader">Select or deselect the BZRA medication(s). No more than two may be selected.</label>
+                        
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Alprazolam"  onchange="validateMedCheck();">Alprazolam (Xanax, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Bromazepam" onchange="validateMedCheck();">Bromazepam (Lectopam, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Buspirone"onchange="validateMedCheck();">Buspirone (Buspar, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Chlordiazepoxide" onchange="validateMedCheck();">Chlordiazepoxide (Librium, capsule)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Clonazepam" onchange="validateMedCheck();">Clonazepam (Rivotril, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Clorazepate" onchange="validateMedCheck();">Clorazepate (Tranxene, capsule)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Diazepam" onchange="validateMedCheck();">Diazepam (Valium, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Eszopiclone" onchange="validateMedCheck();">Eszopiclone (Lunesta, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Flurazepam" onchange="validateMedCheck();">Flurazepam Dalmane, capsule)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Lorazepam" onchange="validateMedCheck();">Lorazepam (Ativan, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Nitrazepam" onchange="validateMedCheck();">Nitrazepam (Mogadon, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Oxazepam" onchange="validateMedCheck();">Oxazepam (Serax, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Temazepam" onchange="validateMedCheck();">Temazepam (Restoril, capsule)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Triazolam" onchange="validateMedCheck();">Triazolam (Halcion, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Zopiclone" onchange="validateMedCheck();">Zopiclone (Imovane, tablet)</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Zolpidem" onchange="validateMedCheck();">Zolpidem (Sublinox, tablet)</label>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+                                                            <button type="button" id="btnChangePass" onclick="displaySreeen3();" class="btn btn-primary" data-dismiss="modal">OK</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px; margin-top: 10px;">Medication 1:</label>
                                         <div class="form-group">
                                             <select id="idMedications1" class="form-control"></select>
@@ -674,7 +776,7 @@
                                                 <option value="720">2 years or more, less than 4 years</option>
                                                 <option value="2600">4 years or more</option>
                                             </select>
-                                        </div>
+                                        </div></br>
 
                                         <div class="hidden" id="med2">
                                             <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px; margin-top: 10px;">Medication 2:</label>
@@ -743,7 +845,7 @@
                     </div>
 
 
-                    <div class="col-lg-12 hidden" id="screen4">
+                    <div class="col-lg-8 hidden" id="screen4">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary">Proposed Taper Schedule</h4><hr><br>
@@ -772,166 +874,155 @@
                                     </form>
                                 </div></br> -->
 
-                                <div class="table-responsive">
+                                <div class="table-responsive accordion" id="accordion-one">
 
-                                    <label class="lblQuestion colorSubHeader">Medication 1: </label> <label class="lblQuestion colorSubHeader" id="drugNm"></label>
-                                    <div class="row">
-                                        <div class="col-lg-3"></div>
-                                        <div class="col-lg-3" style="padding: 25px;">
-                                            <input type="number" class="form-control" id="tpLength" name="tpLength" placeholder="Taper Length" minlength="1" maxlength="3" style="width: 80%; display: inline-block; margin-right: 5px;"> <span class="placeholder" id="tipTapLength" style="display: inline-block;"><b title="">i</b></span>
+                                    <!-- <label class="lblQuestion colorSubHeader">Medication 1: </label> <label class="lblQuestion colorSubHeader" id="drugNm"></label> -->
+                                    <h5 class="mb-0 colorSubHeader" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><i class="fa" aria-hidden="true"></i> Medication 1: <span id="drugNm"></span> </h5>
+                                    
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordion-one">
+
+                                        <div class="row">
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-lg-3" style="padding: 25px;">
+                                                <input type="number" class="form-control" id="tpLength" name="tpLength" placeholder="Taper Length" minlength="1" maxlength="3" style="width: 80%; display: inline-block; margin-right: 5px; font-size: 16px;"> <span class="placeholder" id="tipTapLength" style="display: inline-block;"><b title="">i</b></span>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <button type="submit" id="btnRecompute" class="buttonBackTxt btnColorPrimary">Recompute</button>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <button type="submit" id="btnReset" class="buttonBackTxt colorSec">Reset</button> <span class="placeholder" id="tipReset"><b title="">i</b></span>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <button type="submit" id="btnRecompute" class="buttonBackTxt btnColorPrimary">Recompute</button>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <button type="submit" id="btnReset" class="buttonBackTxt colorSec">Reset</button> <span class="placeholder" id="tipReset"><b title="">i</b></span>
-                                        </div>
+    
+                                        <table class="table table-bordered" id="taperTable">
+                                            <thead id="taperTHead">
+    
+                                                <tr>
+                                                    <th>Taper week</th>
+                                                    <th>Provider recommended taper dose (mg)</th>
+                                                    <th>Rounded taper dose (mg)</th>
+                                                    <th>Recommended dose combinations (mg)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="taperTBody">
+                                                <!-- <tr>
+                                                    <th>1</th>
+                                                    <td>Week 1</td>
+                                                    <td>Alprazolam</td>
+                                                    <td>
+                                                        <select class="selectAdjust">
+                                                        <option value="volvo">10</option>
+                                                        <option value="saab">7.5</option>
+                                                        <option value="mercedes">5</option>
+                                                        <option value="audi">2.5</option>
+                                                        </select>
+                                                        5
+                                                    </td>
+                                                    <td>6.8</td>
+                                                    <td>5 X 1</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>2</th>
+                                                    <td>Week 2</td>
+                                                    <td>Alprazolam</td>
+                                                    <td>
+                                                        5
+                                                    </td>
+                                                    <td>6.8</td>
+                                                    <td>5 X 1</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>3</th>
+                                                    <td>Week 3</td>
+                                                    <td>Alprazolam/td>
+                                                    <td>
+                                                        5
+                                                    </td>
+                                                    <td>6.8</td>
+                                                    <td>5 X 1</td>
+                                                </tr> -->
+                                            </tbody>
+                                        </table>
+
                                     </div>
-
-                                    <table class="table table-bordered" id="taperTable">
-                                        <thead id="taperTHead">
-
-                                            <tr>
-                                                <th>Taper week</th>
-                                                <th>Provider recommended taper dose (mg)</th>
-                                                <th>Rounded taper dose (mg)</th>
-                                                <th>Recommended dose combinations (mg)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="taperTBody">
-                                            <!-- <tr>
-                                                <th>1</th>
-                                                <td>Week 1</td>
-                                                <td>Alprazolam</td>
-                                                <td>
-                                                    <select class="selectAdjust">
-                                                    <option value="volvo">10</option>
-                                                    <option value="saab">7.5</option>
-                                                    <option value="mercedes">5</option>
-                                                    <option value="audi">2.5</option>
-                                                    </select>
-                                                    5
-                                                </td>
-                                                <td>6.8</td>
-                                                <td>5 X 1</td>
-                                            </tr>
-                                            <tr>
-                                                <th>2</th>
-                                                <td>Week 2</td>
-                                                <td>Alprazolam</td>
-                                                <td>
-                                                    5
-                                                </td>
-                                                <td>6.8</td>
-                                                <td>5 X 1</td>
-                                            </tr>
-                                            <tr>
-                                                <th>3</th>
-                                                <td>Week 3</td>
-                                                <td>Alprazolam/td>
-                                                <td>
-                                                    5
-                                                </td>
-                                                <td>6.8</td>
-                                                <td>5 X 1</td>
-                                            </tr> -->
-                                        </tbody>
-                                    </table>
+                                    
                                 </div><br/></br>
 
 
 
-                                <div class="table-responsive hidden" id="secondTB">
+                                <div class="table-responsive accordion hidden" id="accordion-two">
 
-                                    <!-- <div class="basic-form">
-                                        <form class="form-inline" style="margin-bottom: 25px;">
-                                            <div class="form-group mx-sm-3 mb-2">
-                                                <label class="sr-only">Password</label>
-                                                <input type="number" class="form-control" id="tpLength2" name="tpLength2" placeholder="Taper Length" minlength="1" maxlength="4"> <span class="placeholder" id="tipTapLength2"><b title="">?</b></span>
+                                    <!-- <label class="lblQuestion colorSubHeader">Medication 2: </label> <label class="lblQuestion colorSubHeader" id="drugNm2"></label> -->
+                                    <h5 class="mb-0" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1"><i class="fa" aria-hidden="true"></i>  Medication 2: <span id="drugNm2"></span> </h5>
+                                    
+                                    <div id="collapseOne1" class="collapse show" data-parent="#accordion-two">
+
+                                        <div class="row">
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-lg-3" style="padding: 25px;">
+                                                <input type="number" class="form-control" id="tpLength2" name="tpLength2" placeholder="Taper Length" minlength="1" maxlength="3" style="width: 80%; display: inline-block; margin-right: 5px; font-size: 16px;"> <span class="placeholder" id="tipTapLength2" style="display: inline-block;"><b title="">i</b></span>
                                             </div>
-                                            <div class="form-group mb-2">
-                                                <label class="sr-only">Recompute 2</label>
-
+                                            <div class="col-lg-3">
+                                                <button type="submit" id="btnRecompute2" class="buttonBackTxt btnColorPrimary">Recompute</button>
                                             </div>
-                                            <button type="submit" id="btnRecompute2" class="btn btn-dark mb-2">Recompute Med 2</button>
-                                        </form>
-
-                                        <form class="form-inline">
-                                            <div class="form-group mx-sm-3 mb-2">
-                                                <button type="submit" id="btnReset2" class="btn btn-dark mb-2">Reset Med 2</button> <span class="placeholder" id="tipReset2"><b title="">?</b></span>
+                                            <div class="col-lg-3">
+                                                <button type="submit" id="btnReset2" class="buttonBackTxt colorSec">Reset</button> <span class="placeholder" id="tipReset"><b title="">i</b></span>
                                             </div>
+                                        </div>
+    
+                                        <table class="table table-bordered" id="taperTable2">
+                                            <thead id="taperTHead2">
+                                                <tr>
+                                                    <th>Taper week</th>
+                                                    <th>Provider recommended taper dose (mg)</th>
+                                                    <th>Rounded taper dose (mg)</th>
+                                                    <th>Recommended dose combinations (mg)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="taperTBody2">
+    
+                                            </tbody>
+                                        </table>
 
-                                        </form>
                                     </div>
-
-                                    <div style="font-weight: bold;">Medication 2</div><br/>
-                                    <div id="drugNm2" style="font-weight: bold;"></div> -->
-
-
-                                    <label class="lblQuestion colorSubHeader">Medication 2: </label> <label class="lblQuestion colorSubHeader" id="drugNm2"></label>
-                                    <div class="row">
-                                        <div class="col-lg-3"></div>
-                                        <div class="col-lg-3" style="padding: 25px;">
-                                            <input type="number" class="form-control" id="tpLength2" name="tpLength2" placeholder="Taper Length" minlength="1" maxlength="3" style="width: 80%; display: inline-block; margin-right: 5px;"> <span class="placeholder" id="tipTapLength2" style="display: inline-block;"><b title="">i</b></span>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <button type="submit" id="btnRecompute2" class="buttonBackTxt btnColorPrimary">Recompute</button>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <button type="submit" id="btnReset2" class="buttonBackTxt colorSec">Reset</button> <span class="placeholder" id="tipReset"><b title="">i</b></span>
-                                        </div>
-                                    </div>
-
-                                    <table class="table table-bordered" id="taperTable2">
-                                        <thead id="taperTHead2">
-                                            <tr>
-                                                <th>Taper week</th>
-                                                <th>Provider recommended taper dose (mg)</th>
-                                                <th>Rounded taper dose (mg)</th>
-                                                <th>Recommended dose combinations (mg)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="taperTBody2">
-
-                                        </tbody>
-                                    </table>
+                                    
                                 </div>
                             </div>
 
                             </div>
-                        </div>
 
-                        <div class="card">
                             <div class="card-body">
                                 <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Taper Start Date</label>
                                 <div class="basic-form">
                                     <form class="form-inline">
                                         <div class="form-group mb-2">
-                                            <label class="lblAdjust">Select a start date for this taper schedule within the next 2 weeks</label>
+                                            <label class="lblAdjust">Select a start date for this taper schedule within the next 2 weeks:</label>
                                             <!-- <input type="text" readonly="readonly" size="50" class="form-control-plaintext" value="Increase or decrease the total number of weeks and click 'Recompute'"> -->
                                         </div>
                                         <!-- <input type="text" class="form-control bootstrapMaterialDatePicker" onchange="validateStartDate();" placeholder="YYYY-MM-DD" id="mdate"> <span class="placeholder" id="tipStartDate"><b title="">?</b></span> -->
-                                        <input type='text' class="form-control" id="datepicker" onchange="validateStartDate();" data-date-start-date="0d" data-date-end-date="+14d" data-date-format="yyyy-mm-dd" data-date-autoclose="true" placeholder='Select Taper Start Date' style="margin-right: 10px;"> <span class="placeholder" id="tipStartDate"><b title="">i</b></span>
+                                        <input type='text' class="form-control" id="datepicker" onchange="validateStartDate();" data-date-start-date="0d" data-date-end-date="+14d" data-date-format="yyyy-mm-dd" data-date-autoclose="true" placeholder='Select Taper Start Date' style="margin-right: 10px; width: 27%;"> 
+                                        <!-- <span class="placeholder" id="tipStartDate"><b title="">i</b></span> -->
                                     </form>
 
                                     <form class="form-inline" style="margin-top: 20px; font-style: italic;">
-                                        <div class="form-group mb-2">
-                                            <label class="lblAdjust">This program is currently designed to support patients who are willing to start tapering within 2 weeks</label>
+                                        <div class="form-group mb-2" style="flex: auto;">
+                                            <label class="lblAdjust">This program is currently designed to support patients who are willing to start tapering within 2 weeks.</label>
                                         </div>
 
                                     </form>
                                 </div>
 
                             </div>
+
                         </div>
 
                         <div class="row">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-3">
-                                <button type="submit" id="btnGoBack" class="btn-secondary goRight" style="margin-right: 30px;">Back</button>
+                                <button type="submit" id="btnGoBack" class="btn-secondary goRight" style="margin-right: 30px; margin-top: 0px; margin-bottom: 25px;">Back</button>
                             </div>
                             <div class="col-lg-3">
-                                <button type="button" id="btnStartDate" class="btn-primary" onclick="displaySreeen5();" disabled>Next</button>
+                                <button type="button" id="btnStartDate" class="btn-primary" onclick="displaySreeen5();" style="margin-top: 0px; margin-bottom: 25px;" disabled>Next</button>
                             </div>
                             <div class="col-lg-3"></div>
                         </div>
@@ -944,10 +1035,10 @@
 
 
 
-                    <div class="col-lg-12 hidden" id="screen5">
+                    <div class="col-lg-8 hidden" id="screen5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title colorPrimary">Confirm Recommendation</h4><hr><br>
+                                <h4 class="card-title colorPrimary">Confirm Recommendation</h4><hr>
                                 <div id='errorFinalContainer'></div>
                                 <div class="basic-form">
                                     <form id="medFormFinal">
@@ -961,7 +1052,7 @@
                                         <div class="form-group">
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" id="chkLast" class="form-check-input" value="" onchange="validateLastSubmit();">Cognitive behavioural therapy is recommended
+                                                    <input type="checkbox" id="chkLast" class="form-check-input" value="" onchange="validateLastSubmit();"> Cognitive behavioural therapy is recommended
                                                     for <label id="pName" style="font-weight: bold;"></label>. I would like to refer <label id="pFirstName" style="font-weight: bold;"></label> to Health enSuite
                                                     Insomnia Study.</label>
                                             </div>
@@ -986,7 +1077,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12 hidden" id="printAreaWithOneMed">
+                    <div class="col-lg-8 hidden" id="printAreaWithOneMed">
 
                         <div class="card">
                             <div class="card-body">
@@ -994,8 +1085,9 @@
 
                         <div id="printOneNow">
                             <div id="printdivcontent1" style= "page-break-after: always;">
-                                <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div>
-                                <div style= "text-align:center; font-weight: bold;">Referral Instructions</div><br/>
+                                <!-- <div style= "text-align:center; font-weight: bold; color: #2087c8; font-size: 1.75rem;">Health enSuite Insomnia</div><hr> -->
+                                <div style= "text-align:center; font-weight: bold; color: #2087c8; font-size: 1.75rem;"><img src="images/logo-text.png" alt="" width="348" height="80" style="border-radius: 30px;"></div>
+                                <div style= "text-align:center; font-weight: bold; color: #01AA73; font-size: 1.3rem;">Referral Instructions</div><br/>
                                 <div style= "text-align:justify; ">
                                     <label>Referral Code: </label> <label id="refCode1" style="font-weight: bold;"></label>
                                 </div>  <br/>
@@ -1026,8 +1118,8 @@
 
                             <div class="hidden" id="printdivcontent2" style= "page-break-after: always;">
 
-                                <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div>
-                                <div style= "text-align:center; font-weight: bold;">Recommended Sleep Medication Tapering Schedule</div><br/>
+                                <div style= "text-align:center; font-weight: bold; color: #2087c8; font-size: 1.75rem;"><img src="images/logo-text.png" alt="" width="348" height="80" style="border-radius: 30px;"></div>
+                                <div style= "text-align:center; font-weight: bold; color: #01AA73; font-size: 1.3rem;">Recommended Sleep Medication Tapering Schedule</div><br/>
 
                                 <div style= "text-align:left; font-weight: bold;">Provider information</div><br/>
                                 <div style= "text-align:justify; ">
@@ -1058,8 +1150,8 @@
 
                             <div class="hidden" id="printdivcontent3" style= "page-break-after: always;">
 
-                                <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div>
-                                <div style= "text-align:center; font-weight: bold;">Recommended Sleep Medication Tapering Schedule</div><br/>
+                                <div style= "text-align:center; font-weight: bold; color: #2087c8; font-size: 1.75rem;"><img src="images/logo-text.png" alt="" width="348" height="80" style="border-radius: 30px;"></div>
+                                <div style= "text-align:center; font-weight: bold; color: #01AA73; font-size: 1.3rem;">Recommended Sleep Medication Tapering Schedule</div><br/>
 
                                 <div style= "text-align:justify; ">
                                     <label>Patient Name: </label> <label id="patiName3" style="font-weight: bold;"></label>
@@ -1069,8 +1161,9 @@
                                 </div>  <br/>
 
                                 <div class="table-responsive" id="firstTBPrint">
-                                    <div style="font-weight: bold;">Medication 1</div><br/>
-                                    <div id="drugNmP" style="font-weight: bold;"></div>
+                                    <!-- <div style="font-weight: bold; display: none;" id="offMed">Medication: <span id="drugNmP2"></span> </div><br/> -->
+                                    <div style="font-weight: bold;">Medication: <span id="drugNmP"></span> </div><br/>
+                                    <!-- <div id="drugNmP" style="font-weight: bold;"></div> -->
                                     <table style= "border-collapse: collapse; border: 1px solid #272b30; border-bottom-width: 2px; width: 100%; margin-bottom: 1rem; background-color: transparent;" id="taperTable1Print">
                                         <thead id="taperTHead1Print" style= "border: 1px solid #dee2e6; border-bottom-width: 2px; ">
 
@@ -1102,14 +1195,15 @@
                             </div>
 
                             <div class="general-button">
-                                <button type="button" class="btn-primary" onclick="PrintDiv2();" >Print</button>
+                                <button type="button" class="btn-primary" onclick="PrintDiv2();" style="margin-right: 60px;">Print</button>
+                                <button type="button" class="btn-colorSec" onclick="cancelApplication();" >Back To Home</button>
                             </div>
 
                         </div>
                     </div>
                     </div>
 
-                    <div class="col-lg-12 hidden" id="printAreaWithTwoMed">
+                    <div class="col-lg-8 hidden" id="printAreaWithTwoMed">
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">
@@ -1119,8 +1213,8 @@
                         <div id="printTwoNow">
 
                         <div style= "page-break-after: always;" id="printdivcontent12">
-                            <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div>
-                            <div style= "text-align:center; font-weight: bold;">Referral Instructions</div><br/>
+                            <div style= "text-align:center; font-weight: bold; color: #2087c8; font-size: 1.75rem;"><img src="images/logo-text.png" alt="" width="348" height="80" style="border-radius: 30px;"></div>
+                            <div style= "text-align:center; font-weight: bold; color: #01AA73; font-size: 1.3rem;">Referral Instructions</div><br/>
                             <div style= "text-align:justify; ">
                                 <label>Referral Code: </label> <label id="refCode2" style="font-weight: bold;"></label>
                             </div>  <br/>
@@ -1151,8 +1245,8 @@
 
                         <div class="hidden" id="printdivcontent22" style= "page-break-after: always;">
 
-                            <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div>
-                            <div style= "text-align:center; font-weight: bold;">Recommended Sleep Medication Tapering Schedule</div><br/>
+                            <div style= "text-align:center; font-weight: bold; color: #2087c8; font-size: 1.75rem;"><img src="images/logo-text.png" alt="" width="348" height="80" style="border-radius: 30px;"></div>
+                            <div style= "text-align:center; font-weight: bold; color: #01AA73; font-size: 1.3rem;">Recommended Sleep Medication Tapering Schedule</div><br/>
 
                             <div style= "text-align:left; font-weight: bold;">Provider information</div><br/>
                             <div style= "text-align:justify; ">
@@ -1183,8 +1277,8 @@
 
                         <div class="hidden" id="printdivcontent32" style= "page-break-after: always;">
 
-                            <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div>
-                            <div style= "text-align:center; font-weight: bold;">Recommended Sleep Medication Tapering Schedule</div><br/>
+                            <div style= "text-align:center; font-weight: bold; color: #2087c8; font-size: 1.75rem;"><img src="images/logo-text.png" alt="" width="348" height="80" style="border-radius: 30px;"></div>
+                            <div style= "text-align:center; font-weight: bold; color: #01AA73; font-size: 1.3rem;">Recommended Sleep Medication Tapering Schedule</div><br/>
 
                             <div style= "text-align:justify; ">
                                 <label>Patient Name: </label> <label id="patiName32" style="font-weight: bold;"></label>
@@ -1194,8 +1288,8 @@
                             </div>  <br/>
 
                             <div class="table-responsive" id="firstTBPrint2">
-                                <div style="font-weight: bold;">Medication 1</div><br/>
-                                <div id="drugNmP1" style="font-weight: bold;"></div>
+                                <div style="font-weight: bold;">Medication: <span id="drugNmP1"></span> </div><br/>
+                                <!-- <div id="drugNmP1" style="font-weight: bold;"></div> -->
                                 <table style= "border-collapse: collapse; border: 1px solid #272b30; border-bottom-width: 2px; width: 100%; margin-bottom: 1rem; background-color: transparent;" id="taperTable2Print">
                                     <thead id="taperTHead2Print" style= "border: 1px solid #dee2e6; border-bottom-width: 2px; ">
                                         <tr>
@@ -1213,8 +1307,8 @@
                             </div><br/>
 
                             <div class="table-responsive" id="firstTBPrint3" style= "page-break-inside: avoid;">
-                                <div style="font-weight: bold;">Medication 2</div><br/>
-                                <div id="drugNmP2" style="font-weight: bold;"></div>
+                                <div style="font-weight: bold;">Medication: <span id="drugNmP2"></span> </div><br/>
+                                <!-- <div id="drugNmP2" style="font-weight: bold;"></div> -->
                                 <table style= "border-collapse: collapse; border: 1px solid #272b30; border-bottom-width: 2px; width: 100%; margin-bottom: 1rem; background-color: transparent;" id="taperTable3Print">
                                     <thead id="taperTHead3Print" style= "border: 1px solid #dee2e6; border-bottom-width: 2px; ">
                                         <tr>
@@ -1251,6 +1345,39 @@
                         </div>
                     </div>
                 </div>
+                </div>
+
+                <div class="bootstrap-modal">
+                    <!-- Modal Change Email-->
+                    <div class="modal fade" id="loginModal">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalTitle">Provider Quick Login</h5>
+                                    <!-- <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                    </button> -->
+                                </div>
+                                <div class="modal-body">
+                                    <div class="lookup">
+                                        You have been away! Please sign in again. This is to ensure that your account is not access by someone else.
+                                    </div>
+                                    <form class="mt-5 mb-5 login-input">
+
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="quickUsername" placeholder="Username">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" id="quickPass" placeholder="Password">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="btnQuickLogin" class="btn btn-primary">Sign In</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
